@@ -1,0 +1,34 @@
+{
+  "confederations": [
+    {
+      "id": "afc",
+      "name": "AFC",
+      "icon": "/images/confederations/afc.png"
+    },
+    {
+      "id": "uefa",
+      "name": "UEFA",
+      "icon": "/images/confederations/uefa.png"
+    },
+    {
+      "id": "conmebol",
+      "name": "CONMEBOL",
+      "icon": "/images/confederations/conmebol.png"
+    },
+    {
+      "id": "concacaf",
+      "name": "CONCACAF",
+      "icon": "/images/confederations/concacaf.png"
+    },
+    {
+      "id": "caf",
+      "name": "CAF",
+      "icon": "/images/confederations/caf.png"
+    },
+    {
+      "id": "ofc",
+      "name": "OFC",
+      "icon": "/images/confederations/ofc.png"
+    }
+  ]
+}

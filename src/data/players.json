@@ -1,0 +1,68 @@
+{
+  "players": [
+    {
+      "id": "jpn_1",
+      "name": "Zion Suzuki",
+      "teamId": "jpn",
+      "position": "GK",
+      "alternativePositions": [],
+      "abilities": {
+        "pace": 75,
+        "shooting": 45,
+        "passing": 70,
+        "dribbling": 65,
+        "defending": 40,
+        "physical": 78
+      },
+      "icon": "/images/players/jpn_1.png"
+    },
+    {
+      "id": "jpn_2",
+      "name": "Takehiro Tomiyasu",
+      "teamId": "jpn",
+      "position": "CB",
+      "alternativePositions": ["RB"],
+      "abilities": {
+        "pace": 78,
+        "shooting": 55,
+        "passing": 75,
+        "dribbling": 72,
+        "defending": 82,
+        "physical": 80
+      },
+      "icon": "/images/players/jpn_2.png"
+    },
+    {
+      "id": "aus_1",
+      "name": "Mathew Ryan",
+      "teamId": "aus",
+      "position": "GK",
+      "alternativePositions": [],
+      "abilities": {
+        "pace": 72,
+        "shooting": 42,
+        "passing": 75,
+        "dribbling": 68,
+        "defending": 45,
+        "physical": 76
+      },
+      "icon": "/images/players/aus_1.png"
+    },
+    {
+      "id": "aus_2",
+      "name": "Harry Souttar",
+      "teamId": "aus",
+      "position": "CB",
+      "alternativePositions": [],
+      "abilities": {
+        "pace": 65,
+        "shooting": 58,
+        "passing": 70,
+        "dribbling": 65,
+        "defending": 80,
+        "physical": 85
+      },
+      "icon": "/images/players/aus_2.png"
+    }
+  ]
+}

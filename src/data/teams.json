@@ -1,0 +1,16 @@
+{
+  "teams": [
+    {
+      "id": "jpn",
+      "name": "Japan",
+      "confederation": "afc",
+      "icon": "/images/teams/japan.png"
+    },
+    {
+      "id": "aus",
+      "name": "Australia",
+      "confederation": "afc",
+      "icon": "/images/teams/australia.png"
+    }
+  ]
+}

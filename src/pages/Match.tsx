@@ -2,54 +2,9 @@ import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-
-interface Team {
-  name: string;
-  confederation: string;
-}
-
-const teams: Team[] = [
-  // AFC Teams
-  { name: "Japan", confederation: "AFC" },
-  { name: "South Korea", confederation: "AFC" },
-  { name: "Australia", confederation: "AFC" },
-  { name: "Iran", confederation: "AFC" },
-  { name: "Saudi Arabia", confederation: "AFC" },
-  
-  // UEFA Teams
-  { name: "Germany", confederation: "UEFA" },
-  { name: "France", confederation: "UEFA" },
-  { name: "Spain", confederation: "UEFA" },
-  { name: "Italy", confederation: "UEFA" },
-  { name: "England", confederation: "UEFA" },
-  
-  // CONMEBOL Teams
-  { name: "Brazil", confederation: "CONMEBOL" },
-  { name: "Argentina", confederation: "CONMEBOL" },
-  { name: "Uruguay", confederation: "CONMEBOL" },
-  { name: "Colombia", confederation: "CONMEBOL" },
-  { name: "Chile", confederation: "CONMEBOL" },
-  
-  // CONCACAF Teams
-  { name: "Mexico", confederation: "CONCACAF" },
-  { name: "USA", confederation: "CONCACAF" },
-  { name: "Canada", confederation: "CONCACAF" },
-  { name: "Costa Rica", confederation: "CONCACAF" },
-  
-  // CAF Teams
-  { name: "Senegal", confederation: "CAF" },
-  { name: "Morocco", confederation: "CAF" },
-  { name: "Nigeria", confederation: "CAF" },
-  { name: "Egypt", confederation: "CAF" },
-  { name: "Cameroon", confederation: "CAF" },
-  
-  // OFC Teams
-  { name: "New Zealand", confederation: "OFC" },
-  { name: "Fiji", confederation: "OFC" },
-  { name: "Solomon Islands", confederation: "OFC" }
-];
-
-const confederations = ["AFC", "UEFA", "CONMEBOL", "CONCACAF", "CAF", "OFC"];
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import teamsData from "../data/teams.json";
+import confederationsData from "../data/confederations.json";
 
 const Match = () => {
   const navigate = useNavigate();
@@ -64,8 +19,15 @@ const Match = () => {
   const [showAwayTeamDropdown, setShowAwayTeamDropdown] = useState(false);
   const [showSideDropdown, setShowSideDropdown] = useState(false);
 
-  const filteredHomeTeams = teams.filter(team => team.confederation === selectedHomeConfederation);
-  const filteredAwayTeams = teams.filter(team => team.confederation === selectedAwayConfederation);
+  const filteredHomeTeams = teamsData.teams.filter(team => {
+    const confederation = confederationsData.confederations.find(conf => conf.id === team.confederation);
+    return confederation?.name === selectedHomeConfederation;
+  });
+
+  const filteredAwayTeams = teamsData.teams.filter(team => {
+    const confederation = confederationsData.confederations.find(conf => conf.id === team.confederation);
+    return confederation?.name === selectedAwayConfederation;
+  });
 
   const handleHomeConfederationSelect = (confederation: string) => {
     setSelectedHomeConfederation(confederation);
@@ -79,13 +41,13 @@ const Match = () => {
     setShowAwayConfederationDropdown(false);
   };
 
-  const handleHomeTeamSelect = (team: string) => {
-    setSelectedHomeTeam(team);
+  const handleHomeTeamSelect = (teamId: string) => {
+    setSelectedHomeTeam(teamId);
     setShowHomeTeamDropdown(false);
   };
 
-  const handleAwayTeamSelect = (team: string) => {
-    setSelectedAwayTeam(team);
+  const handleAwayTeamSelect = (teamId: string) => {
+    setSelectedAwayTeam(teamId);
     setShowAwayTeamDropdown(false);
   };
 
@@ -96,12 +58,13 @@ const Match = () => {
 
   const handleConfirm = () => {
     if (selectedHomeTeam && selectedAwayTeam && selectedSide) {
-      console.log("Selected:", { 
-        homeTeam: selectedHomeTeam, 
-        awayTeam: selectedAwayTeam, 
-        playerSide: selectedSide 
+      navigate("/lineup", {
+        state: {
+          homeTeam: selectedHomeTeam,
+          awayTeam: selectedAwayTeam,
+          playerSide: selectedSide
+        }
       });
-      // navigate to next page with selected teams and side
     }
   };
 
@@ -125,21 +88,40 @@ const Match = () => {
             {/* Home Confederation Dropdown */}
             <div className="relative">
               <div 
-                className="w-full p-4 bg-primary/10 rounded-lg cursor-pointer hover:bg-primary/20 transition-colors"
+                className="w-full p-4 bg-primary/10 rounded-lg cursor-pointer hover:bg-primary/20 transition-colors flex items-center gap-3"
                 onClick={() => setShowHomeConfederationDropdown(!showHomeConfederationDropdown)}
               >
-                {selectedHomeConfederation || "Select Home Confederation"}
+                {selectedHomeConfederation ? (
+                  <>
+                    <Avatar className="w-6 h-6">
+                      <AvatarImage 
+                        src={confederationsData.confederations.find(
+                          conf => conf.name === selectedHomeConfederation
+                        )?.icon} 
+                        alt={selectedHomeConfederation} 
+                      />
+                      <AvatarFallback>{selectedHomeConfederation.substring(0, 2)}</AvatarFallback>
+                    </Avatar>
+                    {selectedHomeConfederation}
+                  </>
+                ) : (
+                  "Select Home Confederation"
+                )}
               </div>
               
               {showHomeConfederationDropdown && (
                 <div className="absolute w-full mt-2 bg-background border border-primary/20 rounded-lg shadow-lg z-50">
-                  {confederations.map((confederation) => (
+                  {confederationsData.confederations.map((confederation) => (
                     <div
-                      key={confederation}
-                      className="p-3 hover:bg-primary/10 cursor-pointer transition-colors"
-                      onClick={() => handleHomeConfederationSelect(confederation)}
+                      key={confederation.id}
+                      className="p-3 hover:bg-primary/10 cursor-pointer transition-colors flex items-center gap-3"
+                      onClick={() => handleHomeConfederationSelect(confederation.name)}
                     >
-                      {confederation}
+                      <Avatar className="w-6 h-6">
+                        <AvatarImage src={confederation.icon} alt={confederation.name} />
+                        <AvatarFallback>{confederation.name.substring(0, 2)}</AvatarFallback>
+                      </Avatar>
+                      {confederation.name}
                     </div>
                   ))}
                 </div>
@@ -150,20 +132,39 @@ const Match = () => {
             {selectedHomeConfederation && (
               <div className="relative">
                 <div 
-                  className="w-full p-4 bg-primary/10 rounded-lg cursor-pointer hover:bg-primary/20 transition-colors"
+                  className="w-full p-4 bg-primary/10 rounded-lg cursor-pointer hover:bg-primary/20 transition-colors flex items-center gap-3"
                   onClick={() => setShowHomeTeamDropdown(!showHomeTeamDropdown)}
                 >
-                  {selectedHomeTeam || "Select Home Team"}
+                  {selectedHomeTeam ? (
+                    <>
+                      <Avatar className="w-6 h-6">
+                        <AvatarImage 
+                          src={teamsData.teams.find(team => team.id === selectedHomeTeam)?.icon} 
+                          alt={teamsData.teams.find(team => team.id === selectedHomeTeam)?.name} 
+                        />
+                        <AvatarFallback>
+                          {teamsData.teams.find(team => team.id === selectedHomeTeam)?.name.substring(0, 2)}
+                        </AvatarFallback>
+                      </Avatar>
+                      {teamsData.teams.find(team => team.id === selectedHomeTeam)?.name}
+                    </>
+                  ) : (
+                    "Select Home Team"
+                  )}
                 </div>
                 
                 {showHomeTeamDropdown && (
                   <div className="absolute w-full mt-2 bg-background border border-primary/20 rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto">
                     {filteredHomeTeams.map((team) => (
                       <div
-                        key={team.name}
-                        className="p-3 hover:bg-primary/10 cursor-pointer transition-colors"
-                        onClick={() => handleHomeTeamSelect(team.name)}
+                        key={team.id}
+                        className="p-3 hover:bg-primary/10 cursor-pointer transition-colors flex items-center gap-3"
+                        onClick={() => handleHomeTeamSelect(team.id)}
                       >
+                        <Avatar className="w-6 h-6">
+                          <AvatarImage src={team.icon} alt={team.name} />
+                          <AvatarFallback>{team.name.substring(0, 2)}</AvatarFallback>
+                        </Avatar>
                         {team.name}
                       </div>
                     ))}
@@ -179,21 +180,40 @@ const Match = () => {
             {/* Away Confederation Dropdown */}
             <div className="relative">
               <div 
-                className="w-full p-4 bg-primary/10 rounded-lg cursor-pointer hover:bg-primary/20 transition-colors"
+                className="w-full p-4 bg-primary/10 rounded-lg cursor-pointer hover:bg-primary/20 transition-colors flex items-center gap-3"
                 onClick={() => setShowAwayConfederationDropdown(!showAwayConfederationDropdown)}
               >
-                {selectedAwayConfederation || "Select Away Confederation"}
+                {selectedAwayConfederation ? (
+                  <>
+                    <Avatar className="w-6 h-6">
+                      <AvatarImage 
+                        src={confederationsData.confederations.find(
+                          conf => conf.name === selectedAwayConfederation
+                        )?.icon} 
+                        alt={selectedAwayConfederation} 
+                      />
+                      <AvatarFallback>{selectedAwayConfederation.substring(0, 2)}</AvatarFallback>
+                    </Avatar>
+                    {selectedAwayConfederation}
+                  </>
+                ) : (
+                  "Select Away Confederation"
+                )}
               </div>
               
               {showAwayConfederationDropdown && (
                 <div className="absolute w-full mt-2 bg-background border border-primary/20 rounded-lg shadow-lg z-50">
-                  {confederations.map((confederation) => (
+                  {confederationsData.confederations.map((confederation) => (
                     <div
-                      key={confederation}
-                      className="p-3 hover:bg-primary/10 cursor-pointer transition-colors"
-                      onClick={() => handleAwayConfederationSelect(confederation)}
+                      key={confederation.id}
+                      className="p-3 hover:bg-primary/10 cursor-pointer transition-colors flex items-center gap-3"
+                      onClick={() => handleAwayConfederationSelect(confederation.name)}
                     >
-                      {confederation}
+                      <Avatar className="w-6 h-6">
+                        <AvatarImage src={confederation.icon} alt={confederation.name} />
+                        <AvatarFallback>{confederation.name.substring(0, 2)}</AvatarFallback>
+                      </Avatar>
+                      {confederation.name}
                     </div>
                   ))}
                 </div>
@@ -204,20 +224,39 @@ const Match = () => {
             {selectedAwayConfederation && (
               <div className="relative">
                 <div 
-                  className="w-full p-4 bg-primary/10 rounded-lg cursor-pointer hover:bg-primary/20 transition-colors"
+                  className="w-full p-4 bg-primary/10 rounded-lg cursor-pointer hover:bg-primary/20 transition-colors flex items-center gap-3"
                   onClick={() => setShowAwayTeamDropdown(!showAwayTeamDropdown)}
                 >
-                  {selectedAwayTeam || "Select Away Team"}
+                  {selectedAwayTeam ? (
+                    <>
+                      <Avatar className="w-6 h-6">
+                        <AvatarImage 
+                          src={teamsData.teams.find(team => team.id === selectedAwayTeam)?.icon} 
+                          alt={teamsData.teams.find(team => team.id === selectedAwayTeam)?.name} 
+                        />
+                        <AvatarFallback>
+                          {teamsData.teams.find(team => team.id === selectedAwayTeam)?.name.substring(0, 2)}
+                        </AvatarFallback>
+                      </Avatar>
+                      {teamsData.teams.find(team => team.id === selectedAwayTeam)?.name}
+                    </>
+                  ) : (
+                    "Select Away Team"
+                  )}
                 </div>
                 
                 {showAwayTeamDropdown && (
                   <div className="absolute w-full mt-2 bg-background border border-primary/20 rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto">
                     {filteredAwayTeams.map((team) => (
                       <div
-                        key={team.name}
-                        className="p-3 hover:bg-primary/10 cursor-pointer transition-colors"
-                        onClick={() => handleAwayTeamSelect(team.name)}
+                        key={team.id}
+                        className="p-3 hover:bg-primary/10 cursor-pointer transition-colors flex items-center gap-3"
+                        onClick={() => handleAwayTeamSelect(team.id)}
                       >
+                        <Avatar className="w-6 h-6">
+                          <AvatarImage src={team.icon} alt={team.name} />
+                          <AvatarFallback>{team.name.substring(0, 2)}</AvatarFallback>
+                        </Avatar>
                         {team.name}
                       </div>
                     ))}
@@ -242,16 +281,34 @@ const Match = () => {
                 {showSideDropdown && (
                   <div className="absolute w-full mt-2 bg-background border border-primary/20 rounded-lg shadow-lg z-50">
                     <div
-                      className="p-3 hover:bg-primary/10 cursor-pointer transition-colors"
+                      className="p-3 hover:bg-primary/10 cursor-pointer transition-colors flex items-center gap-3"
                       onClick={() => handleSideSelect("Home")}
                     >
-                      Home - {selectedHomeTeam}
+                      <Avatar className="w-6 h-6">
+                        <AvatarImage 
+                          src={teamsData.teams.find(team => team.id === selectedHomeTeam)?.icon} 
+                          alt={teamsData.teams.find(team => team.id === selectedHomeTeam)?.name} 
+                        />
+                        <AvatarFallback>
+                          {teamsData.teams.find(team => team.id === selectedHomeTeam)?.name.substring(0, 2)}
+                        </AvatarFallback>
+                      </Avatar>
+                      Home - {teamsData.teams.find(team => team.id === selectedHomeTeam)?.name}
                     </div>
                     <div
-                      className="p-3 hover:bg-primary/10 cursor-pointer transition-colors"
+                      className="p-3 hover:bg-primary/10 cursor-pointer transition-colors flex items-center gap-3"
                       onClick={() => handleSideSelect("Away")}
                     >
-                      Away - {selectedAwayTeam}
+                      <Avatar className="w-6 h-6">
+                        <AvatarImage 
+                          src={teamsData.teams.find(team => team.id === selectedAwayTeam)?.icon} 
+                          alt={teamsData.teams.find(team => team.id === selectedAwayTeam)?.name} 
+                        />
+                        <AvatarFallback>
+                          {teamsData.teams.find(team => team.id === selectedAwayTeam)?.name.substring(0, 2)}
+                        </AvatarFallback>
+                      </Avatar>
+                      Away - {teamsData.teams.find(team => team.id === selectedAwayTeam)?.name}
                     </div>
                   </div>
                 )}
