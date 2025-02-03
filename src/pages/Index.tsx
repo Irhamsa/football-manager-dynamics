@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Trophy, Football, Info } from "lucide-react";
+import { Trophy, Soccer, Info } from "lucide-react";
 import { MusicToggle } from "@/components/MusicToggle";
 
 const Index = () => {
@@ -31,7 +31,7 @@ const Index = () => {
         </h1>
         
         <div className="w-full space-y-4 animate-slide-in" style={{ animationDelay: "0.2s" }}>
-          <MenuButton icon={Football} label="Match" to="/match" />
+          <MenuButton icon={Soccer} label="Match" to="/match" />
           <MenuButton icon={Trophy} label="Career" to="/career" />
           <MenuButton icon={Info} label="About" to="/about" />
         </div>
