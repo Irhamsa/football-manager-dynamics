@@ -11,6 +11,12 @@
       "name": "Australia",
       "confederation": "afc",
       "icon": "/images/teams/australia.png"
+    },
+    {
+      "id": "irn",
+      "name": "Iran",
+      "confederation": "afc",
+      "icon": "/images/teams/iran.png"
     }
   ]
 }

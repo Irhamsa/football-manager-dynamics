@@ -865,7 +865,393 @@
     "physical": 70
   },
   "icon": "/images/players/aus_24.png"
+},
+
+{
+  "id": "irn_1",
+  "name": "Alireza Beiranvand",
+  "teamId": "irn",
+  "position": "GK",
+  "alternativePositions": [],
+  "abilities": {
+    "pace": 50,
+    "shooting": 30,
+    "passing": 65,
+    "dribbling": 45,
+    "defending": 80,
+    "physical": 85
+  },
+  "icon": "/images/players/irn_1.png"
+},
+{
+  "id": "irn_2",
+  "name": "Sardar Azmoun",
+  "teamId": "irn",
+  "position": "ST",
+  "alternativePositions": [],
+  "abilities": {
+    "pace": 85,
+    "shooting": 78,
+    "passing": 65,
+    "dribbling": 70,
+    "defending": 40,
+    "physical": 75
+  },
+  "icon": "/images/players/irn_2.png"
+},
+{
+  "id": "irn_3",
+  "name": "Mehdi Taremi",
+  "teamId": "irn",
+  "position": "ST",
+  "alternativePositions": [],
+  "abilities": {
+    "pace": 80,
+    "shooting": 76,
+    "passing": 60,
+    "dribbling": 65,
+    "defending": 45,
+    "physical": 72
+  },
+  "icon": "/images/players/irn_3.png"
+},
+{
+  "id": "irn_4",
+  "name": "Ehsan Haji Safi",
+  "teamId": "irn",
+  "position": "LB",
+  "alternativePositions": [],
+  "abilities": {
+    "pace": 75,
+    "shooting": 55,
+    "passing": 70,
+    "dribbling": 65,
+    "defending": 72,
+    "physical": 80
+  },
+  "icon": "/images/players/irn_4.png"
+},
+{
+  "id": "irn_5",
+  "name": "Ali Gholizadeh",
+  "teamId": "irn",
+  "position": "RW",
+  "alternativePositions": [],
+  "abilities": {
+    "pace": 82,
+    "shooting": 70,
+    "passing": 67,
+    "dribbling": 75,
+    "defending": 45,
+    "physical": 72
+  },
+  "icon": "/images/players/irn_5.png"
+},
+{
+  "id": "irn_6",
+  "name": "Vahid Amiri",
+  "teamId": "irn",
+  "position": "LW",
+  "alternativePositions": [],
+  "abilities": {
+    "pace": 76,
+    "shooting": 60,
+    "passing": 65,
+    "dribbling": 68,
+    "defending": 50,
+    "physical": 74
+  },
+  "icon": "/images/players/irn_6.png"
+},
+{
+  "id": "irn_7",
+  "name": "Mohammad Nourollahi",
+  "teamId": "irn",
+  "position": "CM",
+  "alternativePositions": [],
+  "abilities": {
+    "pace": 70,
+    "shooting": 60,
+    "passing": 74,
+    "dribbling": 65,
+    "defending": 72,
+    "physical": 78
+  },
+  "icon": "/images/players/irn_7.png"
+},
+{
+  "id": "irn_8",
+  "name": "Saeid Ezatolahi",
+  "teamId": "irn",
+  "position": "CDM",
+  "alternativePositions": [],
+  "abilities": {
+    "pace": 68,
+    "shooting": 55,
+    "passing": 70,
+    "dribbling": 60,
+    "defending": 80,
+    "physical": 80
+  },
+  "icon": "/images/players/irn_8.png"
+},
+{
+  "id": "irn_9",
+  "name": "Ramin Rezaeian",
+  "teamId": "irn",
+  "position": "RB",
+  "alternativePositions": [],
+  "abilities": {
+    "pace": 78,
+    "shooting": 60,
+    "passing": 72,
+    "dribbling": 70,
+    "defending": 75,
+    "physical": 80
+  },
+  "icon": "/images/players/irn_9.png"
+},
+{
+  "id": "irn_10",
+  "name": "Mohammad Shiri",
+  "teamId": "irn",
+  "position": "CB",
+  "alternativePositions": [],
+  "abilities": {
+    "pace": 65,
+    "shooting": 45,
+    "passing": 60,
+    "dribbling": 55,
+    "defending": 85,
+    "physical": 80
+  },
+  "icon": "/images/players/irn_10.png"
+},
+{
+  "id": "irn_11",
+  "name": "Morteza Pouraliganji",
+  "teamId": "irn",
+  "position": "CB",
+  "alternativePositions": [],
+  "abilities": {
+    "pace": 60,
+    "shooting": 40,
+    "passing": 55,
+    "dribbling": 50,
+    "defending": 85,
+    "physical": 82
+  },
+  "icon": "/images/players/irn_11.png"
+},
+{
+  "id": "irn_12",
+  "name": "Majid Hosseini",
+  "teamId": "irn",
+  "position": "CB",
+  "alternativePositions": [],
+  "abilities": {
+    "pace": 62,
+    "shooting": 40,
+    "passing": 58,
+    "dribbling": 53,
+    "defending": 83,
+    "physical": 80
+  },
+  "icon": "/images/players/irn_12.png"
+},
+{
+  "id": "irn_13",
+  "name": "Ahmad Noorollahi",
+  "teamId": "irn",
+  "position": "CM",
+  "alternativePositions": [],
+  "abilities": {
+    "pace": 70,
+    "shooting": 65,
+    "passing": 72,
+    "dribbling": 68,
+    "defending": 68,
+    "physical": 75
+  },
+  "icon": "/images/players/irn_13.png"
+},
+{
+  "id": "irn_14",
+  "name": "Alireza Jahanbakhsh",
+  "teamId": "irn",
+  "position": "RW",
+  "alternativePositions": [],
+  "abilities": {
+    "pace": 80,
+    "shooting": 74,
+    "passing": 70,
+    "dribbling": 78,
+    "defending": 50,
+    "physical": 72
+  },
+  "icon": "/images/players/irn_14.png"
+},
+{
+  "id": "irn_15",
+  "name": "Mohammad Reza Khanzadeh",
+  "teamId": "irn",
+  "position": "CB",
+  "alternativePositions": [],
+  "abilities": {
+    "pace": 60,
+    "shooting": 35,
+    "passing": 55,
+    "dribbling": 50,
+    "defending": 85,
+    "physical": 82
+  },
+  "icon": "/images/players/irn_15.png"
+},
+{
+  "id": "irn_16",
+  "name": "Kamal Kamyabinia",
+  "teamId": "irn",
+  "position": "CM",
+  "alternativePositions": [],
+  "abilities": {
+    "pace": 65,
+    "shooting": 58,
+    "passing": 70,
+    "dribbling": 62,
+    "defending": 74,
+    "physical": 78
+  },
+  "icon": "/images/players/irn_16.png"
+},
+{
+  "id": "irn_17",
+  "name": "Ali Karimi",
+  "teamId": "irn",
+  "position": "CM",
+  "alternativePositions": [],
+  "abilities": {
+    "pace": 72,
+    "shooting": 62,
+    "passing": 68,
+    "dribbling": 75,
+    "defending": 60,
+    "physical": 70
+  },
+  "icon": "/images/players/irn_17.png"
+},
+{
+  "id": "irn_18",
+  "name": "Saman Ghoddos",
+  "teamId": "irn",
+  "position": "CAM",
+  "alternativePositions": [],
+  "abilities": {
+    "pace": 75,
+    "shooting": 66,
+    "passing": 70,
+    "dribbling": 74,
+    "defending": 55,
+    "physical": 72
+  },
+  "icon": "/images/players/irn_18.png"
+},
+{
+  "id": "irn_19",
+  "name": "Seyed Mohammad Alavi",
+  "teamId": "irn",
+  "position": "CAM",
+  "alternativePositions": [],
+  "abilities": {
+    "pace": 74,
+    "shooting": 68,
+    "passing": 72,
+    "dribbling": 76,
+    "defending": 55,
+    "physical": 70
+  },
+  "icon": "/images/players/irn_19.png"
+},
+{
+  "id": "irn_20",
+  "name": "Mohammad Ali Karimian",
+  "teamId": "irn",
+  "position": "RB",
+  "alternativePositions": [],
+  "abilities": {
+    "pace": 78,
+    "shooting": 60,
+    "passing": 65,
+    "dribbling": 72,
+    "defending": 77,
+    "physical": 80
+  },
+  "icon": "/images/players/irn_20.png"
+},
+{
+  "id": "irn_21",
+  "name": "Ahmad Fathi",
+  "teamId": "irn",
+  "position": "CB",
+  "alternativePositions": [],
+  "abilities": {
+    "pace": 63,
+    "shooting": 39,
+    "passing": 55,
+    "dribbling": 50,
+    "defending": 82,
+    "physical": 79
+  },
+  "icon": "/images/players/irn_21.png"
+},
+{
+  "id": "irn_22",
+  "name": "Mohammad Reza Azadi",
+  "teamId": "irn",
+  "position": "CB",
+  "alternativePositions": [],
+  "abilities": {
+    "pace": 61,
+    "shooting": 38,
+    "passing": 55,
+    "dribbling": 52,
+    "defending": 83,
+    "physical": 80
+  },
+  "icon": "/images/players/irn_22.png"
+},
+{
+  "id": "irn_23",
+  "name": "Vahid Talebloo",
+  "teamId": "irn",
+  "position": "GK",
+  "alternativePositions": [],
+  "abilities": {
+    "pace": 50,
+    "shooting": 30,
+    "passing": 60,
+    "dribbling": 45,
+    "defending": 85,
+    "physical": 80
+  },
+  "icon": "/images/players/irn_23.png"
+},
+{
+  "id": "irn_24",
+  "name": "Behnam Tashakkori",
+  "teamId": "irn",
+  "position": "CB",
+  "alternativePositions": [],
+  "abilities": {
+    "pace": 60,
+    "shooting": 35,
+    "passing": 55,
+    "dribbling": 48,
+    "defending": 84,
+    "physical": 80
+  },
+  "icon": "/images/players/irn_24.png"
 }
+
     
 
   ]
