@@ -33,6 +33,54 @@
       "icon": "/images/players/jpn_2.png"
     },
     {
+      "id": "jpn_3",
+      "name": "Ko Itakura",
+      "teamId": "jpn",
+      "position": "CB",
+      "alternativePositions": ["CDM"],
+      "abilities": {
+        "pace": 75,
+        "shooting": 52,
+        "passing": 73,
+        "dribbling": 70,
+        "defending": 80,
+        "physical": 78
+      },
+      "icon": "/images/players/jpn_3.png"
+    },
+    {
+      "id": "jpn_4",
+      "name": "Wataru Endo",
+      "teamId": "jpn",
+      "position": "CDM",
+      "alternativePositions": ["CM"],
+      "abilities": {
+        "pace": 72,
+        "shooting": 65,
+        "passing": 78,
+        "dribbling": 75,
+        "defending": 82,
+        "physical": 85
+      },
+      "icon": "/images/players/jpn_4.png"
+    },
+    {
+      "id": "jpn_5",
+      "name": "Takefusa Kubo",
+      "teamId": "jpn",
+      "position": "RW",
+      "alternativePositions": ["CAM", "LW"],
+      "abilities": {
+        "pace": 85,
+        "shooting": 75,
+        "passing": 80,
+        "dribbling": 85,
+        "defending": 45,
+        "physical": 65
+      },
+      "icon": "/images/players/jpn_5.png"
+    },
+    {
       "id": "aus_1",
       "name": "Mathew Ryan",
       "teamId": "aus",
@@ -63,6 +111,54 @@
         "physical": 85
       },
       "icon": "/images/players/aus_2.png"
+    },
+    {
+      "id": "aus_3",
+      "name": "Kye Rowles",
+      "teamId": "aus",
+      "position": "CB",
+      "alternativePositions": ["LB"],
+      "abilities": {
+        "pace": 72,
+        "shooting": 45,
+        "passing": 68,
+        "dribbling": 65,
+        "defending": 78,
+        "physical": 75
+      },
+      "icon": "/images/players/aus_3.png"
+    },
+    {
+      "id": "aus_4",
+      "name": "Aaron Mooy",
+      "teamId": "aus",
+      "position": "CM",
+      "alternativePositions": ["CDM"],
+      "abilities": {
+        "pace": 65,
+        "shooting": 70,
+        "passing": 82,
+        "dribbling": 75,
+        "defending": 72,
+        "physical": 70
+      },
+      "icon": "/images/players/aus_4.png"
+    },
+    {
+      "id": "aus_5",
+      "name": "Mathew Leckie",
+      "teamId": "aus",
+      "position": "RW",
+      "alternativePositions": ["LW", "ST"],
+      "abilities": {
+        "pace": 82,
+        "shooting": 75,
+        "passing": 72,
+        "dribbling": 78,
+        "defending": 45,
+        "physical": 75
+      },
+      "icon": "/images/players/aus_5.png"
     }
   ]
 }

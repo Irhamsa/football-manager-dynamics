@@ -31,6 +31,11 @@ const LineUp = () => {
     (team) => team.id === selectedTeamId
   );
 
+  const calculateOverall = (abilities: any) => {
+    const values = Object.values(abilities) as number[];
+    return Math.round(values.reduce((a, b) => a + b, 0) / values.length);
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground p-6">
       <button
@@ -73,15 +78,10 @@ const LineUp = () => {
                       </span>
                     )}
                   </div>
+                  <div className="text-sm font-medium mt-1">
+                    OVR: {calculateOverall(player.abilities)}
+                  </div>
                 </div>
-              </div>
-              <div className="mt-4 grid grid-cols-2 gap-2 text-sm">
-                <div>Pace: {player.abilities.pace}</div>
-                <div>Shooting: {player.abilities.shooting}</div>
-                <div>Passing: {player.abilities.passing}</div>
-                <div>Dribbling: {player.abilities.dribbling}</div>
-                <div>Defending: {player.abilities.defending}</div>
-                <div>Physical: {player.abilities.physical}</div>
               </div>
             </div>
           ))}
