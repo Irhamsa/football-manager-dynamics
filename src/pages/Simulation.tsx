@@ -51,28 +51,28 @@ const Simulation = () => {
     return goalkeeper ? [...outfieldPlayers, goalkeeper].map(p => p.id) : [];
   });
 
-  const getRandomAttacker = (playerIds: string[]) => {
-    const attackers = playerIds
+  const getAttackers = (playerIds: string[]) => {
+    return playerIds
       .map(id => playersData.players.find(p => p.id === id))
-      .filter(p => p && (p.position === "ST" || p.position === "CF" || p.position === "RW" || p.position === "LW"));
-    return attackers[Math.floor(Math.random() * attackers.length)];
+      .filter(p => p && (p.position === "ST" || p.position === "CF" || p.position === "RW" || p.position === "LW" || p.position === "CAM"))
+      .map(p => p!);
   };
 
   const generateCommentary = (minute: number, type: "chance" | "possession" | "tackle") => {
     const commentaries = {
       chance: [
-        "What a chance!",
+        "A great opportunity!",
         "That was close!",
-        "They're getting closer to goal!",
-        "The keeper was beaten but the shot goes wide!",
-        "A brilliant move but they couldn't finish it!"
+        "They're threatening the goal!",
+        "The keeper was beaten but it goes wide!",
+        "A brilliant move but couldn't finish!"
       ],
       possession: [
-        "They're controlling the game well",
+        "Controlling the game well",
         "Beautiful passing display",
-        "They're dominating possession",
-        "The opposition can't get the ball",
-        "Excellent ball movement"
+        "Dominating possession",
+        "Keeping the ball well",
+        "Patient build-up play"
       ],
       tackle: [
         "Great defensive work!",
@@ -92,31 +92,51 @@ const Simulation = () => {
     };
   };
 
-  const calculateTeamOverall = (playerIds: string[]) => {
+  const calculateTeamStrength = (playerIds: string[]) => {
     const players = playerIds.map(id => playersData.players.find(p => p.id === id))
       .filter(p => p !== undefined);
     
     if (!players.length) return 0;
     
+    // Calculate average of relevant abilities based on position
     return Math.round(players.reduce((acc, player) => {
       if (!player) return acc;
-      const overall = Object.values(player.abilities).reduce((sum, val) => sum + val, 0) / 6;
-      return acc + overall;
+      let positionWeight = 1;
+      
+      // Weight abilities based on position
+      if (player.position === "ST" || player.position === "CF") {
+        return acc + ((player.abilities.shooting * 2 + player.abilities.pace + player.abilities.dribbling) / 4);
+      } else if (player.position === "CM" || player.position === "CAM") {
+        return acc + ((player.abilities.passing * 2 + player.abilities.dribbling + player.abilities.shooting) / 4);
+      } else if (player.position === "CB" || player.position === "GK") {
+        return acc + ((player.abilities.defending * 2 + player.abilities.physical) / 3);
+      }
+      
+      return acc + Object.values(player.abilities).reduce((sum, val) => sum + val, 0) / 6;
     }, 0) / players.length);
   };
 
   const simulateAttack = (attackingTeam: string[], defendingTeam: string[]) => {
-    const attackingOverall = calculateTeamOverall(attackingTeam);
-    const defendingOverall = calculateTeamOverall(defendingTeam);
+    const attackingStrength = calculateTeamStrength(attackingTeam);
+    const defendingStrength = calculateTeamStrength(defendingTeam);
     
-    // Add randomness and upset factor
-    const randomFactor = Math.random() * 35; // Increased randomness
-    const upsetFactor = defendingOverall > attackingOverall ? 15 : 0; // Bonus for underdogs
+    // Base probability calculation
+    const strengthDifference = attackingStrength - defendingStrength;
+    let baseProb = 0.15; // Base 15% chance of scoring
     
-    const attackRoll = attackingOverall + randomFactor;
-    const defenseRoll = defendingOverall + randomFactor + upsetFactor;
+    // Adjust probability based on strength difference
+    baseProb += (strengthDifference / 200); // Small adjustment for team strength
     
-    return attackRoll > defenseRoll;
+    // Add randomness factor (0-0.1)
+    const randomFactor = Math.random() * 0.1;
+    
+    // Add underdog bonus
+    const underdogBonus = defendingStrength > attackingStrength ? 0.05 : 0;
+    
+    // Final probability calculation
+    const finalProb = Math.max(0.05, Math.min(0.3, baseProb + randomFactor + underdogBonus));
+    
+    return Math.random() < finalProb;
   };
 
   useEffect(() => {
@@ -131,25 +151,26 @@ const Simulation = () => {
       setGameTime(prev => prev + 1);
 
       // Add random commentary
-      if (gameTime % 3 === 0) {
+      if (Math.random() < 0.3) { // 30% chance of commentary per minute
         const commentaryType = ["chance", "possession", "tackle"][Math.floor(Math.random() * 3)] as "chance" | "possession" | "tackle";
         setGameEvents(prev => [...prev, generateCommentary(gameTime, commentaryType)]);
       }
 
-      // Simulate attacks every few minutes
-      if (gameTime % 5 === 0) {
+      // Simulate attacks
+      if (Math.random() < 0.2) { // 20% chance of attack per minute
         // Home team attack
+        const homeAttackers = getAttackers(playerSide === "Home" ? selectedPlayers : aiSelectedPlayers);
         if (simulateAttack(
           playerSide === "Home" ? selectedPlayers : aiSelectedPlayers,
           playerSide === "Home" ? aiSelectedPlayers : selectedPlayers
         )) {
-          const scorer = getRandomAttacker(playerSide === "Home" ? selectedPlayers : aiSelectedPlayers);
+          const scorer = homeAttackers[Math.floor(Math.random() * homeAttackers.length)];
           if (scorer) {
             setScore(prev => ({ ...prev, home: prev.home + 1 }));
             setGameEvents(prev => [...prev, {
               minute: gameTime,
               type: "goal",
-              team: selectedTeamId,
+              team: playerSide === "Home" ? selectedTeamId : opponentTeamId,
               description: `GOAL! ${scorer.name} finds the back of the net!`,
               scorer: scorer.name
             }]);
@@ -157,18 +178,19 @@ const Simulation = () => {
         }
 
         // Away team attack
+        const awayAttackers = getAttackers(playerSide === "Away" ? selectedPlayers : aiSelectedPlayers);
         if (simulateAttack(
           playerSide === "Away" ? selectedPlayers : aiSelectedPlayers,
           playerSide === "Away" ? aiSelectedPlayers : selectedPlayers
         )) {
-          const scorer = getRandomAttacker(playerSide === "Away" ? selectedPlayers : aiSelectedPlayers);
+          const scorer = awayAttackers[Math.floor(Math.random() * awayAttackers.length)];
           if (scorer) {
             setScore(prev => ({ ...prev, away: prev.away + 1 }));
             setGameEvents(prev => [...prev, {
               minute: gameTime,
               type: "goal",
-              team: opponentTeamId,
-              description: `GOAL! ${scorer.name} scores for ${opponentTeam?.name}!`,
+              team: playerSide === "Away" ? selectedTeamId : opponentTeamId,
+              description: `GOAL! ${scorer.name} scores for ${playerSide === "Away" ? selectedTeam?.name : opponentTeam?.name}!`,
               scorer: scorer.name
             }]);
           }
