@@ -1,9 +1,9 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react"; // Add this import
+import { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import teamsData from "../data/teams.json";
 import playersData from "../data/players.json";
 
@@ -84,10 +84,19 @@ const LineUp = () => {
       teamPlayers.find(p => p.id === id)?.position === "GK"
     );
 
-    if (selectedPlayers.length !== 11 || !hasGoalkeeper) {
+    if (selectedPlayers.length !== 11) {
       toast({
         title: "Selection Error",
-        description: "You must select exactly 11 players including one goalkeeper",
+        description: "You must select exactly 11 players",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    if (!hasGoalkeeper) {
+      toast({
+        title: "Selection Error",
+        description: "You must select one goalkeeper",
         variant: "destructive"
       });
       return;
