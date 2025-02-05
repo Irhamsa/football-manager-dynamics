@@ -13,6 +13,14 @@ interface LocationState {
   playerSide: string;
 }
 
+interface GameEvent {
+  minute: number;
+  type: "goal" | "commentary";
+  team: string;
+  description: string;
+  scorer?: string;
+}
+
 const Simulation = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -21,7 +29,7 @@ const Simulation = () => {
   const [score, setScore] = useState({ home: 0, away: 0 });
   const [gameTime, setGameTime] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [gameEvents, setGameEvents] = useState<string[]>([]);
+  const [gameEvents, setGameEvents] = useState<GameEvent[]>([]);
 
   if (!state) {
     navigate("/match");
@@ -43,40 +51,70 @@ const Simulation = () => {
     return goalkeeper ? [...outfieldPlayers, goalkeeper].map(p => p.id) : [];
   });
 
-  const calculateTeamAttackOverall = (playerIds: string[]) => {
-    const players = playerIds.map(id => playersData.players.find(p => p.id === id))
-      .filter(p => p && (p.position.includes("ST") || p.position.includes("W") || p.position.includes("AM")));
-    
-    if (!players.length) return 0;
-    
-    return Math.round(players.reduce((acc, player) => {
-      if (!player) return acc;
-      return acc + (player.abilities.shooting + player.abilities.dribbling + player.abilities.pace) / 3;
-    }, 0) / players.length);
+  const getRandomAttacker = (playerIds: string[]) => {
+    const attackers = playerIds
+      .map(id => playersData.players.find(p => p.id === id))
+      .filter(p => p && (p.position === "ST" || p.position === "CF" || p.position === "RW" || p.position === "LW"));
+    return attackers[Math.floor(Math.random() * attackers.length)];
   };
 
-  const calculateTeamDefenseOverall = (playerIds: string[]) => {
+  const generateCommentary = (minute: number, type: "chance" | "possession" | "tackle") => {
+    const commentaries = {
+      chance: [
+        "What a chance!",
+        "That was close!",
+        "They're getting closer to goal!",
+        "The keeper was beaten but the shot goes wide!",
+        "A brilliant move but they couldn't finish it!"
+      ],
+      possession: [
+        "They're controlling the game well",
+        "Beautiful passing display",
+        "They're dominating possession",
+        "The opposition can't get the ball",
+        "Excellent ball movement"
+      ],
+      tackle: [
+        "Great defensive work!",
+        "Brilliant tackle!",
+        "The defense stands strong",
+        "They've won the ball back",
+        "Solid defensive display"
+      ]
+    };
+    
+    const commentary = commentaries[type][Math.floor(Math.random() * commentaries[type].length)];
+    return {
+      minute,
+      type: "commentary" as const,
+      team: Math.random() > 0.5 ? selectedTeamId : opponentTeamId,
+      description: commentary
+    };
+  };
+
+  const calculateTeamOverall = (playerIds: string[]) => {
     const players = playerIds.map(id => playersData.players.find(p => p.id === id))
-      .filter(p => p && (p.position.includes("B") || p.position.includes("DM")));
+      .filter(p => p !== undefined);
     
     if (!players.length) return 0;
     
     return Math.round(players.reduce((acc, player) => {
       if (!player) return acc;
-      return acc + (player.abilities.defending + player.abilities.physical) / 2;
+      const overall = Object.values(player.abilities).reduce((sum, val) => sum + val, 0) / 6;
+      return acc + overall;
     }, 0) / players.length);
   };
 
   const simulateAttack = (attackingTeam: string[], defendingTeam: string[]) => {
-    const attackOverall = calculateTeamAttackOverall(attackingTeam);
-    const defenseOverall = calculateTeamDefenseOverall(defendingTeam);
+    const attackingOverall = calculateTeamOverall(attackingTeam);
+    const defendingOverall = calculateTeamOverall(defendingTeam);
     
-    // Add randomness factor to give lower-rated teams a chance
-    const randomFactor = Math.random() * 30; // Increased randomness
-    const upsetFactor = defenseOverall > attackOverall ? 10 : 0; // Bonus for underdogs
+    // Add randomness and upset factor
+    const randomFactor = Math.random() * 35; // Increased randomness
+    const upsetFactor = defendingOverall > attackingOverall ? 15 : 0; // Bonus for underdogs
     
-    const attackRoll = attackOverall + randomFactor;
-    const defenseRoll = defenseOverall + randomFactor + upsetFactor;
+    const attackRoll = attackingOverall + randomFactor;
+    const defenseRoll = defendingOverall + randomFactor + upsetFactor;
     
     return attackRoll > defenseRoll;
   };
@@ -92,6 +130,12 @@ const Simulation = () => {
 
       setGameTime(prev => prev + 1);
 
+      // Add random commentary
+      if (gameTime % 3 === 0) {
+        const commentaryType = ["chance", "possession", "tackle"][Math.floor(Math.random() * 3)] as "chance" | "possession" | "tackle";
+        setGameEvents(prev => [...prev, generateCommentary(gameTime, commentaryType)]);
+      }
+
       // Simulate attacks every few minutes
       if (gameTime % 5 === 0) {
         // Home team attack
@@ -99,8 +143,17 @@ const Simulation = () => {
           playerSide === "Home" ? selectedPlayers : aiSelectedPlayers,
           playerSide === "Home" ? aiSelectedPlayers : selectedPlayers
         )) {
-          setScore(prev => ({ ...prev, home: prev.home + 1 }));
-          setGameEvents(prev => [...prev, `${gameTime}' Goal for ${selectedTeam?.name}!`]);
+          const scorer = getRandomAttacker(playerSide === "Home" ? selectedPlayers : aiSelectedPlayers);
+          if (scorer) {
+            setScore(prev => ({ ...prev, home: prev.home + 1 }));
+            setGameEvents(prev => [...prev, {
+              minute: gameTime,
+              type: "goal",
+              team: selectedTeamId,
+              description: `GOAL! ${scorer.name} finds the back of the net!`,
+              scorer: scorer.name
+            }]);
+          }
         }
 
         // Away team attack
@@ -108,8 +161,17 @@ const Simulation = () => {
           playerSide === "Away" ? selectedPlayers : aiSelectedPlayers,
           playerSide === "Away" ? aiSelectedPlayers : selectedPlayers
         )) {
-          setScore(prev => ({ ...prev, away: prev.away + 1 }));
-          setGameEvents(prev => [...prev, `${gameTime}' Goal for ${opponentTeam?.name}!`]);
+          const scorer = getRandomAttacker(playerSide === "Away" ? selectedPlayers : aiSelectedPlayers);
+          if (scorer) {
+            setScore(prev => ({ ...prev, away: prev.away + 1 }));
+            setGameEvents(prev => [...prev, {
+              minute: gameTime,
+              type: "goal",
+              team: opponentTeamId,
+              description: `GOAL! ${scorer.name} scores for ${opponentTeam?.name}!`,
+              scorer: scorer.name
+            }]);
+          }
         }
       }
     }, 1000);
@@ -140,11 +202,17 @@ const Simulation = () => {
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold mb-4">Match Simulation</h1>
           <div className="flex justify-center items-center gap-4 mb-4">
-            <span className="text-xl">{selectedTeam?.name}</span>
+            <div className="text-center">
+              <img src={selectedTeam?.icon} alt={selectedTeam?.name} className="w-12 h-12 mx-auto mb-2" />
+              <span className="text-xl">{selectedTeam?.name}</span>
+            </div>
             <div className="text-6xl font-bold">
               {score.home} - {score.away}
             </div>
-            <span className="text-xl">{opponentTeam?.name}</span>
+            <div className="text-center">
+              <img src={opponentTeam?.icon} alt={opponentTeam?.name} className="w-12 h-12 mx-auto mb-2" />
+              <span className="text-xl">{opponentTeam?.name}</span>
+            </div>
           </div>
           <div className="text-xl mb-4">
             Time: {gameTime}'
@@ -162,11 +230,18 @@ const Simulation = () => {
         </div>
 
         <div className="bg-card p-4 rounded-lg">
-          <h2 className="text-xl font-bold mb-4">Match Events</h2>
-          <div className="space-y-2">
+          <h2 className="text-xl font-bold mb-4">Match Commentary</h2>
+          <div className="space-y-2 max-h-96 overflow-y-auto">
             {gameEvents.map((event, index) => (
-              <div key={index} className="text-sm">
-                {event}
+              <div 
+                key={index} 
+                className={`p-2 rounded ${
+                  event.type === "goal" 
+                    ? "bg-primary/10 text-primary font-bold" 
+                    : "text-muted-foreground"
+                }`}
+              >
+                <span className="font-semibold">{event.minute}'</span> - {event.description}
               </div>
             ))}
           </div>
