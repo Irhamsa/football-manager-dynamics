@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Home } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
@@ -115,13 +115,22 @@ const LineUp = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground p-6">
-      <button
-        onClick={() => navigate("/match")}
-        className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
-      >
-        <ArrowLeft className="w-5 h-5" />
-        <span>Back</span>
-      </button>
+      <div className="flex justify-between items-center mb-6">
+        <button
+          onClick={() => navigate(-1)}
+          className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
+        >
+          <ArrowLeft className="w-5 h-5" />
+          <span>Back</span>
+        </button>
+        <button
+          onClick={() => navigate("/")}
+          className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
+        >
+          <Home className="w-5 h-5" />
+          <span>Home</span>
+        </button>
+      </div>
 
       <div className="max-w-4xl mx-auto pt-12">
         <div className="flex items-center justify-between mb-8">

@@ -1,4 +1,4 @@
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Home } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -70,13 +70,22 @@ const Match = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground p-6">
-      <button
-        onClick={() => navigate("/")}
-        className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
-      >
-        <ArrowLeft className="w-5 h-5" />
-        <span>Back</span>
-      </button>
+      <div className="flex justify-between items-center mb-6">
+        <button
+          onClick={() => navigate(-1)}
+          className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
+        >
+          <ArrowLeft className="w-5 h-5" />
+          <span>Back</span>
+        </button>
+        <button
+          onClick={() => navigate("/")}
+          className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
+        >
+          <Home className="w-5 h-5" />
+          <span>Home</span>
+        </button>
+      </div>
       
       <div className="max-w-2xl mx-auto pt-12 space-y-8">
         <h1 className="text-3xl font-bold mb-6 animate-fade-in">Match Center</h1>
