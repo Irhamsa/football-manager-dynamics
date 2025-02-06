@@ -290,7 +290,9 @@ const Match = () => {
                 {showSideDropdown && (
                   <div className="absolute w-full mt-2 bg-background border border-primary/20 rounded-lg shadow-lg z-50">
                     <div
-                      className="p-3 hover:bg-primary/10 cursor-pointer transition-colors flex items-center gap-3"
+                      className={`p-3 hover:bg-primary/10 cursor-pointer transition-colors flex items-center gap-3 ${
+                        selectedSide === "Home" ? "text-yellow-400" : ""
+                      }`}
                       onClick={() => handleSideSelect("Home")}
                     >
                       <Avatar className="w-6 h-6">
@@ -305,7 +307,9 @@ const Match = () => {
                       Home - {teamsData.teams.find(team => team.id === selectedHomeTeam)?.name}
                     </div>
                     <div
-                      className="p-3 hover:bg-primary/10 cursor-pointer transition-colors flex items-center gap-3"
+                      className={`p-3 hover:bg-primary/10 cursor-pointer transition-colors flex items-center gap-3 ${
+                        selectedSide === "Away" ? "text-yellow-400" : ""
+                      }`}
                       onClick={() => handleSideSelect("Away")}
                     >
                       <Avatar className="w-6 h-6">
