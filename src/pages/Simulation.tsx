@@ -7,8 +7,8 @@ import teamsData from "../data/teams.json";
 import playersData from "../data/players.json";
 
 interface LocationState {
-  selectedTeamId: string;
-  opponentTeamId: string;
+  homeTeam: string;
+  awayTeam: string;
   selectedPlayers: string[];
   playerSide: string;
 }
@@ -36,13 +36,18 @@ const Simulation = () => {
     return null;
   }
 
-  const { selectedTeamId, opponentTeamId, selectedPlayers, playerSide } = state;
+  const { homeTeam, awayTeam, selectedPlayers, playerSide } = state;
 
-  const selectedTeam = teamsData.teams.find(team => team.id === selectedTeamId);
-  const opponentTeam = teamsData.teams.find(team => team.id === opponentTeamId);
+  // Tim home dan away tetap di posisinya
+  const homeTeamData = teamsData.teams.find(team => team.id === homeTeam);
+  const awayTeamData = teamsData.teams.find(team => team.id === awayTeam);
+
+  // Tentukan pemain berdasarkan side yang dipilih player
+  const playerTeamId = playerSide === "Home" ? homeTeam : awayTeam;
+  const aiTeamId = playerSide === "Home" ? awayTeam : homeTeam;
 
   // Get opponent team players and randomly select 11 including one GK
-  const opponentPlayers = playersData.players.filter(p => p.teamId === opponentTeamId);
+  const opponentPlayers = playersData.players.filter(p => p.teamId === aiTeamId);
   const [aiSelectedPlayers] = useState(() => {
     const goalkeeper = opponentPlayers.find(p => p.position === "GK");
     const outfieldPlayers = opponentPlayers.filter(p => p.position !== "GK")
@@ -87,7 +92,7 @@ const Simulation = () => {
     return {
       minute,
       type: "commentary" as const,
-      team: Math.random() > 0.5 ? selectedTeamId : opponentTeamId,
+      team: Math.random() > 0.5 ? playerTeamId : aiTeamId,
       description: commentary
     };
   };
@@ -175,7 +180,7 @@ const Simulation = () => {
             setGameEvents(prev => [...prev, {
               minute: gameTime,
               type: "goal",
-              team: playerSide === "Home" ? selectedTeamId : opponentTeamId,
+              team: playerSide === "Home" ? playerTeamId : aiTeamId,
               description: `GOAL! ${scorer.name} finds the back of the net!`,
               scorer: scorer.name
             }]);
@@ -195,8 +200,8 @@ const Simulation = () => {
               setGameEvents(prev => [...prev, {
                 minute: gameTime,
                 type: "goal",
-                team: playerSide === "Away" ? selectedTeamId : opponentTeamId,
-                description: `GOAL! ${scorer.name} scores for ${playerSide === "Away" ? selectedTeam?.name : opponentTeam?.name}!`,
+                team: playerSide === "Away" ? playerTeamId : aiTeamId,
+                description: `GOAL! ${scorer.name} scores for ${playerSide === "Away" ? homeTeamData?.name : awayTeamData?.name}!`,
                 scorer: scorer.name
               }]);
             }
@@ -231,16 +236,16 @@ const Simulation = () => {
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold mb-4">Match Simulation</h1>
           <div className="flex justify-center items-center gap-4 mb-4">
-            <div className="text-center">
-              <img src={selectedTeam?.icon} alt={selectedTeam?.name} className="w-12 h-12 mx-auto mb-2" />
-              <span className="text-xl">{selectedTeam?.name}</span>
+            <div className={`text-center ${playerSide === "Home" ? "text-yellow-400" : ""}`}>
+              <img src={homeTeamData?.icon} alt={homeTeamData?.name} className="w-12 h-12 mx-auto mb-2" />
+              <span className="text-xl">{homeTeamData?.name}</span>
             </div>
             <div className="text-6xl font-bold">
               {score.home} - {score.away}
             </div>
-            <div className="text-center">
-              <img src={opponentTeam?.icon} alt={opponentTeam?.name} className="w-12 h-12 mx-auto mb-2" />
-              <span className="text-xl">{opponentTeam?.name}</span>
+            <div className={`text-center ${playerSide === "Away" ? "text-yellow-400" : ""}`}>
+              <img src={awayTeamData?.icon} alt={awayTeamData?.name} className="w-12 h-12 mx-auto mb-2" />
+              <span className="text-xl">{awayTeamData?.name}</span>
             </div>
           </div>
           <div className="text-xl mb-4">

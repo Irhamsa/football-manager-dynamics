@@ -60,9 +60,9 @@ const Match = () => {
     if (selectedHomeTeam && selectedAwayTeam && selectedSide) {
       navigate("/lineup", {
         state: {
-          homeTeam: selectedSide === "Home" ? selectedHomeTeam : selectedAwayTeam,
-          awayTeam: selectedSide === "Away" ? selectedAwayTeam : selectedHomeTeam,
-          playerSide: selectedSide,
+          homeTeam: selectedHomeTeam,  // Tim home tetap di home
+          awayTeam: selectedAwayTeam,  // Tim away tetap di away
+          playerSide: selectedSide,    // Hanya menandai tim mana yang dimainkan player
           selectedTeam: selectedSide === "Home" ? selectedHomeTeam : selectedAwayTeam
         }
       });

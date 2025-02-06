@@ -11,6 +11,7 @@ interface LocationState {
   homeTeam: string;
   awayTeam: string;
   playerSide: string;
+  selectedTeam: string;
 }
 
 const LineUp = () => {
@@ -24,16 +25,14 @@ const LineUp = () => {
     return null;
   }
 
-  const { homeTeam, awayTeam, playerSide } = state;
-  const selectedTeamId = playerSide === "Home" ? homeTeam : awayTeam;
-  const opponentTeamId = playerSide === "Home" ? awayTeam : homeTeam;
+  const { homeTeam, awayTeam, playerSide, selectedTeam } = state;
   
   const teamPlayers = playersData.players.filter(
-    (player) => player.teamId === selectedTeamId
+    (player) => player.teamId === selectedTeam
   );
 
-  const selectedTeam = teamsData.teams.find(
-    (team) => team.id === selectedTeamId
+  const selectedTeamData = teamsData.teams.find(
+    (team) => team.id === selectedTeam
   );
 
   const calculateOverall = (abilities: any) => {
@@ -52,7 +51,6 @@ const LineUp = () => {
       return;
     }
 
-    // Check if we already have a goalkeeper
     const hasGoalkeeper = selectedPlayers.some(id => 
       teamPlayers.find(p => p.id === id)?.position === "GK"
     );
@@ -65,7 +63,6 @@ const LineUp = () => {
       return;
     }
 
-    // Check if we have 11 players
     if (selectedPlayers.length >= 11) {
       toast({
         title: "Selection Error",
@@ -79,7 +76,6 @@ const LineUp = () => {
   };
 
   const handleConfirm = () => {
-    // Check if we have exactly 11 players and one goalkeeper
     const hasGoalkeeper = selectedPlayers.some(id => 
       teamPlayers.find(p => p.id === id)?.position === "GK"
     );
@@ -102,11 +98,10 @@ const LineUp = () => {
       return;
     }
 
-    // Navigate to simulation with selected players
     navigate("/simulation", {
       state: {
-        selectedTeamId,
-        opponentTeamId,
+        homeTeam,
+        awayTeam,
         selectedPlayers,
         playerSide
       }
@@ -136,12 +131,12 @@ const LineUp = () => {
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
             <Avatar className="w-16 h-16">
-              <AvatarImage src={selectedTeam?.icon} alt={selectedTeam?.name} />
+              <AvatarImage src={selectedTeamData?.icon} alt={selectedTeamData?.name} />
               <AvatarFallback>
-                {selectedTeam?.name.substring(0, 2)}
+                {selectedTeamData?.name.substring(0, 2)}
               </AvatarFallback>
             </Avatar>
-            <h1 className="text-3xl font-bold">{selectedTeam?.name} Squad</h1>
+            <h1 className="text-3xl font-bold">{selectedTeamData?.name} Squad</h1>
           </div>
           <div className="text-lg">
             Selected: {selectedPlayers.length}/11
@@ -152,7 +147,7 @@ const LineUp = () => {
           {teamPlayers.map((player) => (
             <div
               key={player.id}
-              className={`bg-card p-4 rounded-lg shadow-md transition-all cursor-pointer
+              className={`bg-card p-4 rounded-lg shadow-md transition-all
                 ${selectedPlayers.includes(player.id) 
                   ? 'ring-2 ring-primary' 
                   : 'hover:shadow-lg'}`}
