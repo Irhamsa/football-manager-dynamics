@@ -60,9 +60,9 @@ const Match = () => {
     if (selectedHomeTeam && selectedAwayTeam && selectedSide) {
       navigate("/lineup", {
         state: {
-          homeTeam: selectedHomeTeam,  // Tim home tetap di home
-          awayTeam: selectedAwayTeam,  // Tim away tetap di away
-          playerSide: selectedSide,    // Hanya menandai tim mana yang dimainkan player
+          homeTeam: selectedHomeTeam,
+          awayTeam: selectedAwayTeam,
+          playerSide: selectedSide,
           selectedTeam: selectedSide === "Home" ? selectedHomeTeam : selectedAwayTeam
         }
       });
@@ -77,25 +77,23 @@ const Match = () => {
           className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
         >
           <ArrowLeft className="w-5 h-5" />
-          <span>Back</span>
+          <span>Kembali</span>
         </button>
         <button
           onClick={() => navigate("/")}
           className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
         >
           <Home className="w-5 h-5" />
-          <span>Home</span>
+          <span>Beranda</span>
         </button>
       </div>
       
       <div className="max-w-2xl mx-auto pt-12 space-y-8">
-        <h1 className="text-3xl font-bold mb-6 animate-fade-in">Match Center</h1>
+        <h1 className="text-3xl font-bold mb-6 animate-fade-in">Pusat Pertandingan</h1>
         
         <div className="space-y-6 animate-slide-in">
-          {/* Home Team Selection */}
           <div className="space-y-4">
-            <h2 className="text-xl font-semibold">Home Team</h2>
-            {/* Home Confederation Dropdown */}
+            <h2 className="text-xl font-semibold">Tim Tuan Rumah</h2>
             <div className="relative">
               <div 
                 className="w-full p-4 bg-primary/10 rounded-lg cursor-pointer hover:bg-primary/20 transition-colors flex items-center gap-3"
@@ -115,7 +113,7 @@ const Match = () => {
                     {selectedHomeConfederation}
                   </>
                 ) : (
-                  "Select Home Confederation"
+                  "Pilih Konfederasi Tuan Rumah"
                 )}
               </div>
               
@@ -138,7 +136,6 @@ const Match = () => {
               )}
             </div>
 
-            {/* Home Team Dropdown */}
             {selectedHomeConfederation && (
               <div className="relative">
                 <div 
@@ -159,7 +156,7 @@ const Match = () => {
                       {teamsData.teams.find(team => team.id === selectedHomeTeam)?.name}
                     </>
                   ) : (
-                    "Select Home Team"
+                    "Pilih Tim Tuan Rumah"
                   )}
                 </div>
                 
@@ -184,10 +181,8 @@ const Match = () => {
             )}
           </div>
 
-          {/* Away Team Selection */}
           <div className="space-y-4">
-            <h2 className="text-xl font-semibold">Away Team</h2>
-            {/* Away Confederation Dropdown */}
+            <h2 className="text-xl font-semibold">Tim Tamu</h2>
             <div className="relative">
               <div 
                 className="w-full p-4 bg-primary/10 rounded-lg cursor-pointer hover:bg-primary/20 transition-colors flex items-center gap-3"
@@ -207,7 +202,7 @@ const Match = () => {
                     {selectedAwayConfederation}
                   </>
                 ) : (
-                  "Select Away Confederation"
+                  "Pilih Konfederasi Tim Tamu"
                 )}
               </div>
               
@@ -230,7 +225,6 @@ const Match = () => {
               )}
             </div>
 
-            {/* Away Team Dropdown */}
             {selectedAwayConfederation && (
               <div className="relative">
                 <div 
@@ -251,7 +245,7 @@ const Match = () => {
                       {teamsData.teams.find(team => team.id === selectedAwayTeam)?.name}
                     </>
                   ) : (
-                    "Select Away Team"
+                    "Pilih Tim Tamu"
                   )}
                 </div>
                 
@@ -276,16 +270,15 @@ const Match = () => {
             )}
           </div>
 
-          {/* Side Selection */}
           {selectedHomeTeam && selectedAwayTeam && (
             <div className="space-y-4">
-              <h2 className="text-xl font-semibold">Choose Your Side</h2>
+              <h2 className="text-xl font-semibold">Pilih Sisi Anda</h2>
               <div className="relative">
                 <div 
                   className="w-full p-4 bg-primary/10 rounded-lg cursor-pointer hover:bg-primary/20 transition-colors"
                   onClick={() => setShowSideDropdown(!showSideDropdown)}
                 >
-                  {selectedSide || "Select Side"}
+                  {selectedSide ? (selectedSide === "Home" ? "Tuan Rumah" : "Tim Tamu") : "Pilih Sisi"}
                 </div>
                 
                 {showSideDropdown && (
@@ -305,7 +298,7 @@ const Match = () => {
                           {teamsData.teams.find(team => team.id === selectedHomeTeam)?.name.substring(0, 2)}
                         </AvatarFallback>
                       </Avatar>
-                      Home - {teamsData.teams.find(team => team.id === selectedHomeTeam)?.name}
+                      Tuan Rumah - {teamsData.teams.find(team => team.id === selectedHomeTeam)?.name}
                     </div>
                     <div
                       className={`p-3 hover:bg-primary/10 cursor-pointer transition-colors flex items-center gap-3 ${
@@ -322,7 +315,7 @@ const Match = () => {
                           {teamsData.teams.find(team => team.id === selectedAwayTeam)?.name.substring(0, 2)}
                         </AvatarFallback>
                       </Avatar>
-                      Away - {teamsData.teams.find(team => team.id === selectedAwayTeam)?.name}
+                      Tim Tamu - {teamsData.teams.find(team => team.id === selectedAwayTeam)?.name}
                     </div>
                   </div>
                 )}
@@ -330,13 +323,12 @@ const Match = () => {
             </div>
           )}
 
-          {/* Confirm Button */}
           <Button
             onClick={handleConfirm}
             disabled={!selectedHomeTeam || !selectedAwayTeam || !selectedSide}
             className="w-full"
           >
-            Confirm Selection
+            Konfirmasi Pemilihan
           </Button>
         </div>
       </div>

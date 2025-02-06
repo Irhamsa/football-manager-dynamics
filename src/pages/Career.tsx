@@ -11,13 +11,13 @@ const Career = () => {
         className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
       >
         <ArrowLeft className="w-5 h-5" />
-        <span>Back</span>
+        <span>Kembali</span>
       </button>
       
       <div className="max-w-2xl mx-auto pt-12">
-        <h1 className="text-3xl font-bold mb-6 animate-fade-in">Career Mode</h1>
+        <h1 className="text-3xl font-bold mb-6 animate-fade-in">Mode Karir</h1>
         <p className="text-gray-400 animate-slide-in">
-          Career management features coming soon...
+          Fitur manajemen karir akan segera hadir...
         </p>
       </div>
     </div>

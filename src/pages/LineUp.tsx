@@ -56,8 +56,8 @@ const LineUp = () => {
     );
     if (player.position === "GK" && hasGoalkeeper) {
       toast({
-        title: "Selection Error",
-        description: "You can only select one goalkeeper",
+        title: "Kesalahan Pemilihan",
+        description: "Anda hanya dapat memilih satu kiper",
         variant: "destructive"
       });
       return;
@@ -65,8 +65,8 @@ const LineUp = () => {
 
     if (selectedPlayers.length >= 11) {
       toast({
-        title: "Selection Error",
-        description: "You can only select 11 players",
+        title: "Kesalahan Pemilihan",
+        description: "Anda hanya dapat memilih 11 pemain",
         variant: "destructive"
       });
       return;
@@ -82,8 +82,8 @@ const LineUp = () => {
 
     if (selectedPlayers.length !== 11) {
       toast({
-        title: "Selection Error",
-        description: "You must select exactly 11 players",
+        title: "Kesalahan Pemilihan",
+        description: "Anda harus memilih tepat 11 pemain",
         variant: "destructive"
       });
       return;
@@ -91,8 +91,8 @@ const LineUp = () => {
 
     if (!hasGoalkeeper) {
       toast({
-        title: "Selection Error",
-        description: "You must select one goalkeeper",
+        title: "Kesalahan Pemilihan",
+        description: "Anda harus memilih satu kiper",
         variant: "destructive"
       });
       return;
@@ -116,14 +116,14 @@ const LineUp = () => {
           className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
         >
           <ArrowLeft className="w-5 h-5" />
-          <span>Back</span>
+          <span>Kembali</span>
         </button>
         <button
           onClick={() => navigate("/")}
           className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
         >
           <Home className="w-5 h-5" />
-          <span>Home</span>
+          <span>Beranda</span>
         </button>
       </div>
 
@@ -136,10 +136,10 @@ const LineUp = () => {
                 {selectedTeamData?.name.substring(0, 2)}
               </AvatarFallback>
             </Avatar>
-            <h1 className="text-3xl font-bold">{selectedTeamData?.name} Squad</h1>
+            <h1 className="text-3xl font-bold">Skuad {selectedTeamData?.name}</h1>
           </div>
           <div className="text-lg">
-            Selected: {selectedPlayers.length}/11
+            Terpilih: {selectedPlayers.length}/11
           </div>
         </div>
 
@@ -169,7 +169,7 @@ const LineUp = () => {
                     )}
                   </div>
                   <div className="text-sm font-medium mt-1">
-                    OVR: {calculateOverall(player.abilities)}
+                    Nilai: {calculateOverall(player.abilities)}
                   </div>
                 </div>
               </div>
@@ -182,7 +182,7 @@ const LineUp = () => {
             onClick={handleConfirm}
             disabled={selectedPlayers.length !== 11}
           >
-            Confirm Selection
+            Konfirmasi Pemilihan
           </Button>
         </div>
       </div>
