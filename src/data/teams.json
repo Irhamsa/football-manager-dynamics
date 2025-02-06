@@ -1,22 +1,464 @@
 {
   "teams": [
-    {
-      "id": "jpn",
-      "name": "Japan",
-      "confederation": "afc",
-      "icon": "/images/teams/japan.png"
-    },
-    {
-      "id": "aus",
-      "name": "Australia",
-      "confederation": "afc",
-      "icon": "/images/teams/australia.png"
-    },
-    {
-      "id": "irn",
-      "name": "Iran",
-      "confederation": "afc",
-      "icon": "/images/teams/iran.png"
-    }
+    
+{
+  "id": "jpn",
+  "name": "Japan",
+  "confederation": "afc",
+  "icon": "/images/teams/japan.png"
+},
+{
+  "id": "aus",
+  "name": "Australia",
+  "confederation": "afc",
+  "icon": "/images/teams/australia.png"
+},
+{
+  "id": "irn",
+  "name": "Iran",
+  "confederation": "afc",
+  "icon": "/images/teams/iran.png"
+},
+{
+  "id": "ksa",
+  "name": "Saudi Arabia",
+  "confederation": "afc",
+  "icon": "/images/teams/saudi_arabia.png"
+},
+{
+  "id": "kor",
+  "name": "South Korea",
+  "confederation": "afc",
+  "icon": "/images/teams/south_korea.png"
+},
+{
+  "id": "chn",
+  "name": "China",
+  "confederation": "afc",
+  "icon": "/images/teams/china.png"
+},
+{
+  "id": "irq",
+  "name": "Iraq",
+  "confederation": "afc",
+  "icon": "/images/teams/iraq.png"
+},
+{
+  "id": "uzb",
+  "name": "Uzbekistan",
+  "confederation": "afc",
+  "icon": "/images/teams/uzbekistan.png"
+},
+{
+  "id": "idn",
+  "name": "Indonesia",
+  "confederation": "afc",
+  "icon": "/images/teams/indonesia.png"
+},
+{
+  "id": "ind",
+  "name": "India",
+  "confederation": "afc",
+  "icon": "/images/teams/india.png"
+},
+{
+  "id": "qat",
+  "name": "Qatar",
+  "confederation": "afc",
+  "icon": "/images/teams/qatar.png"
+},
+{
+  "id": "bhr",
+  "name": "Bahrain",
+  "confederation": "afc",
+  "icon": "/images/teams/bahrain.png"
+},
+{
+  "id": "syr",
+  "name": "Syria",
+  "confederation": "afc",
+  "icon": "/images/teams/syria.png"
+},
+{
+  "id": "yem",
+  "name": "Yemen",
+  "confederation": "afc",
+  "icon": "/images/teams/yemen.png"
+},
+{
+  "id": "kwt",
+  "name": "Kuwait",
+  "confederation": "afc",
+  "icon": "/images/teams/kuwait.png"
+},
+{
+  "id": "lbn",
+  "name": "Lebanon",
+  "confederation": "afc",
+  "icon": "/images/teams/lebanon.png"
+},
+{
+  "id": "omn",
+  "name": "Oman",
+  "confederation": "afc",
+  "icon": "/images/teams/oman.png"
+},
+{
+  "id": "tjk",
+  "name": "Tajikistan",
+  "confederation": "afc",
+  "icon": "/images/teams/tajikistan.png"
+},
+{
+  "id": "afg",
+  "name": "Afghanistan",
+  "confederation": "afc",
+  "icon": "/images/teams/afghanistan.png"
+},
+{
+  "id": "sgp",
+  "name": "Singapore",
+  "confederation": "afc",
+  "icon": "/images/teams/singapore.png"
+},
+{
+  "id": "mas",
+  "name": "Malaysia",
+  "confederation": "afc",
+  "icon": "/images/teams/malaysia.png"
+},
+{
+  "id": "tha",
+  "name": "Thailand",
+  "confederation": "afc",
+  "icon": "/images/teams/thailand.png"
+},
+{
+  "id": "phl",
+  "name": "Philippines",
+  "confederation": "afc",
+  "icon": "/images/teams/philippines.png"
+},
+{
+  "id": "brn",
+  "name": "Brunei Darussalam",
+  "confederation": "afc",
+  "icon": "/images/teams/brunei.png"
+},
+{
+  "id": "mdv",
+  "name": "Maldives",
+  "confederation": "afc",
+  "icon": "/images/teams/maldives.png"
+},
+{
+  "id": "mng",
+  "name": "Mongolia",
+  "confederation": "afc",
+  "icon": "/images/teams/mongolia.png"
+},
+{
+  "id": "blm",
+  "name": "Bhutan",
+  "confederation": "afc",
+  "icon": "/images/teams/bhutan.png"
+},
+{
+  "id": "tkm",
+  "name": "Turkmenistan",
+  "confederation": "afc",
+  "icon": "/images/teams/turkmenistan.png"
+},
+{
+  "id": "neo",
+  "name": "Nepal",
+  "confederation": "afc",
+  "icon": "/images/teams/nepal.png"
+},
+{
+  "id": "lai",
+  "name": "Laos",
+  "confederation": "afc",
+  "icon": "/images/teams/laos.png"
+},
+{
+  "id": "cam",
+  "name": "Cambodia",
+  "confederation": "afc",
+  "icon": "/images/teams/cambodia.png"
+},
+{
+  "id": "prk",
+  "name": "North Korea",
+  "confederation": "afc",
+  "icon": "/images/teams/north_korea.png"
+},
+
+{
+  "id": "fra",
+  "name": "France",
+  "confederation": "uefa",
+  "icon": "/images/teams/france.png"
+},
+{
+  "id": "ger",
+  "name": "Germany",
+  "confederation": "uefa",
+  "icon": "/images/teams/germany.png"
+},
+{
+  "id": "esp",
+  "name": "Spain",
+  "confederation": "uefa",
+  "icon": "/images/teams/spain.png"
+},
+{
+  "id": "eng",
+  "name": "England",
+  "confederation": "uefa",
+  "icon": "/images/teams/england.png"
+},
+{
+  "id": "ita",
+  "name": "Italy",
+  "confederation": "uefa",
+  "icon": "/images/teams/italy.png"
+},
+{
+  "id": "ned",
+  "name": "Netherlands",
+  "confederation": "uefa",
+  "icon": "/images/teams/netherlands.png"
+},
+{
+  "id": "por",
+  "name": "Portugal",
+  "confederation": "uefa",
+  "icon": "/images/teams/portugal.png"
+},
+{
+  "id": "bel",
+  "name": "Belgium",
+  "confederation": "uefa",
+  "icon": "/images/teams/belgium.png"
+},
+{
+  "id": "cro",
+  "name": "Croatia",
+  "confederation": "uefa",
+  "icon": "/images/teams/croatia.png"
+},
+{
+  "id": "swe",
+  "name": "Sweden",
+  "confederation": "uefa",
+  "icon": "/images/teams/sweden.png"
+},
+{
+  "id": "aut",
+  "name": "Austria",
+  "confederation": "uefa",
+  "icon": "/images/teams/austria.png"
+},
+{
+  "id": "pol",
+  "name": "Poland",
+  "confederation": "uefa",
+  "icon": "/images/teams/poland.png"
+},
+{
+  "id": "sco",
+  "name": "Scotland",
+  "confederation": "uefa",
+  "icon": "/images/teams/scotland.png"
+},
+{
+  "id": "che",
+  "name": "Switzerland",
+  "confederation": "uefa",
+  "icon": "/images/teams/switzerland.png"
+},
+{
+  "id": "den",
+  "name": "Denmark",
+  "confederation": "uefa",
+  "icon": "/images/teams/denmark.png"
+},
+{
+  "id": "rus",
+  "name": "Russia",
+  "confederation": "uefa",
+  "icon": "/images/teams/russia.png"
+},
+{
+  "id": "tur",
+  "name": "Turkey",
+  "confederation": "uefa",
+  "icon": "/images/teams/turkey.png"
+},
+{
+  "id": "cze",
+  "name": "Czech Republic",
+  "confederation": "uefa",
+  "icon": "/images/teams/czech_republic.png"
+},
+{
+  "id": "isl",
+  "name": "Iceland",
+  "confederation": "uefa",
+  "icon": "/images/teams/iceland.png"
+},
+{
+  "id": "ukr",
+  "name": "Ukraine",
+  "confederation": "uefa",
+  "icon": "/images/teams/ukraine.png"
+},
+{
+  "id": "alb",
+  "name": "Albania",
+  "confederation": "uefa",
+  "icon": "/images/teams/albania.png"
+},
+{
+  "id": "arm",
+  "name": "Armenia",
+  "confederation": "uefa",
+  "icon": "/images/teams/armenia.png"
+},
+{
+  "id": "and",
+  "name": "Andorra",
+  "confederation": "uefa",
+  "icon": "/images/teams/andorra.png"
+},
+{
+  "id": "aze",
+  "name": "Azerbaijan",
+  "confederation": "uefa",
+  "icon": "/images/teams/azerbaijan.png"
+},
+{
+  "id": "blg",
+  "name": "Bulgaria",
+  "confederation": "uefa",
+  "icon": "/images/teams/bulgaria.png"
+},
+{
+  "id": "bio",
+  "name": "Bosnia and Herzegovina",
+  "confederation": "uefa",
+  "icon": "/images/teams/bosnia_and_herzegovina.png"
+},
+{
+  "id": "geo",
+  "name": "Georgia",
+  "confederation": "uefa",
+  "icon": "/images/teams/georgia.png"
+},
+{
+  "id": "gbr",
+  "name": "Great Britain",
+  "confederation": "uefa",
+  "icon": "/images/teams/great_britain.png"
+},
+{
+  "id": "isl",
+  "name": "Iceland",
+  "confederation": "uefa",
+  "icon": "/images/teams/iceland.png"
+},
+{
+  "id": "mkd",
+  "name": "North Macedonia",
+  "confederation": "uefa",
+  "icon": "/images/teams/north_macedonia.png"
+},
+{
+  "id": "kos",
+  "name": "Kosovo",
+  "confederation": "uefa",
+  "icon": "/images/teams/kosovo.png"
+},
+{
+  "id": "lva",
+  "name": "Latvia",
+  "confederation": "uefa",
+  "icon": "/images/teams/latvia.png"
+},
+{
+  "id": "ltn",
+  "name": "Liechtenstein",
+  "confederation": "uefa",
+  "icon": "/images/teams/liechtenstein.png"
+},
+{
+  "id": "lux",
+  "name": "Luxembourg",
+  "confederation": "uefa",
+  "icon": "/images/teams/luxembourg.png"
+},
+{
+  "id": "mda",
+  "name": "Moldova",
+  "confederation": "uefa",
+  "icon": "/images/teams/moldova.png"
+},
+{
+  "id": "mne",
+  "name": "Montenegro",
+  "confederation": "uefa",
+  "icon": "/images/teams/montenegro.png"
+},
+{
+  "id": "smr",
+  "name": "San Marino",
+  "confederation": "uefa",
+  "icon": "/images/teams/san_marino.png"
+},
+{
+  "id": "svn",
+  "name": "Slovenia",
+  "confederation": "uefa",
+  "icon": "/images/teams/slovenia.png"
+},
+{
+  "id": "svk",
+  "name": "Slovakia",
+  "confederation": "uefa",
+  "icon": "/images/teams/slovakia.png"
+},
+{
+  "id": "est",
+  "name": "Estonia",
+  "confederation": "uefa",
+  "icon": "/images/teams/estonia.png"
+},
+{
+  "id": "fin",
+  "name": "Finland",
+  "confederation": "uefa",
+  "icon": "/images/teams/finland.png"
+},
+{
+  "id": "nir",
+  "name": "Northern Ireland",
+  "confederation": "uefa",
+  "icon": "/images/teams/northern_ireland.png"
+},
+{
+  "id": "mlt",
+  "name": "Malta",
+  "confederation": "uefa",
+  "icon": "/images/teams/malta.png"
+},
+{
+  "id": "lcn",
+  "name": "Liechtenstein",
+  "confederation": "uefa",
+  "icon": "/images/teams/liechtenstein.png"
+}
+
+    
   ]
 }

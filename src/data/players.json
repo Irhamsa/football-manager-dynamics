@@ -1,676 +1,544 @@
 {
   "players": [
-    
+
 {
   "id": "jpn_1",
-  "name": "Zion Suzuki",
+  "name": "Keisuke Osako",
   "teamId": "jpn",
   "position": "GK",
   "alternativePositions": [],
   "abilities": {
-    "pace": 75,
-    "shooting": 45,
-    "passing": 70,
-    "dribbling": 65,
-    "defending": 40,
-    "physical": 78
+    "diving": 84,
+    "reflexes": 85,
+    "handling": 80,
+    "kicking": 78,
+    "positioning": 83
   },
   "icon": "/images/players/jpn_1.png"
 },
 {
   "id": "jpn_2",
-  "name": "Takehiro Tomiyasu",
+  "name": "Kosei Tani",
   "teamId": "jpn",
-  "position": "CB",
-  "alternativePositions": ["RB"],
+  "position": "GK",
+  "alternativePositions": [],
   "abilities": {
-    "pace": 78,
-    "shooting": 55,
-    "passing": 75,
-    "dribbling": 72,
-    "defending": 82,
-    "physical": 80
+    "diving": 82,
+    "reflexes": 83,
+    "handling": 79,
+    "kicking": 77,
+    "positioning": 81
   },
   "icon": "/images/players/jpn_2.png"
 },
 {
   "id": "jpn_3",
-  "name": "Yuya Osako",
+  "name": "Zion Suzuki",
   "teamId": "jpn",
-  "position": "ST",
+  "position": "GK",
   "alternativePositions": [],
   "abilities": {
-    "pace": 80,
-    "shooting": 82,
-    "passing": 70,
-    "dribbling": 75,
-    "defending": 40,
-    "physical": 77
+    "diving": 88,
+    "reflexes": 90,
+    "handling": 85,
+    "kicking": 75,
+    "positioning": 87
   },
   "icon": "/images/players/jpn_3.png"
 },
 {
   "id": "jpn_4",
-  "name": "Ritsu Doan",
+  "name": "Yuto Nagatomo",
   "teamId": "jpn",
-  "position": "RM",
-  "alternativePositions": ["CM"],
+  "position": "LB",
+  "alternativePositions": [],
   "abilities": {
-    "pace": 85,
-    "shooting": 70,
-    "passing": 77,
-    "dribbling": 80,
-    "defending": 50,
+    "pace": 86,
+    "dribbling": 78,
+    "defending": 82,
+    "passing": 75,
     "physical": 72
   },
   "icon": "/images/players/jpn_4.png"
 },
 {
   "id": "jpn_5",
-  "name": "Takumi Minamino",
+  "name": "Shogo Taniguchi",
   "teamId": "jpn",
-  "position": "LM",
-  "alternativePositions": ["ST"],
+  "position": "CB",
+  "alternativePositions": [],
   "abilities": {
-    "pace": 82,
-    "shooting": 70,
-    "passing": 74,
-    "dribbling": 79,
-    "defending": 60,
-    "physical": 72
+    "defending": 84,
+    "physical": 83,
+    "pace": 72,
+    "passing": 70,
+    "positioning": 78
   },
   "icon": "/images/players/jpn_5.png"
 },
 {
   "id": "jpn_6",
-  "name": "Haruki Fukasawa",
+  "name": "Ko Itakura",
   "teamId": "jpn",
-  "position": "CM",
+  "position": "CB",
   "alternativePositions": [],
   "abilities": {
+    "defending": 85,
+    "physical": 82,
     "pace": 75,
-    "shooting": 65,
-    "passing": 80,
-    "dribbling": 70,
-    "defending": 60,
-    "physical": 74
+    "passing": 70,
+    "positioning": 80
   },
   "icon": "/images/players/jpn_6.png"
 },
 {
   "id": "jpn_7",
-  "name": "Maya Yoshida",
+  "name": "Ayumu Seko",
   "teamId": "jpn",
   "position": "CB",
-  "alternativePositions": ["LB"],
+  "alternativePositions": [],
   "abilities": {
-    "pace": 70,
-    "shooting": 40,
-    "passing": 65,
-    "dribbling": 55,
-    "defending": 85,
-    "physical": 78
+    "defending": 80,
+    "physical": 80,
+    "pace": 72,
+    "passing": 70,
+    "positioning": 76
   },
   "icon": "/images/players/jpn_7.png"
 },
 {
   "id": "jpn_8",
-  "name": "Shinji Kagawa",
+  "name": "Koki Machida",
   "teamId": "jpn",
-  "position": "CAM",
-  "alternativePositions": ["CM"],
+  "position": "CB",
+  "alternativePositions": [],
   "abilities": {
-    "pace": 76,
-    "shooting": 65,
-    "passing": 80,
-    "dribbling": 85,
-    "defending": 50,
-    "physical": 70
+    "defending": 86,
+    "physical": 83,
+    "pace": 72,
+    "passing": 68,
+    "positioning": 82
   },
   "icon": "/images/players/jpn_8.png"
 },
 {
   "id": "jpn_9",
-  "name": "Keisuke Honda",
+  "name": "Yukinari Sugawara",
   "teamId": "jpn",
-  "position": "CAM",
-  "alternativePositions": ["RM"],
+  "position": "RB",
+  "alternativePositions": [],
   "abilities": {
-    "pace": 70,
-    "shooting": 80,
-    "passing": 85,
-    "dribbling": 75,
-    "defending": 50,
-    "physical": 72
+    "pace": 86,
+    "dribbling": 80,
+    "defending": 77,
+    "passing": 74,
+    "physical": 70
   },
   "icon": "/images/players/jpn_9.png"
 },
 {
   "id": "jpn_10",
-  "name": "Genki Haraguchi",
+  "name": "Henry Mochizuki",
   "teamId": "jpn",
-  "position": "RM",
-  "alternativePositions": ["CM"],
+  "position": "CB",
+  "alternativePositions": [],
   "abilities": {
-    "pace": 80,
-    "shooting": 65,
-    "passing": 72,
-    "dribbling": 77,
-    "defending": 60,
-    "physical": 73
+    "defending": 78,
+    "physical": 80,
+    "pace": 70,
+    "passing": 68,
+    "positioning": 75
   },
   "icon": "/images/players/jpn_10.png"
 },
 {
   "id": "jpn_11",
-  "name": "Hiroki Sakai",
+  "name": "Kota Takai",
   "teamId": "jpn",
   "position": "RB",
-  "alternativePositions": ["CB"],
+  "alternativePositions": [],
   "abilities": {
-    "pace": 78,
-    "shooting": 55,
-    "passing": 72,
-    "dribbling": 68,
-    "defending": 80,
-    "physical": 79
+    "pace": 84,
+    "dribbling": 77,
+    "defending": 74,
+    "passing": 71,
+    "physical": 72
   },
   "icon": "/images/players/jpn_11.png"
 },
 {
   "id": "jpn_12",
-  "name": "Daichi Kamada",
+  "name": "Wataru Endo",
   "teamId": "jpn",
-  "position": "CM",
-  "alternativePositions": ["CAM"],
+  "position": "CDM",
+  "alternativePositions": [],
   "abilities": {
-    "pace": 74,
-    "shooting": 80,
-    "passing": 78,
-    "dribbling": 79,
-    "defending": 60,
-    "physical": 72
+    "defending": 88,
+    "passing": 80,
+    "physical": 83,
+    "dribbling": 70,
+    "shooting": 60
   },
   "icon": "/images/players/jpn_12.png"
 },
 {
   "id": "jpn_13",
-  "name": "Yuto Nagatomo",
+  "name": "Junya Ito",
   "teamId": "jpn",
-  "position": "LB",
-  "alternativePositions": ["LWB"],
+  "position": "RW",
+  "alternativePositions": [],
   "abilities": {
-    "pace": 83,
-    "shooting": 60,
-    "passing": 72,
-    "dribbling": 75,
-    "defending": 78,
-    "physical": 74
+    "pace": 90,
+    "dribbling": 81,
+    "shooting": 73,
+    "passing": 70,
+    "physical": 72
   },
   "icon": "/images/players/jpn_13.png"
 },
 {
   "id": "jpn_14",
-  "name": "Koji Miyoshi",
+  "name": "Joel Fujita",
   "teamId": "jpn",
-  "position": "RW",
-  "alternativePositions": ["CM"],
+  "position": "CM",
+  "alternativePositions": [],
   "abilities": {
-    "pace": 82,
+    "passing": 78,
+    "dribbling": 73,
+    "defending": 75,
     "shooting": 70,
-    "passing": 68,
-    "dribbling": 78,
-    "defending": 60,
-    "physical": 71
+    "physical": 72
   },
   "icon": "/images/players/jpn_14.png"
 },
 {
   "id": "jpn_15",
-  "name": "Wataru Endo",
+  "name": "Takumi Minamino",
   "teamId": "jpn",
-  "position": "CDM",
-  "alternativePositions": ["CM"],
+  "position": "CF",
+  "alternativePositions": ["RW"],
   "abilities": {
-    "pace": 70,
-    "shooting": 65,
-    "passing": 74,
-    "dribbling": 68,
-    "defending": 84,
-    "physical": 80
+    "pace": 85,
+    "dribbling": 82,
+    "shooting": 80,
+    "passing": 72,
+    "physical": 75
   },
   "icon": "/images/players/jpn_15.png"
 },
 {
   "id": "jpn_16",
-  "name": "Junya Ito",
+  "name": "Hidemasa Morita",
   "teamId": "jpn",
-  "position": "RW",
-  "alternativePositions": ["RM"],
+  "position": "CM",
+  "alternativePositions": [],
   "abilities": {
-    "pace": 88,
-    "shooting": 67,
-    "passing": 70,
-    "dribbling": 82,
-    "defending": 52,
-    "physical": 75
+    "passing": 82,
+    "dribbling": 75,
+    "defending": 80,
+    "shooting": 70,
+    "physical": 72
   },
   "icon": "/images/players/jpn_16.png"
 },
 {
   "id": "jpn_17",
-  "name": "Kento Hashimoto",
+  "name": "Daichi Kamada",
   "teamId": "jpn",
-  "position": "CM",
+  "position": "CAM",
   "alternativePositions": [],
   "abilities": {
-    "pace": 72,
-    "shooting": 63,
-    "passing": 75,
-    "dribbling": 70,
-    "defending": 68,
-    "physical": 77
+    "passing": 85,
+    "dribbling": 86,
+    "shooting": 78,
+    "physical": 72,
+    "vision": 82
   },
   "icon": "/images/players/jpn_17.png"
 },
 {
   "id": "jpn_18",
-  "name": "Shunya Hoshino",
+  "name": "Kaoru Mitoma",
   "teamId": "jpn",
-  "position": "ST",
+  "position": "LW",
   "alternativePositions": [],
   "abilities": {
-    "pace": 78,
-    "shooting": 80,
-    "passing": 68,
-    "dribbling": 74,
-    "defending": 45,
+    "pace": 91,
+    "dribbling": 86,
+    "shooting": 76,
+    "passing": 73,
     "physical": 70
   },
   "icon": "/images/players/jpn_18.png"
 },
 {
   "id": "jpn_19",
-  "name": "Shuto Machino",
+  "name": "Koki Ogawa",
   "teamId": "jpn",
   "position": "ST",
   "alternativePositions": [],
   "abilities": {
-    "pace": 79,
-    "shooting": 75,
-    "passing": 68,
-    "dribbling": 76,
-    "defending": 47,
-    "physical": 73
+    "pace": 84,
+    "shooting": 76,
+    "dribbling": 71,
+    "physical": 77,
+    "passing": 65
   },
   "icon": "/images/players/jpn_19.png"
 },
 {
   "id": "jpn_20",
-  "name": "Keita Endo",
+  "name": "Daizen Maeda",
   "teamId": "jpn",
-  "position": "CM",
-  "alternativePositions": ["LM"],
+  "position": "ST",
+  "alternativePositions": [],
   "abilities": {
-    "pace": 74,
-    "shooting": 72,
-    "passing": 78,
-    "dribbling": 73,
-    "defending": 60,
-    "physical": 75
+    "pace": 89,
+    "shooting": 79,
+    "dribbling": 75,
+    "physical": 80,
+    "passing": 66
   },
   "icon": "/images/players/jpn_20.png"
 },
 {
   "id": "jpn_21",
-  "name": "Tomoaki Makino",
+  "name": "Reo Hatate",
   "teamId": "jpn",
-  "position": "CB",
-  "alternativePositions": ["LB"],
+  "position": "CM",
+  "alternativePositions": [],
   "abilities": {
-    "pace": 72,
-    "shooting": 50,
-    "passing": 60,
-    "dribbling": 55,
-    "defending": 80,
-    "physical": 82
+    "passing": 80,
+    "dribbling": 78,
+    "shooting": 75,
+    "defending": 74,
+    "physical": 72
   },
   "icon": "/images/players/jpn_21.png"
 },
 {
   "id": "jpn_22",
-  "name": "Kazuya Yamamura",
+  "name": "Ritsu Doan",
   "teamId": "jpn",
-  "position": "LB",
-  "alternativePositions": ["CB"],
+  "position": "RW",
+  "alternativePositions": [],
   "abilities": {
-    "pace": 76,
-    "shooting": 58,
-    "passing": 62,
-    "dribbling": 68,
-    "defending": 78,
-    "physical": 75
+    "pace": 89,
+    "dribbling": 84,
+    "shooting": 77,
+    "passing": 71,
+    "physical": 72
   },
   "icon": "/images/players/jpn_22.png"
 },
 {
   "id": "jpn_23",
-  "name": "Gaku Shibasaki",
+  "name": "Ayase Ueda",
   "teamId": "jpn",
-  "position": "CM",
-  "alternativePositions": ["CAM"],
+  "position": "ST",
+  "alternativePositions": [],
   "abilities": {
-    "pace": 74,
-    "shooting": 72,
-    "passing": 80,
-    "dribbling": 74,
-    "defending": 66,
-    "physical": 70
+    "pace": 88,
+    "shooting": 81,
+    "dribbling": 80,
+    "physical": 82,
+    "passing": 70
   },
   "icon": "/images/players/jpn_23.png"
 },
 {
   "id": "jpn_24",
-  "name": "Reo Hatate",
+  "name": "Ao Tanaka",
   "teamId": "jpn",
   "position": "CM",
-  "alternativePositions": ["LM"],
-  "abilities": {
-    "pace": 78,
-    "shooting": 68,
-    "passing": 74,
-    "dribbling": 77,
-    "defending": 60,
-    "physical": 72
-  },
-  "icon": "/images/players/jpn_24.png"
-},
-{
-  "id": "jpn_25",
-  "name": "Takashi Usami",
-  "teamId": "jpn",
-  "position": "RW",
-  "alternativePositions": ["CAM"],
-  "abilities": {
-    "pace": 81,
-    "shooting": 75,
-    "passing": 71,
-    "dribbling": 79,
-    "defending": 55,
-    "physical": 70
-  },
-  "icon": "/images/players/jpn_25.png"
-},
-{
-  "id": "jpn_26",
-  "name": "Mitsuya Saito",
-  "teamId": "jpn",
-  "position": "CDM",
-  "alternativePositions": ["CM"],
-  "abilities": {
-    "pace": 70,
-    "shooting": 60,
-    "passing": 72,
-    "dribbling": 66,
-    "defending": 80,
-    "physical": 74
-  },
-  "icon": "/images/players/jpn_26.png"
-},
-{
-  "id": "jpn_27",
-  "name": "Shunya Kubo",
-  "teamId": "jpn",
-  "position": "ST",
   "alternativePositions": [],
   "abilities": {
-    "pace": 80,
+    "passing": 80,
+    "dribbling": 75,
+    "defending": 78,
     "shooting": 72,
-    "passing": 66,
-    "dribbling": 76,
-    "defending": 45,
-    "physical": 71
+    "physical": 70
   },
-  "icon": "/images/players/jpn_27.png"
-},
-{
-  "id": "jpn_28",
-  "name": "Yuki Kobayashi",
-  "teamId": "jpn",
-  "position": "CB",
-  "alternativePositions": ["LB"],
-  "abilities": {
-    "pace": 69,
-    "shooting": 48,
-    "passing": 60,
-    "dribbling": 53,
-    "defending": 82,
-    "physical": 76
-  },
-  "icon": "/images/players/jpn_28.png"
-},
-{
-  "id": "jpn_29",
-  "name": "Ado Matsuura",
-  "teamId": "jpn",
-  "position": "ST",
-  "alternativePositions": ["CF"],
-  "abilities": {
-    "pace": 85,
-    "shooting": 80,
-    "passing": 70,
-    "dribbling": 78,
-    "defending": 40,
-    "physical": 75
-  },
-  "icon": "/images/players/jpn_29.png"
-},
-{
-  "id": "jpn_30",
-  "name": "Takahiro Koyama",
-  "teamId": "jpn",
-  "position": "CB",
-  "alternativePositions": ["RB"],
-  "abilities": {
-    "pace": 72,
-    "shooting": 55,
-    "passing": 65,
-    "dribbling": 58,
-    "defending": 79,
-    "physical": 77
-  },
-  "icon": "/images/players/jpn_30.png"
+  "icon": "/images/players/jpn_24.png"
 },
 
 {
   "id": "aus_1",
-  "name": "Mathew Ryan",
+  "name": "Joe Gauci",
   "teamId": "aus",
   "position": "GK",
   "alternativePositions": [],
   "abilities": {
-    "pace": 60,
-    "shooting": 50,
-    "passing": 65,
-    "dribbling": 45,
-    "defending": 80,
-    "physical": 70
+    "diving": 82,
+    "reflexes": 84,
+    "handling": 78,
+    "kicking": 76,
+    "positioning": 80
   },
   "icon": "/images/players/aus_1.png"
 },
 {
   "id": "aus_2",
-  "name": "Aziz Behich",
+  "name": "Paul Izzo",
   "teamId": "aus",
-  "position": "LB",
-  "alternativePositions": ["CB"],
+  "position": "GK",
+  "alternativePositions": [],
   "abilities": {
-    "pace": 78,
-    "shooting": 55,
-    "passing": 65,
-    "dribbling": 70,
-    "defending": 76,
-    "physical": 72
+    "diving": 80,
+    "reflexes": 82,
+    "handling": 77,
+    "kicking": 75,
+    "positioning": 78
   },
   "icon": "/images/players/aus_2.png"
 },
 {
   "id": "aus_3",
-  "name": "Trent Sainsbury",
+  "name": "Daniel Arazani",
   "teamId": "aus",
-  "position": "CB",
+  "position": "GK",
   "alternativePositions": [],
   "abilities": {
-    "pace": 70,
-    "shooting": 50,
-    "passing": 65,
-    "dribbling": 55,
-    "defending": 80,
-    "physical": 75
+    "diving": 80,
+    "reflexes": 79,
+    "handling": 77,
+    "kicking": 74,
+    "positioning": 76
   },
   "icon": "/images/players/aus_3.png"
 },
 {
   "id": "aus_4",
-  "name": "Miloš Degenek",
+  "name": "Mat Ryan",
   "teamId": "aus",
-  "position": "CB",
-  "alternativePositions": ["RB"],
+  "position": "GK",
+  "alternativePositions": [],
   "abilities": {
-    "pace": 72,
-    "shooting": 48,
-    "passing": 68,
-    "dribbling": 60,
-    "defending": 80,
-    "physical": 77
+    "diving": 88,
+    "reflexes": 86,
+    "handling": 84,
+    "kicking": 81,
+    "positioning": 89
   },
   "icon": "/images/players/aus_4.png"
 },
 {
   "id": "aus_5",
-  "name": "Joshua Risdon",
+  "name": "Aziz Behich",
   "teamId": "aus",
-  "position": "RB",
-  "alternativePositions": ["CB"],
+  "position": "LB",
+  "alternativePositions": [],
   "abilities": {
-    "pace": 75,
-    "shooting": 52,
-    "passing": 65,
-    "dribbling": 63,
-    "defending": 74,
-    "physical": 70
+    "pace": 82,
+    "dribbling": 75,
+    "defending": 79,
+    "passing": 73,
+    "physical": 74
   },
   "icon": "/images/players/aus_5.png"
 },
 {
   "id": "aus_6",
-  "name": "Jackson Irvine",
+  "name": "Jordy Bos",
   "teamId": "aus",
-  "position": "CM",
-  "alternativePositions": ["CDM"],
+  "position": "RB",
+  "alternativePositions": [],
   "abilities": {
-    "pace": 74,
-    "shooting": 68,
-    "passing": 72,
-    "dribbling": 70,
-    "defending": 65,
-    "physical": 78
+    "pace": 80,
+    "dribbling": 72,
+    "defending": 77,
+    "passing": 71,
+    "physical": 75
   },
   "icon": "/images/players/aus_6.png"
 },
 {
   "id": "aus_7",
-  "name": "Awer Mabil",
+  "name": "Cameron Burgess",
   "teamId": "aus",
-  "position": "LW",
-  "alternativePositions": ["RW"],
+  "position": "CB",
+  "alternativePositions": [],
   "abilities": {
-    "pace": 84,
-    "shooting": 66,
-    "passing": 71,
-    "dribbling": 80,
-    "defending": 50,
-    "physical": 70
+    "defending": 83,
+    "physical": 85,
+    "pace": 70,
+    "passing": 72,
+    "positioning": 80
   },
   "icon": "/images/players/aus_7.png"
 },
 {
   "id": "aus_8",
-  "name": "Aaron Mooy",
+  "name": "Thomas Deng",
   "teamId": "aus",
-  "position": "CM",
-  "alternativePositions": ["CDM"],
+  "position": "CB",
+  "alternativePositions": [],
   "abilities": {
-    "pace": 70,
-    "shooting": 68,
-    "passing": 80,
-    "dribbling": 74,
-    "defending": 66,
-    "physical": 72
+    "defending": 80,
+    "physical": 81,
+    "pace": 72,
+    "passing": 70,
+    "positioning": 78
   },
   "icon": "/images/players/aus_8.png"
 },
 {
   "id": "aus_9",
-  "name": "Tom Rogić",
+  "name": "Jason Geria",
   "teamId": "aus",
-  "position": "CAM",
-  "alternativePositions": ["CM"],
+  "position": "RB",
+  "alternativePositions": [],
   "abilities": {
-    "pace": 73,
-    "shooting": 75,
-    "passing": 78,
-    "dribbling": 80,
-    "defending": 55,
-    "physical": 70
+    "pace": 78,
+    "dribbling": 74,
+    "defending": 73,
+    "passing": 71,
+    "physical": 74
   },
   "icon": "/images/players/aus_9.png"
 },
 {
   "id": "aus_10",
-  "name": "Mathew Leckie",
+  "name": "Lewis Miller",
   "teamId": "aus",
-  "position": "RW",
-  "alternativePositions": ["CF"],
+  "position": "RB",
+  "alternativePositions": [],
   "abilities": {
-    "pace": 85,
-    "shooting": 70,
-    "passing": 74,
-    "dribbling": 77,
-    "defending": 60,
-    "physical": 75
+    "pace": 82,
+    "dribbling": 76,
+    "defending": 75,
+    "passing": 72,
+    "physical": 77
   },
   "icon": "/images/players/aus_10.png"
 },
 {
   "id": "aus_11",
-  "name": "Jamie Maclaren",
+  "name": "Kye Rowles",
   "teamId": "aus",
-  "position": "ST",
+  "position": "CB",
   "alternativePositions": [],
   "abilities": {
-    "pace": 78,
-    "shooting": 80,
-    "passing": 65,
-    "dribbling": 72,
-    "defending": 40,
-    "physical": 70
+    "defending": 81,
+    "physical": 83,
+    "pace": 74,
+    "passing": 71,
+    "positioning": 79
   },
   "icon": "/images/players/aus_11.png"
 },
 {
   "id": "aus_12",
-  "name": "Craig Goodwin",
+  "name": "Gianni Stensness",
   "teamId": "aus",
-  "position": "LW",
-  "alternativePositions": ["RW"],
+  "position": "CM",
+  "alternativePositions": [],
   "abilities": {
-    "pace": 77,
+    "passing": 80,
+    "dribbling": 76,
+    "defending": 78,
     "shooting": 72,
-    "passing": 74,
-    "dribbling": 80,
-    "defending": 50,
-    "physical": 70
+    "physical": 74
   },
   "icon": "/images/players/aus_12.png"
 },
@@ -679,14 +547,13 @@
   "name": "Harry Souttar",
   "teamId": "aus",
   "position": "CB",
-  "alternativePositions": ["CDM"],
+  "alternativePositions": [],
   "abilities": {
-    "pace": 70,
-    "shooting": 48,
-    "passing": 60,
-    "dribbling": 55,
-    "defending": 80,
-    "physical": 82
+    "defending": 84,
+    "physical": 88,
+    "pace": 72,
+    "passing": 70,
+    "positioning": 80
   },
   "icon": "/images/players/aus_13.png"
 },
@@ -695,174 +562,163 @@
   "name": "Keanu Baccus",
   "teamId": "aus",
   "position": "CM",
-  "alternativePositions": ["CDM"],
+  "alternativePositions": [],
   "abilities": {
-    "pace": 72,
-    "shooting": 65,
-    "passing": 70,
-    "dribbling": 68,
-    "defending": 74,
-    "physical": 75
+    "passing": 78,
+    "dribbling": 74,
+    "defending": 80,
+    "shooting": 70,
+    "physical": 76
   },
   "icon": "/images/players/aus_14.png"
 },
 {
   "id": "aus_15",
-  "name": "Nick D'Agostino",
+  "name": "Craig Goodwin",
   "teamId": "aus",
-  "position": "ST",
-  "alternativePositions": ["CF"],
+  "position": "LM",
+  "alternativePositions": [],
   "abilities": {
-    "pace": 80,
-    "shooting": 70,
-    "passing": 65,
-    "dribbling": 73,
-    "defending": 50,
-    "physical": 72
+    "pace": 84,
+    "dribbling": 82,
+    "shooting": 75,
+    "passing": 78,
+    "physical": 71
   },
   "icon": "/images/players/aus_15.png"
 },
 {
   "id": "aus_16",
-  "name": "Andrew Redmayne",
+  "name": "Nestory Irankunda",
   "teamId": "aus",
-  "position": "GK",
+  "position": "RW",
   "alternativePositions": [],
   "abilities": {
-    "pace": 50,
-    "shooting": 45,
-    "passing": 60,
-    "dribbling": 40,
-    "defending": 75,
-    "physical": 70
+    "pace": 87,
+    "dribbling": 83,
+    "shooting": 74,
+    "passing": 70,
+    "physical": 72
   },
   "icon": "/images/players/aus_16.png"
 },
 {
   "id": "aus_17",
-  "name": "Ben Folami",
+  "name": "Jackson Irvine",
   "teamId": "aus",
-  "position": "RW",
-  "alternativePositions": ["CF"],
+  "position": "CM",
+  "alternativePositions": [],
   "abilities": {
-    "pace": 81,
-    "shooting": 68,
-    "passing": 67,
-    "dribbling": 75,
-    "defending": 50,
-    "physical": 70
+    "passing": 80,
+    "dribbling": 77,
+    "defending": 75,
+    "shooting": 72,
+    "physical": 74
   },
   "icon": "/images/players/aus_17.png"
 },
 {
   "id": "aus_18",
-  "name": "Ryan Strain",
+  "name": "Massimo Luongo",
   "teamId": "aus",
-  "position": "RB",
-  "alternativePositions": ["RM"],
+  "position": "CM",
+  "alternativePositions": [],
   "abilities": {
-    "pace": 76,
-    "shooting": 60,
-    "passing": 68,
-    "dribbling": 74,
-    "defending": 70,
-    "physical": 71
+    "passing": 79,
+    "dribbling": 75,
+    "defending": 76,
+    "shooting": 71,
+    "physical": 74
   },
   "icon": "/images/players/aus_18.png"
 },
 {
   "id": "aus_19",
-  "name": "Callum Elder",
+  "name": "Connor Metcalfe",
   "teamId": "aus",
-  "position": "LB",
-  "alternativePositions": ["CB"],
+  "position": "CM",
+  "alternativePositions": [],
   "abilities": {
-    "pace": 74,
-    "shooting": 55,
-    "passing": 63,
-    "dribbling": 66,
+    "passing": 78,
+    "dribbling": 77,
     "defending": 75,
+    "shooting": 71,
     "physical": 72
   },
   "icon": "/images/players/aus_19.png"
 },
 {
   "id": "aus_20",
-  "name": "Tommy Oar",
+  "name": "Aiden O'Neill",
   "teamId": "aus",
-  "position": "LW",
-  "alternativePositions": ["RW"],
+  "position": "CM",
+  "alternativePositions": [],
   "abilities": {
-    "pace": 79,
-    "shooting": 72,
-    "passing": 75,
-    "dribbling": 80,
-    "defending": 55,
-    "physical": 71
+    "passing": 80,
+    "dribbling": 74,
+    "defending": 78,
+    "shooting": 70,
+    "physical": 75
   },
   "icon": "/images/players/aus_20.png"
 },
 {
   "id": "aus_21",
-  "name": "Jason Davidson",
+  "name": "Nishan Velupillay",
   "teamId": "aus",
-  "position": "LB",
-  "alternativePositions": ["RB"],
+  "position": "RW",
+  "alternativePositions": [],
   "abilities": {
-    "pace": 73,
-    "shooting": 50,
-    "passing": 66,
-    "dribbling": 65,
-    "defending": 78,
-    "physical": 73
+    "pace": 84,
+    "dribbling": 80,
+    "shooting": 73,
+    "passing": 70,
+    "physical": 70
   },
   "icon": "/images/players/aus_21.png"
 },
 {
   "id": "aus_22",
-  "name": "Brad Smith",
+  "name": "Sam Silvera",
   "teamId": "aus",
-  "position": "LB",
-  "alternativePositions": ["LW"],
+  "position": "RW",
+  "alternativePositions": [],
   "abilities": {
-    "pace": 80,
-    "shooting": 65,
-    "passing": 70,
-    "dribbling": 75,
-    "defending": 68,
-    "physical": 70
+    "pace": 85,
+    "dribbling": 79,
+    "shooting": 74,
+    "passing": 72,
+    "physical": 72
   },
   "icon": "/images/players/aus_22.png"
 },
 {
   "id": "aus_23",
-  "name": "Daniel Arzani",
+  "name": "Ajdin Hrustic",
   "teamId": "aus",
-  "position": "RW",
-  "alternativePositions": ["CF"],
+  "position": "CAM",
+  "alternativePositions": [],
   "abilities": {
-    "pace": 85,
-    "shooting": 70,
-    "passing": 68,
-    "dribbling": 80,
-    "defending": 45,
-    "physical": 72
+    "passing": 84,
+    "dribbling": 83,
+    "shooting": 77,
+    "physical": 70,
+    "vision": 80
   },
   "icon": "/images/players/aus_23.png"
 },
 {
   "id": "aus_24",
-  "name": "Jamie Maclaren",
+  "name": "Riley McGree",
   "teamId": "aus",
-  "position": "ST",
+  "position": "CM",
   "alternativePositions": [],
   "abilities": {
-    "pace": 78,
-    "shooting": 80,
-    "passing": 65,
-    "dribbling": 72,
-    "defending": 40,
-    "physical": 70
+    "passing": 81,
+    "dribbling": 79,
+    "shooting": 75,
+    "defending": 73,
+    "physical": 74
   },
   "icon": "/images/players/aus_24.png"
 },
@@ -874,385 +730,1187 @@
   "position": "GK",
   "alternativePositions": [],
   "abilities": {
-    "pace": 50,
-    "shooting": 30,
-    "passing": 65,
-    "dribbling": 45,
-    "defending": 80,
-    "physical": 85
+    "diving": 85,
+    "reflexes": 83,
+    "handling": 81,
+    "kicking": 78,
+    "positioning": 84
   },
   "icon": "/images/players/irn_1.png"
 },
 {
   "id": "irn_2",
-  "name": "Sardar Azmoun",
+  "name": "Amir Abedzadeh",
   "teamId": "irn",
-  "position": "ST",
+  "position": "GK",
   "alternativePositions": [],
   "abilities": {
-    "pace": 85,
-    "shooting": 78,
-    "passing": 65,
-    "dribbling": 70,
-    "defending": 40,
-    "physical": 75
+    "diving": 82,
+    "reflexes": 80,
+    "handling": 78,
+    "kicking": 75,
+    "positioning": 77
   },
   "icon": "/images/players/irn_2.png"
 },
 {
   "id": "irn_3",
-  "name": "Mehdi Taremi",
+  "name": "Seyed Hossein Hosseini",
   "teamId": "irn",
-  "position": "ST",
+  "position": "GK",
   "alternativePositions": [],
   "abilities": {
-    "pace": 80,
-    "shooting": 76,
-    "passing": 60,
-    "dribbling": 65,
-    "defending": 45,
-    "physical": 72
+    "diving": 81,
+    "reflexes": 78,
+    "handling": 75,
+    "kicking": 76,
+    "positioning": 74
   },
   "icon": "/images/players/irn_3.png"
 },
 {
   "id": "irn_4",
-  "name": "Ehsan Haji Safi",
+  "name": "Payam Niazmand",
   "teamId": "irn",
-  "position": "LB",
+  "position": "GK",
   "alternativePositions": [],
   "abilities": {
-    "pace": 75,
-    "shooting": 55,
-    "passing": 70,
-    "dribbling": 65,
-    "defending": 72,
-    "physical": 80
+    "diving": 79,
+    "reflexes": 77,
+    "handling": 75,
+    "kicking": 74,
+    "positioning": 76
   },
   "icon": "/images/players/irn_4.png"
 },
 {
   "id": "irn_5",
-  "name": "Ali Gholizadeh",
+  "name": "Ehsan Hajsafi",
   "teamId": "irn",
-  "position": "RW",
+  "position": "LB",
   "alternativePositions": [],
   "abilities": {
-    "pace": 82,
-    "shooting": 70,
-    "passing": 67,
-    "dribbling": 75,
-    "defending": 45,
-    "physical": 72
+    "pace": 80,
+    "dribbling": 77,
+    "defending": 75,
+    "passing": 81,
+    "physical": 70
   },
   "icon": "/images/players/irn_5.png"
 },
 {
   "id": "irn_6",
-  "name": "Vahid Amiri",
-  "teamId": "irn",
-  "position": "LW",
-  "alternativePositions": [],
-  "abilities": {
-    "pace": 76,
-    "shooting": 60,
-    "passing": 65,
-    "dribbling": 68,
-    "defending": 50,
-    "physical": 74
-  },
-  "icon": "/images/players/irn_6.png"
-},
-{
-  "id": "irn_7",
-  "name": "Mohammad Nourollahi",
-  "teamId": "irn",
-  "position": "CM",
-  "alternativePositions": [],
-  "abilities": {
-    "pace": 70,
-    "shooting": 60,
-    "passing": 74,
-    "dribbling": 65,
-    "defending": 72,
-    "physical": 78
-  },
-  "icon": "/images/players/irn_7.png"
-},
-{
-  "id": "irn_8",
-  "name": "Saeid Ezatolahi",
-  "teamId": "irn",
-  "position": "CDM",
-  "alternativePositions": [],
-  "abilities": {
-    "pace": 68,
-    "shooting": 55,
-    "passing": 70,
-    "dribbling": 60,
-    "defending": 80,
-    "physical": 80
-  },
-  "icon": "/images/players/irn_8.png"
-},
-{
-  "id": "irn_9",
-  "name": "Ramin Rezaeian",
-  "teamId": "irn",
-  "position": "RB",
-  "alternativePositions": [],
-  "abilities": {
-    "pace": 78,
-    "shooting": 60,
-    "passing": 72,
-    "dribbling": 70,
-    "defending": 75,
-    "physical": 80
-  },
-  "icon": "/images/players/irn_9.png"
-},
-{
-  "id": "irn_10",
-  "name": "Mohammad Shiri",
-  "teamId": "irn",
-  "position": "CB",
-  "alternativePositions": [],
-  "abilities": {
-    "pace": 65,
-    "shooting": 45,
-    "passing": 60,
-    "dribbling": 55,
-    "defending": 85,
-    "physical": 80
-  },
-  "icon": "/images/players/irn_10.png"
-},
-{
-  "id": "irn_11",
   "name": "Morteza Pouraliganji",
   "teamId": "irn",
   "position": "CB",
   "alternativePositions": [],
   "abilities": {
-    "pace": 60,
-    "shooting": 40,
-    "passing": 55,
-    "dribbling": 50,
-    "defending": 85,
-    "physical": 82
+    "defending": 83,
+    "physical": 85,
+    "pace": 72,
+    "passing": 70,
+    "positioning": 78
+  },
+  "icon": "/images/players/irn_6.png"
+},
+{
+  "id": "irn_7",
+  "name": "Ramin Rezaeian",
+  "teamId": "irn",
+  "position": "RB",
+  "alternativePositions": [],
+  "abilities": {
+    "pace": 82,
+    "dribbling": 76,
+    "defending": 74,
+    "passing": 71,
+    "physical": 73
+  },
+  "icon": "/images/players/irn_7.png"
+},
+{
+  "id": "irn_8",
+  "name": "Milad Mohammadi",
+  "teamId": "irn",
+  "position": "LB",
+  "alternativePositions": [],
+  "abilities": {
+    "pace": 83,
+    "dribbling": 78,
+    "defending": 76,
+    "passing": 74,
+    "physical": 75
+  },
+  "icon": "/images/players/irn_8.png"
+},
+{
+  "id": "irn_9",
+  "name": "Hossein Kanaanizadegan",
+  "teamId": "irn",
+  "position": "CB",
+  "alternativePositions": [],
+  "abilities": {
+    "defending": 81,
+    "physical": 83,
+    "pace": 71,
+    "passing": 72,
+    "positioning": 80
+  },
+  "icon": "/images/players/irn_9.png"
+},
+{
+  "id": "irn_10",
+  "name": "Shojae Khalilzadeh",
+  "teamId": "irn",
+  "position": "CB",
+  "alternativePositions": [],
+  "abilities": {
+    "defending": 84,
+    "physical": 86,
+    "pace": 70,
+    "passing": 73,
+    "positioning": 79
+  },
+  "icon": "/images/players/irn_10.png"
+},
+{
+  "id": "irn_11",
+  "name": "Sadegh Moharrami",
+  "teamId": "irn",
+  "position": "RB",
+  "alternativePositions": [],
+  "abilities": {
+    "pace": 80,
+    "dribbling": 72,
+    "defending": 74,
+    "passing": 70,
+    "physical": 72
   },
   "icon": "/images/players/irn_11.png"
 },
 {
   "id": "irn_12",
-  "name": "Majid Hosseini",
+  "name": "Rouzbeh Cheshmi",
   "teamId": "irn",
-  "position": "CB",
+  "position": "CM",
   "alternativePositions": [],
   "abilities": {
-    "pace": 62,
-    "shooting": 40,
-    "passing": 58,
-    "dribbling": 53,
-    "defending": 83,
-    "physical": 80
+    "passing": 79,
+    "dribbling": 75,
+    "defending": 81,
+    "shooting": 70,
+    "physical": 73
   },
   "icon": "/images/players/irn_12.png"
 },
 {
   "id": "irn_13",
-  "name": "Ahmad Noorollahi",
+  "name": "Majid Hosseini",
   "teamId": "irn",
-  "position": "CM",
+  "position": "CB",
   "alternativePositions": [],
   "abilities": {
+    "defending": 82,
+    "physical": 84,
     "pace": 70,
-    "shooting": 65,
-    "passing": 72,
-    "dribbling": 68,
-    "defending": 68,
-    "physical": 75
+    "passing": 71,
+    "positioning": 79
   },
   "icon": "/images/players/irn_13.png"
 },
 {
   "id": "irn_14",
-  "name": "Alireza Jahanbakhsh",
+  "name": "Abolfazl Jalali",
   "teamId": "irn",
-  "position": "RW",
+  "position": "CB",
   "alternativePositions": [],
   "abilities": {
-    "pace": 80,
-    "shooting": 74,
-    "passing": 70,
-    "dribbling": 78,
-    "defending": 50,
-    "physical": 72
+    "defending": 80,
+    "physical": 82,
+    "pace": 70,
+    "passing": 73,
+    "positioning": 77
   },
   "icon": "/images/players/irn_14.png"
 },
 {
   "id": "irn_15",
-  "name": "Mohammad Reza Khanzadeh",
+  "name": "Ahmad Noorollahi",
   "teamId": "irn",
-  "position": "CB",
+  "position": "CM",
   "alternativePositions": [],
   "abilities": {
-    "pace": 60,
-    "shooting": 35,
-    "passing": 55,
-    "dribbling": 50,
-    "defending": 85,
-    "physical": 82
+    "passing": 82,
+    "dribbling": 77,
+    "defending": 75,
+    "shooting": 73,
+    "physical": 72
   },
   "icon": "/images/players/irn_15.png"
 },
 {
   "id": "irn_16",
-  "name": "Kamal Kamyabinia",
+  "name": "Saman Ghoddos",
   "teamId": "irn",
   "position": "CM",
   "alternativePositions": [],
   "abilities": {
-    "pace": 65,
-    "shooting": 58,
-    "passing": 70,
-    "dribbling": 62,
-    "defending": 74,
-    "physical": 78
+    "passing": 83,
+    "dribbling": 80,
+    "defending": 75,
+    "shooting": 74,
+    "physical": 72
   },
   "icon": "/images/players/irn_16.png"
 },
 {
   "id": "irn_17",
-  "name": "Ali Karimi",
+  "name": "Vahid Amiri",
   "teamId": "irn",
-  "position": "CM",
+  "position": "LM",
   "alternativePositions": [],
   "abilities": {
-    "pace": 72,
-    "shooting": 62,
-    "passing": 68,
-    "dribbling": 75,
-    "defending": 60,
+    "pace": 80,
+    "dribbling": 77,
+    "shooting": 74,
+    "passing": 72,
     "physical": 70
   },
   "icon": "/images/players/irn_17.png"
 },
 {
   "id": "irn_18",
-  "name": "Saman Ghoddos",
+  "name": "Saeid Ezatolahi",
   "teamId": "irn",
-  "position": "CAM",
+  "position": "CM",
   "alternativePositions": [],
   "abilities": {
-    "pace": 75,
-    "shooting": 66,
-    "passing": 70,
-    "dribbling": 74,
-    "defending": 55,
-    "physical": 72
+    "passing": 79,
+    "dribbling": 75,
+    "defending": 81,
+    "shooting": 70,
+    "physical": 77
   },
   "icon": "/images/players/irn_18.png"
 },
 {
   "id": "irn_19",
-  "name": "Seyed Mohammad Alavi",
+  "name": "Alireza Jahanbakhsh",
   "teamId": "irn",
-  "position": "CAM",
+  "position": "RW",
   "alternativePositions": [],
   "abilities": {
-    "pace": 74,
-    "shooting": 68,
-    "passing": 72,
-    "dribbling": 76,
-    "defending": 55,
-    "physical": 70
+    "pace": 85,
+    "dribbling": 80,
+    "shooting": 77,
+    "passing": 74,
+    "physical": 73
   },
   "icon": "/images/players/irn_19.png"
 },
 {
   "id": "irn_20",
-  "name": "Mohammad Ali Karimian",
+  "name": "Mehdi Torabi",
   "teamId": "irn",
-  "position": "RB",
+  "position": "LW",
   "alternativePositions": [],
   "abilities": {
-    "pace": 78,
-    "shooting": 60,
-    "passing": 65,
-    "dribbling": 72,
-    "defending": 77,
-    "physical": 80
+    "pace": 84,
+    "dribbling": 79,
+    "shooting": 72,
+    "passing": 74,
+    "physical": 71
   },
   "icon": "/images/players/irn_20.png"
 },
 {
   "id": "irn_21",
-  "name": "Ahmad Fathi",
+  "name": "Ali Gholizadeh",
   "teamId": "irn",
-  "position": "CB",
+  "position": "RW",
   "alternativePositions": [],
   "abilities": {
-    "pace": 63,
-    "shooting": 39,
-    "passing": 55,
-    "dribbling": 50,
-    "defending": 82,
-    "physical": 79
+    "pace": 86,
+    "dribbling": 81,
+    "shooting": 74,
+    "passing": 75,
+    "physical": 72
   },
   "icon": "/images/players/irn_21.png"
 },
 {
   "id": "irn_22",
-  "name": "Mohammad Reza Azadi",
+  "name": "Ali Karimi",
   "teamId": "irn",
-  "position": "CB",
+  "position": "CM",
   "alternativePositions": [],
   "abilities": {
-    "pace": 61,
-    "shooting": 38,
-    "passing": 55,
-    "dribbling": 52,
-    "defending": 83,
-    "physical": 80
+    "passing": 80,
+    "dribbling": 76,
+    "defending": 72,
+    "shooting": 71,
+    "physical": 74
   },
   "icon": "/images/players/irn_22.png"
 },
 {
   "id": "irn_23",
-  "name": "Vahid Talebloo",
+  "name": "Karim Ansarifard",
   "teamId": "irn",
-  "position": "GK",
+  "position": "CF",
   "alternativePositions": [],
   "abilities": {
-    "pace": 50,
-    "shooting": 30,
-    "passing": 60,
-    "dribbling": 45,
-    "defending": 85,
-    "physical": 80
+    "shooting": 80,
+    "dribbling": 74,
+    "passing": 72,
+    "physical": 78,
+    "pace": 74
   },
   "icon": "/images/players/irn_23.png"
 },
 {
   "id": "irn_24",
-  "name": "Behnam Tashakkori",
+  "name": "Sardar Azmoun",
   "teamId": "irn",
+  "position": "CF",
+  "alternativePositions": [],
+  "abilities": {
+    "shooting": 84,
+    "dribbling": 80,
+    "passing": 77,
+    "physical": 75,
+    "pace": 80
+  },
+  "icon": "/images/players/irn_24.png"
+},
+{
+  "id": "irn_25",
+  "name": "Mehdi Taremi",
+  "teamId": "irn",
+  "position": "CF",
+  "alternativePositions": [],
+  "abilities": {
+    "shooting": 88,
+    "dribbling": 80,
+    "passing": 77,
+    "physical": 76,
+    "pace": 78
+  },
+  "icon": "/images/players/irn_25.png"
+},
+
+{
+  "id": "ksa_1",
+  "name": "Muhammad Al-Owais",
+  "teamId": "ksa",
+  "position": "GK",
+  "alternativePositions": [],
+  "abilities": {
+    "diving": 84,
+    "reflexes": 82,
+    "handling": 80,
+    "kicking": 77,
+    "positioning": 81
+  },
+  "icon": "/images/players/ksa_1.png"
+},
+{
+  "id": "ksa_2",
+  "name": "Ahmed Al-Kassar",
+  "teamId": "ksa",
+  "position": "GK",
+  "alternativePositions": [],
+  "abilities": {
+    "diving": 80,
+    "reflexes": 78,
+    "handling": 76,
+    "kicking": 75,
+    "positioning": 74
+  },
+  "icon": "/images/players/ksa_2.png"
+},
+{
+  "id": "ksa_3",
+  "name": "Raghed Najjar",
+  "teamId": "ksa",
+  "position": "GK",
+  "alternativePositions": [],
+  "abilities": {
+    "diving": 79,
+    "reflexes": 77,
+    "handling": 75,
+    "kicking": 74,
+    "positioning": 72
+  },
+  "icon": "/images/players/ksa_3.png"
+},
+{
+  "id": "ksa_4",
+  "name": "Ali Al-Bulaihi",
+  "teamId": "ksa",
   "position": "CB",
   "alternativePositions": [],
   "abilities": {
-    "pace": 60,
-    "shooting": 35,
-    "passing": 55,
-    "dribbling": 48,
-    "defending": 84,
-    "physical": 80
+    "defending": 82,
+    "physical": 84,
+    "pace": 70,
+    "passing": 75,
+    "positioning": 80
   },
-  "icon": "/images/players/irn_24.png"
+  "icon": "/images/players/ksa_4.png"
+},
+{
+  "id": "ksa_5",
+  "name": "Hassan Kadish",
+  "teamId": "ksa",
+  "position": "CB",
+  "alternativePositions": [],
+  "abilities": {
+    "defending": 83,
+    "physical": 86,
+    "pace": 71,
+    "passing": 72,
+    "positioning": 78
+  },
+  "icon": "/images/players/ksa_5.png"
+},
+{
+  "id": "ksa_6",
+  "name": "Hassan Al-Tambukti",
+  "teamId": "ksa",
+  "position": "CB",
+  "alternativePositions": [],
+  "abilities": {
+    "defending": 81,
+    "physical": 83,
+    "pace": 69,
+    "passing": 74,
+    "positioning": 77
+  },
+  "icon": "/images/players/ksa_6.png"
+},
+{
+  "id": "ksa_7",
+  "name": "Mishaal Al-Sibani",
+  "teamId": "ksa",
+  "position": "CB",
+  "alternativePositions": [],
+  "abilities": {
+    "defending": 79,
+    "physical": 80,
+    "pace": 70,
+    "passing": 73,
+    "positioning": 75
+  },
+  "icon": "/images/players/ksa_7.png"
+},
+{
+  "id": "ksa_8",
+  "name": "Miteb Al-Harbi",
+  "teamId": "ksa",
+  "position": "CB",
+  "alternativePositions": [],
+  "abilities": {
+    "defending": 80,
+    "physical": 82,
+    "pace": 71,
+    "passing": 74,
+    "positioning": 76
+  },
+  "icon": "/images/players/ksa_8.png"
+},
+{
+  "id": "ksa_9",
+  "name": "Hussein Al-Sibani",
+  "teamId": "ksa",
+  "position": "RB",
+  "alternativePositions": [],
+  "abilities": {
+    "pace": 80,
+    "dribbling": 75,
+    "defending": 74,
+    "passing": 72,
+    "physical": 71
+  },
+  "icon": "/images/players/ksa_9.png"
+},
+{
+  "id": "ksa_10",
+  "name": "Saud Abdulhamid",
+  "teamId": "ksa",
+  "position": "RB",
+  "alternativePositions": [],
+  "abilities": {
+    "pace": 82,
+    "dribbling": 78,
+    "defending": 76,
+    "passing": 75,
+    "physical": 74
+  },
+  "icon": "/images/players/ksa_10.png"
+},
+{
+  "id": "ksa_11",
+  "name": "Sultan Al-Ghannam",
+  "teamId": "ksa",
+  "position": "RB",
+  "alternativePositions": [],
+  "abilities": {
+    "pace": 79,
+    "dribbling": 74,
+    "defending": 77,
+    "passing": 73,
+    "physical": 70
+  },
+  "icon": "/images/players/ksa_11.png"
+},
+{
+  "id": "ksa_12",
+  "name": "Muhammad Al-Yami",
+  "teamId": "ksa",
+  "position": "CM",
+  "alternativePositions": [],
+  "abilities": {
+    "passing": 79,
+    "dribbling": 77,
+    "defending": 75,
+    "shooting": 70,
+    "physical": 71
+  },
+  "icon": "/images/players/ksa_12.png"
+},
+{
+  "id": "ksa_13",
+  "name": "Ali Lagami",
+  "teamId": "ksa",
+  "position": "CM",
+  "alternativePositions": [],
+  "abilities": {
+    "passing": 80,
+    "dribbling": 78,
+    "defending": 76,
+    "shooting": 73,
+    "physical": 72
+  },
+  "icon": "/images/players/ksa_13.png"
+},
+{
+  "id": "ksa_14",
+  "name": "Aoun Al-Salouli",
+  "teamId": "ksa",
+  "position": "CM",
+  "alternativePositions": [],
+  "abilities": {
+    "passing": 78,
+    "dribbling": 74,
+    "defending": 77,
+    "shooting": 72,
+    "physical": 75
+  },
+  "icon": "/images/players/ksa_14.png"
+},
+{
+  "id": "ksa_15",
+  "name": "Nasser Al-Dosari",
+  "teamId": "ksa",
+  "position": "CM",
+  "alternativePositions": [],
+  "abilities": {
+    "passing": 81,
+    "dribbling": 79,
+    "defending": 75,
+    "shooting": 74,
+    "physical": 72
+  },
+  "icon": "/images/players/ksa_15.png"
+},
+{
+  "id": "ksa_16",
+  "name": "Abdullah Al-Khaibari",
+  "teamId": "ksa",
+  "position": "CM",
+  "alternativePositions": [],
+  "abilities": {
+    "passing": 80,
+    "dribbling": 75,
+    "defending": 79,
+    "shooting": 71,
+    "physical": 73
+  },
+  "icon": "/images/players/ksa_16.png"
+},
+{
+  "id": "ksa_17",
+  "name": "Mukhtar Ali",
+  "teamId": "ksa",
+  "position": "CM",
+  "alternativePositions": [],
+  "abilities": {
+    "passing": 77,
+    "dribbling": 75,
+    "defending": 74,
+    "shooting": 70,
+    "physical": 72
+  },
+  "icon": "/images/players/ksa_17.png"
+},
+{
+  "id": "ksa_18",
+  "name": "Musab Al-Jawir",
+  "teamId": "ksa",
+  "position": "CM",
+  "alternativePositions": [],
+  "abilities": {
+    "passing": 78,
+    "dribbling": 74,
+    "defending": 76,
+    "shooting": 72,
+    "physical": 74
+  },
+  "icon": "/images/players/ksa_18.png"
+},
+{
+  "id": "ksa_19",
+  "name": "Abbas Al-Hassan",
+  "teamId": "ksa",
+  "position": "CM",
+  "alternativePositions": [],
+  "abilities": {
+    "passing": 79,
+    "dribbling": 75,
+    "defending": 73,
+    "shooting": 71,
+    "physical": 72
+  },
+  "icon": "/images/players/ksa_19.png"
+},
+{
+  "id": "ksa_20",
+  "name": "Muhammad Kanno",
+  "teamId": "ksa",
+  "position": "CM",
+  "alternativePositions": [],
+  "abilities": {
+    "passing": 82,
+    "dribbling": 80,
+    "defending": 77,
+    "shooting": 74,
+    "physical": 73
+  },
+  "icon": "/images/players/ksa_20.png"
+},
+{
+  "id": "ksa_21",
+  "name": "Faisal Al-Ghamdi",
+  "teamId": "ksa",
+  "position": "CM",
+  "alternativePositions": [],
+  "abilities": {
+    "passing": 75,
+    "dribbling": 72,
+    "defending": 78,
+    "shooting": 70,
+    "physical": 75
+  },
+  "icon": "/images/players/ksa_21.png"
+},
+{
+  "id": "ksa_22",
+  "name": "Salem Al-Dawsari",
+  "teamId": "ksa",
+  "position": "LM",
+  "alternativePositions": [],
+  "abilities": {
+    "dribbling": 84,
+    "shooting": 76,
+    "passing": 80,
+    "pace": 83,
+    "physical": 75
+  },
+  "icon": "/images/players/ksa_22.png"
+},
+{
+  "id": "ksa_23",
+  "name": "Abdul-Ilah Al-Maliki",
+  "teamId": "ksa",
+  "position": "CM",
+  "alternativePositions": [],
+  "abilities": {
+    "passing": 78,
+    "dribbling": 74,
+    "defending": 72,
+    "shooting": 70,
+    "physical": 71
+  },
+  "icon": "/images/players/ksa_23.png"
+},
+{
+  "id": "ksa_24",
+  "name": "Fahd Al-Mawlid",
+  "teamId": "ksa",
+  "position": "RW",
+  "alternativePositions": [],
+  "abilities": {
+    "dribbling": 82,
+    "shooting": 75,
+    "passing": 74,
+    "pace": 85,
+    "physical": 73
+  },
+  "icon": "/images/players/ksa_24.png"
+},
+{
+  "id": "ksa_25",
+  "name": "Abdul-Rahman Gharib",
+  "teamId": "ksa",
+  "position": "LW",
+  "alternativePositions": [],
+  "abilities": {
+    "dribbling": 80,
+    "shooting": 72,
+    "passing": 75,
+    "pace": 78,
+    "physical": 71
+  },
+  "icon": "/images/players/ksa_25.png"
+},
+{
+  "id": "ksa_26",
+  "name": "Saleh Al-Shehri",
+  "teamId": "ksa",
+  "position": "CF",
+  "alternativePositions": [],
+  "abilities": {
+    "shooting": 80,
+    "dribbling": 75,
+    "passing": 74,
+    "physical": 78,
+    "pace": 76
+  },
+  "icon": "/images/players/ksa_26.png"
+},
+{
+  "id": "ksa_27",
+  "name": "Firas Al-Braikan",
+  "teamId": "ksa",
+  "position": "CF",
+  "alternativePositions": [],
+  "abilities": {
+    "shooting": 82,
+    "dribbling": 74,
+    "passing": 75,
+    "physical": 80,
+    "pace": 79
+  },
+  "icon": "/images/players/ksa_27.png"
+},
+{
+  "id": "ksa_28",
+  "name": "Abdullah Rudayf",
+  "teamId": "ksa",
+  "position": "CF",
+  "alternativePositions": [],
+  "abilities": {
+    "shooting": 78,
+    "dribbling": 74,
+    "passing": 73,
+    "physical": 75,
+    "pace": 77
+  },
+  "icon": "/images/players/ksa_28.png"
+},
+{
+  "id": "ksa_29",
+  "name": "Muhammad Maran",
+  "teamId": "ksa",
+  "position": "CF",
+  "alternativePositions": [],
+  "abilities": {
+    "shooting": 77,
+    "dribbling": 72,
+    "passing": 70,
+    "physical": 74,
+    "pace": 75
+  },
+  "icon": "/images/players/ksa_29.png"
+},
+{
+  "id": "ksa_30",
+  "name": "Abdullah Al-Hamdan",
+  "teamId": "ksa",
+  "position": "CF",
+  "alternativePositions": [],
+  "abilities": {
+    "shooting": 79,
+    "dribbling": 76,
+    "passing": 74,
+    "physical": 77,
+    "pace": 78
+  },
+  "icon": "/images/players/ksa_30.png"
+},
+{
+  "id": "ksa_31",
+  "name": "Marwan Al-Sahafi",
+  "teamId": "ksa",
+  "position": "CF",
+  "alternativePositions": [],
+  "abilities": {
+    "shooting": 76,
+    "dribbling": 74,
+    "passing": 72,
+    "physical": 73,
+    "pace": 75
+  },
+  "icon": "/images/players/ksa_31.png"
+},
+
+{
+  "id": "kor_1",
+  "name": "Jo Hyeon-woo",
+  "teamId": "kor",
+  "position": "GK",
+  "alternativePositions": [],
+  "abilities": {
+    "diving": 84,
+    "reflexes": 82,
+    "handling": 80,
+    "kicking": 78,
+    "positioning": 80
+  },
+  "icon": "/images/players/kor_1.png"
+},
+{
+  "id": "kor_2",
+  "name": "Lee Chang-geun",
+  "teamId": "kor",
+  "position": "GK",
+  "alternativePositions": [],
+  "abilities": {
+    "diving": 79,
+    "reflexes": 76,
+    "handling": 74,
+    "kicking": 72,
+    "positioning": 74
+  },
+  "icon": "/images/players/kor_2.png"
+},
+{
+  "id": "kor_3",
+  "name": "Song Bum-keun",
+  "teamId": "kor",
+  "position": "GK",
+  "alternativePositions": [],
+  "abilities": {
+    "diving": 81,
+    "reflexes": 79,
+    "handling": 76,
+    "kicking": 73,
+    "positioning": 75
+  },
+  "icon": "/images/players/kor_3.png"
+},
+{
+  "id": "kor_4",
+  "name": "Kim Young-gwon",
+  "teamId": "kor",
+  "position": "CB",
+  "alternativePositions": [],
+  "abilities": {
+    "defending": 84,
+    "physical": 83,
+    "pace": 73,
+    "passing": 78,
+    "positioning": 80
+  },
+  "icon": "/images/players/kor_4.png"
+},
+{
+  "id": "kor_5",
+  "name": "Kim Jin-su",
+  "teamId": "kor",
+  "position": "LB",
+  "alternativePositions": [],
+  "abilities": {
+    "defending": 80,
+    "physical": 77,
+    "pace": 79,
+    "passing": 74,
+    "positioning": 75
+  },
+  "icon": "/images/players/kor_5.png"
+},
+{
+  "id": "kor_6",
+  "name": "Kim Min-jae",
+  "teamId": "kor",
+  "position": "CB",
+  "alternativePositions": [],
+  "abilities": {
+    "defending": 88,
+    "physical": 89,
+    "pace": 74,
+    "passing": 75,
+    "positioning": 82
+  },
+  "icon": "/images/players/kor_6.png"
+},
+{
+  "id": "kor_7",
+  "name": "Kwon Kyung-won",
+  "teamId": "kor",
+  "position": "CB",
+  "alternativePositions": [],
+  "abilities": {
+    "defending": 82,
+    "physical": 80,
+    "pace": 72,
+    "passing": 76,
+    "positioning": 78
+  },
+  "icon": "/images/players/kor_7.png"
+},
+{
+  "id": "kor_8",
+  "name": "Kim Moon-hwan",
+  "teamId": "kor",
+  "position": "RB",
+  "alternativePositions": [],
+  "abilities": {
+    "defending": 78,
+    "physical": 80,
+    "pace": 81,
+    "passing": 74,
+    "positioning": 76
+  },
+  "icon": "/images/players/kor_8.png"
+},
+{
+  "id": "kor_9",
+  "name": "Seol Young-woo",
+  "teamId": "kor",
+  "position": "LB",
+  "alternativePositions": [],
+  "abilities": {
+    "defending": 75,
+    "physical": 73,
+    "pace": 77,
+    "passing": 72,
+    "positioning": 74
+  },
+  "icon": "/images/players/kor_9.png"
+},
+{
+  "id": "kor_10",
+  "name": "Cho Yu-min",
+  "teamId": "kor",
+  "position": "CB",
+  "alternativePositions": [],
+  "abilities": {
+    "defending": 74,
+    "physical": 76,
+    "pace": 70,
+    "passing": 72,
+    "positioning": 74
+  },
+  "icon": "/images/players/kor_10.png"
+},
+{
+  "id": "kor_11",
+  "name": "Lee Myung-jae",
+  "teamId": "kor",
+  "position": "CB",
+  "alternativePositions": [],
+  "abilities": {
+    "defending": 76,
+    "physical": 75,
+    "pace": 72,
+    "passing": 74,
+    "positioning": 76
+  },
+  "icon": "/images/players/kor_11.png"
+},
+{
+  "id": "kor_12",
+  "name": "Son Heung-min",
+  "teamId": "kor",
+  "position": "CF",
+  "alternativePositions": ["LW"],
+  "abilities": {
+    "shooting": 85,
+    "dribbling": 87,
+    "passing": 82,
+    "pace": 89,
+    "physical": 76
+  },
+  "icon": "/images/players/kor_12.png"
+},
+{
+  "id": "kor_13",
+  "name": "Lee Jae-sung",
+  "teamId": "kor",
+  "position": "CM",
+  "alternativePositions": [],
+  "abilities": {
+    "passing": 80,
+    "dribbling": 77,
+    "defending": 75,
+    "shooting": 70,
+    "physical": 72
+  },
+  "icon": "/images/players/kor_13.png"
+},
+{
+  "id": "kor_14",
+  "name": "Hwang In-beom",
+  "teamId": "kor",
+  "position": "CM",
+  "alternativePositions": [],
+  "abilities": {
+    "passing": 82,
+    "dribbling": 80,
+    "defending": 78,
+    "shooting": 74,
+    "physical": 75
+  },
+  "icon": "/images/players/kor_14.png"
+},
+{
+  "id": "kor_15",
+  "name": "Lee Kang-in",
+  "teamId": "kor",
+  "position": "CAM",
+  "alternativePositions": [],
+  "abilities": {
+    "dribbling": 85,
+    "shooting": 77,
+    "passing": 84,
+    "pace": 80,
+    "physical": 72
+  },
+  "icon": "/images/players/kor_15.png"
+},
+{
+  "id": "kor_16",
+  "name": "Jeong Woo-yeong",
+  "teamId": "kor",
+  "position": "CM",
+  "alternativePositions": [],
+  "abilities": {
+    "passing": 75,
+    "dribbling": 77,
+    "defending": 72,
+    "shooting": 73,
+    "physical": 74
+  },
+  "icon": "/images/players/kor_16.png"
+},
+{
+  "id": "kor_17",
+  "name": "Paik Seung-ho",
+  "teamId": "kor",
+  "position": "CM",
+  "alternativePositions": [],
+  "abilities": {
+    "passing": 78,
+    "dribbling": 75,
+    "defending": 70,
+    "shooting": 72,
+    "physical": 74
+  },
+  "icon": "/images/players/kor_17.png"
+},
+{
+  "id": "kor_18",
+  "name": "Song Min-kyu",
+  "teamId": "kor",
+  "position": "RW",
+  "alternativePositions": [],
+  "abilities": {
+    "dribbling": 78,
+    "shooting": 74,
+    "passing": 71,
+    "pace": 80,
+    "physical": 72
+  },
+  "icon": "/images/players/kor_18.png"
+},
+{
+  "id": "kor_19",
+  "name": "Hong Hyun-seok",
+  "teamId": "kor",
+  "position": "CM",
+  "alternativePositions": [],
+  "abilities": {
+    "passing": 79,
+    "dribbling": 76,
+    "defending": 73,
+    "shooting": 71,
+    "physical": 74
+  },
+  "icon": "/images/players/kor_19.png"
+},
+{
+  "id": "kor_20",
+  "name": "Park Jin-seop",
+  "teamId": "kor",
+  "position": "CM",
+  "alternativePositions": [],
+  "abilities": {
+    "passing": 75,
+    "dribbling": 72,
+    "defending": 74,
+    "shooting": 70,
+    "physical": 73
+  },
+  "icon": "/images/players/kor_20.png"
+},
+{
+  "id": "kor_21",
+  "name": "Jeong Ho-yeon",
+  "teamId": "kor",
+  "position": "CM",
+  "alternativePositions": [],
+  "abilities": {
+    "passing": 74,
+    "dribbling": 70,
+    "defending": 72,
+    "shooting": 69,
+    "physical": 73
+  },
+  "icon": "/images/players/kor_21.png"
+},
+{
+  "id": "kor_22",
+  "name": "Cho Gue-sung",
+  "teamId": "kor",
+  "position": "CF",
+  "alternativePositions": [],
+  "abilities": {
+    "shooting": 80,
+    "dribbling": 72,
+    "passing": 75,
+    "physical": 78,
+    "pace": 74
+  },
+  "icon": "/images/players/kor_22.png"
+},
+{
+  "id": "kor_23",
+  "name": "Joo Min-kyu",
+  "teamId": "kor",
+  "position": "CF",
+  "alternativePositions": [],
+  "abilities": {
+    "shooting": 78,
+    "dribbling": 73,
+    "passing": 70,
+    "physical": 75,
+    "pace": 76
+  },
+  "icon": "/images/players/kor_23.png"
 }
 
-    
 
   ]
 }

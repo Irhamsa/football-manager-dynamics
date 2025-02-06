@@ -56,7 +56,7 @@ const Simulation = () => {
   const getAttackers = (playerIds: string[]) => {
     return playerIds
       .map(id => playersData.players.find(p => p.id === id))
-      .filter(p => p && (p.position === "ST" || p.position === "CF" || p.position === "RW" || p.position === "LW" || p.position === "CAM"))
+      .filter(p => p && (p.position === "ST" || p.position === "CF" || p.position === "RW" || p.position === "LW" || p.position === "CAM" || p.position === "CM"))
       .map(p => p!);
   };
 
@@ -105,17 +105,24 @@ const Simulation = () => {
       
       switch (player.position) {
         case "ST":
+          return acc + ((player.abilities.shooting * 3 + player.abilities.pace * 2 + player.abilities.dribbling + player.abilities.physical) / 6);
         case "CF":
-          return acc + ((player.abilities.shooting * 3 + player.abilities.pace * 2 + player.abilities.dribbling) / 6);
+          return acc + ((player.abilities.shooting * 3 + player.abilities.pace * 2 + player.abilities.passing + player.abilities.physical) / 6);
+        case "RW":
+        case "LW":
+          return acc + ((player.abilities.pace * 3 + player.abilities.dribbling * 2 + player.abilities.physical + player.abilities.passing) / 6);
         case "CAM":
         case "CM":
           return acc + ((player.abilities.passing * 3 + player.abilities.dribbling * 2 + player.abilities.shooting) / 6);
         case "CDM":
           return acc + ((player.abilities.defending * 3 + player.abilities.physical * 2 + player.abilities.passing) / 6);
         case "CB":
-          return acc + ((player.abilities.defending * 3 + player.abilities.physical * 2 + player.abilities.pace) / 6);
+          return acc + ((player.abilities.defending * 3 + player.abilities.physical * 2 + player.abilities.positioning + (player.abilities.pace / 2)) / 6);
+        case "LB":
+        case "RB":
+          return acc + ((player.abilities.pace * 3 + player.abilities.physical * 2 + player.abilities.defending + (player.abilities.passing / 2) + (player.abilities.dribbling / 3)) / 6);
         case "GK":
-          return acc + ((player.abilities.defending * 4 + player.abilities.physical) / 5);
+          return acc + ((player.abilities.reflexes * 4 + player.abilities.positioning + player.abilities.handling + player.abilities.diving) / 5);
         default:
           return acc + Object.values(player.abilities).reduce((sum, val) => sum + val, 0) / 6;
       }
@@ -188,7 +195,7 @@ const Simulation = () => {
                 minute: gameTime,
                 type: "goal",
                 team: playerSide === "Away" ? playerTeamId : aiTeamId,
-                description: `GOL! ${scorer.name} mencetak gol untuk ${playerSide === "Away" ? homeTeamData?.name : awayTeamData?.name}!`,
+                description: `GOL! ${scorer.name} mencetak gol untuk ${playerSide === "Away" ? awayTeamData?.name : homeTeamData?.name}!`,
                 scorer: scorer.name
               }]);
             }
