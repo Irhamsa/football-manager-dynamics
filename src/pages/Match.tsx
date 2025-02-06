@@ -61,8 +61,9 @@ const Match = () => {
       navigate("/lineup", {
         state: {
           homeTeam: selectedSide === "Home" ? selectedHomeTeam : selectedAwayTeam,
-          awayTeam: selectedSide === "Home" ? selectedAwayTeam : selectedHomeTeam,
-          playerSide: selectedSide
+          awayTeam: selectedSide === "Away" ? selectedAwayTeam : selectedHomeTeam,
+          playerSide: selectedSide,
+          selectedTeam: selectedSide === "Home" ? selectedHomeTeam : selectedAwayTeam
         }
       });
     }
