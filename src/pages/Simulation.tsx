@@ -11,6 +11,7 @@ interface LocationState {
   awayTeam: string;
   selectedPlayers: string[];
   playerSide: string;
+  formation: { strength: number };
 }
 
 interface GameEvent {
@@ -36,7 +37,7 @@ const Simulation = () => {
     return null;
   }
 
-  const { homeTeam, awayTeam, selectedPlayers, playerSide } = state;
+  const { homeTeam, awayTeam, selectedPlayers, playerSide, formation } = state;
 
   const homeTeamData = teamsData.teams.find(team => team.id === homeTeam);
   const awayTeamData = teamsData.teams.find(team => team.id === awayTeam);
@@ -61,35 +62,62 @@ const Simulation = () => {
   };
 
   const generateCommentary = (minute: number, type: "chance" | "possession" | "tackle") => {
-    const commentaries = {
-      chance: [
-        "Peluang bagus!",
-        "Hampir saja!",
-        "Mereka mengancam gawang!",
-        "Kiper terlewati tapi melebar!",
-        "Gerakan brilian tapi tidak berhasil!"
-      ],
-      possession: [
-        "Mengontrol permainan dengan baik",
-        "Passing yang indah",
-        "Mendominasi penguasaan bola",
-        "Menjaga bola dengan baik",
-        "Membangun serangan dengan sabar"
-      ],
-      tackle: [
-        "Pertahanan yang bagus!",
-        "Tekel brilian!",
-        "Pertahanan berdiri kokoh",
-        "Mereka berhasil merebut bola",
-        "Pertahanan yang solid"
-      ]
+    const teamCommentaries = {
+      [playerTeamId]: {
+        chance: [
+          "Peluang bagus dari tim Anda!",
+          "Tim Anda hampir saja mencetak gol!",
+          "Serangan berbahaya dari tim Anda!",
+          "Sundulan yang nyaris masuk!",
+          "Tembakan keras dari tim Anda!"
+        ],
+        possession: [
+          "Tim Anda menguasai bola dengan baik",
+          "Passing yang indah dari tim Anda",
+          "Tim Anda mendominasi permainan",
+          "Penguasaan bola yang bagus",
+          "Tim Anda membangun serangan"
+        ],
+        tackle: [
+          "Pertahanan solid dari tim Anda!",
+          "Tekel brilian dari pemain Anda!",
+          "Tim Anda berhasil mematahkan serangan",
+          "Pertahanan yang kokoh",
+          "Bola berhasil direbut!"
+        ]
+      },
+      [aiTeamId]: {
+        chance: [
+          "Lawan mendapatkan peluang!",
+          "Hampir saja lawan mencetak gol!",
+          "Serangan berbahaya dari lawan!",
+          "Sundulan yang mengancam dari lawan!",
+          "Tembakan keras dari tim lawan!"
+        ],
+        possession: [
+          "Lawan menguasai permainan",
+          "Passing yang bagus dari tim lawan",
+          "Lawan mendominasi bola",
+          "Penguasaan bola yang baik dari lawan",
+          "Lawan membangun serangan"
+        ],
+        tackle: [
+          "Pertahanan bagus dari lawan!",
+          "Tekel bagus dari pemain lawan!",
+          "Lawan berhasil mematahkan serangan",
+          "Lawan kokoh di belakang",
+          "Bola direbut oleh lawan!"
+        ]
+      }
     };
     
-    const commentary = commentaries[type][Math.floor(Math.random() * commentaries[type].length)];
+    const team = Math.random() > 0.5 ? playerTeamId : aiTeamId;
+    const commentary = teamCommentaries[team][type][Math.floor(Math.random() * teamCommentaries[team][type].length)];
+    
     return {
       minute,
       type: "commentary" as const,
-      team: Math.random() > 0.5 ? playerTeamId : aiTeamId,
+      team: team,
       description: commentary
     };
   };
@@ -132,14 +160,18 @@ const Simulation = () => {
   const simulateAttack = (attackingTeam: string[], defendingTeam: string[]) => {
     const attackingStrength = calculateTeamStrength(attackingTeam);
     const defendingStrength = calculateTeamStrength(defendingTeam);
+    const formation = state.formation;
     
     const strengthDifference = attackingStrength - defendingStrength;
     let baseProb = 0.08;
     
+    if (formation) {
+      baseProb += formation.strength;
+    }
+    
     baseProb += (strengthDifference / 300);
     
     const randomFactor = Math.random() * 0.05;
-    
     const underdogBonus = defendingStrength > attackingStrength ? 0.03 : 0;
     
     const finalProb = Math.max(0.03, Math.min(0.15, baseProb + randomFactor + underdogBonus));
@@ -153,6 +185,13 @@ const Simulation = () => {
     const gameInterval = setInterval(() => {
       if (gameTime >= 90) {
         setIsPlaying(false);
+        toast({
+          title: "Pertandingan Selesai",
+          description: "Pertandingan telah berakhir!",
+        });
+        setTimeout(() => {
+          navigate("/match");
+        }, 3000);
         return;
       }
 
@@ -231,14 +270,34 @@ const Simulation = () => {
           <h1 className="text-3xl font-bold mb-4">Simulasi Pertandingan</h1>
           <div className="flex justify-center items-center gap-4 mb-4">
             <div className={`text-center ${playerSide === "Home" ? "text-yellow-400" : ""}`}>
-              <img src={homeTeamData?.icon} alt={homeTeamData?.name} className="w-12 h-12 mx-auto mb-2" />
+              <Avatar>
+                <AvatarImage 
+                  src={homeTeamData?.icon} 
+                  alt={homeTeamData?.name}
+                  onError={(e) => {
+                    const img = e.target as HTMLImageElement;
+                    img.src = "/placeholder.svg";
+                  }}
+                />
+                <AvatarFallback>{homeTeamData?.name.substring(0, 2)}</AvatarFallback>
+              </Avatar>
               <span className="text-xl">{homeTeamData?.name}</span>
             </div>
             <div className="text-6xl font-bold">
               {score.home} - {score.away}
             </div>
             <div className={`text-center ${playerSide === "Away" ? "text-yellow-400" : ""}`}>
-              <img src={awayTeamData?.icon} alt={awayTeamData?.name} className="w-12 h-12 mx-auto mb-2" />
+              <Avatar>
+                <AvatarImage 
+                  src={awayTeamData?.icon} 
+                  alt={awayTeamData?.name}
+                  onError={(e) => {
+                    const img = e.target as HTMLImageElement;
+                    img.src = "/placeholder.svg";
+                  }}
+                />
+                <AvatarFallback>{awayTeamData?.name.substring(0, 2)}</AvatarFallback>
+              </Avatar>
               <span className="text-xl">{awayTeamData?.name}</span>
             </div>
           </div>

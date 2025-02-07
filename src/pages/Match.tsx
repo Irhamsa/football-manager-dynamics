@@ -148,6 +148,10 @@ const Match = () => {
                         <AvatarImage 
                           src={teamsData.teams.find(team => team.id === selectedHomeTeam)?.icon} 
                           alt={teamsData.teams.find(team => team.id === selectedHomeTeam)?.name} 
+                          onError={(e) => {
+                            const img = e.target as HTMLImageElement;
+                            img.src = "/placeholder.svg";
+                          }}
                         />
                         <AvatarFallback>
                           {teamsData.teams.find(team => team.id === selectedHomeTeam)?.name.substring(0, 2)}
@@ -237,6 +241,10 @@ const Match = () => {
                         <AvatarImage 
                           src={teamsData.teams.find(team => team.id === selectedAwayTeam)?.icon} 
                           alt={teamsData.teams.find(team => team.id === selectedAwayTeam)?.name} 
+                          onError={(e) => {
+                            const img = e.target as HTMLImageElement;
+                            img.src = "/placeholder.svg";
+                          }}
                         />
                         <AvatarFallback>
                           {teamsData.teams.find(team => team.id === selectedAwayTeam)?.name.substring(0, 2)}
@@ -293,6 +301,10 @@ const Match = () => {
                         <AvatarImage 
                           src={teamsData.teams.find(team => team.id === selectedHomeTeam)?.icon} 
                           alt={teamsData.teams.find(team => team.id === selectedHomeTeam)?.name} 
+                          onError={(e) => {
+                            const img = e.target as HTMLImageElement;
+                            img.src = "/placeholder.svg";
+                          }}
                         />
                         <AvatarFallback>
                           {teamsData.teams.find(team => team.id === selectedHomeTeam)?.name.substring(0, 2)}
@@ -310,6 +322,10 @@ const Match = () => {
                         <AvatarImage 
                           src={teamsData.teams.find(team => team.id === selectedAwayTeam)?.icon} 
                           alt={teamsData.teams.find(team => team.id === selectedAwayTeam)?.name} 
+                          onError={(e) => {
+                            const img = e.target as HTMLImageElement;
+                            img.src = "/placeholder.svg";
+                          }}
                         />
                         <AvatarFallback>
                           {teamsData.teams.find(team => team.id === selectedAwayTeam)?.name.substring(0, 2)}

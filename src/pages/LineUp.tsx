@@ -98,7 +98,7 @@ const LineUp = () => {
       return;
     }
 
-    navigate("/simulation", {
+    navigate("/tactics", {
       state: {
         homeTeam,
         awayTeam,
@@ -131,7 +131,14 @@ const LineUp = () => {
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
             <Avatar className="w-16 h-16">
-              <AvatarImage src={selectedTeamData?.icon} alt={selectedTeamData?.name} />
+              <AvatarImage 
+                src={selectedTeamData?.icon} 
+                alt={selectedTeamData?.name}
+                onError={(e) => {
+                  const img = e.target as HTMLImageElement;
+                  img.src = "/placeholder.svg";
+                }}
+              />
               <AvatarFallback>
                 {selectedTeamData?.name.substring(0, 2)}
               </AvatarFallback>
@@ -155,7 +162,14 @@ const LineUp = () => {
             >
               <div className="flex items-center gap-4">
                 <Avatar>
-                  <AvatarImage src={player.icon} alt={player.name} />
+                  <AvatarImage 
+                    src={player.icon} 
+                    alt={player.name}
+                    onError={(e) => {
+                      const img = e.target as HTMLImageElement;
+                      img.src = "/placeholder.svg";
+                    }}
+                  />
                   <AvatarFallback>{player.name.substring(0, 2)}</AvatarFallback>
                 </Avatar>
                 <div>
