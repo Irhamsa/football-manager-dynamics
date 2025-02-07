@@ -13,6 +13,7 @@ interface LocationState {
   selectedPlayers: string[];
   playerSide: string;
   formation: { strength: number };
+  tactics: any;
 }
 
 interface GameEvent {
@@ -38,7 +39,7 @@ const Simulation = () => {
     return null;
   }
 
-  const { homeTeam, awayTeam, selectedPlayers, playerSide, formation } = state;
+  const { homeTeam, awayTeam, selectedPlayers, playerSide, formation, tactics } = state;
 
   const homeTeamData = teamsData.teams.find(team => team.id === homeTeam);
   const awayTeamData = teamsData.teams.find(team => team.id === awayTeam);
@@ -62,114 +63,112 @@ const Simulation = () => {
       .map(p => p!);
   };
 
-  const generateCommentary = (minute: number, type: "chance" | "possession" | "tackle") => {
+  const generateCommentary = (minute: number, type: "chance" | "possession" | "tackle", homeTeam: string, awayTeam: string, playerSide: string) => {
     const teamCommentaries = {
-      [playerTeamId]: {
+      home: {
         chance: [
-          "Peluang bagus dari tim Anda!",
-          "Tim Anda hampir saja mencetak gol!",
-          "Serangan berbahaya dari tim Anda!",
-          "Sundulan yang nyaris masuk!",
-          "Tembakan keras dari tim Anda!"
+          `${homeTeam} mendapatkan peluang emas!`,
+          `Serangan berbahaya dari ${homeTeam}!`,
+          `${homeTeam} hampir saja membobol gawang!`,
+          `Sundulan yang mengancam dari pemain ${homeTeam}!`,
+          `Tembakan keras dari ${homeTeam}!`
         ],
         possession: [
-          "Tim Anda menguasai bola dengan baik",
-          "Passing yang indah dari tim Anda",
-          "Tim Anda mendominasi permainan",
-          "Penguasaan bola yang bagus",
-          "Tim Anda membangun serangan"
+          `${homeTeam} menguasai jalannya pertandingan`,
+          `Penguasaan bola yang apik dari ${homeTeam}`,
+          `${homeTeam} membangun serangan dengan sabar`,
+          `Passing yang indah dari ${homeTeam}`,
+          `${homeTeam} mendominasi di lini tengah`
         ],
         tackle: [
-          "Pertahanan solid dari tim Anda!",
-          "Tekel brilian dari pemain Anda!",
-          "Tim Anda berhasil mematahkan serangan",
-          "Pertahanan yang kokoh",
-          "Bola berhasil direbut!"
+          `Pertahanan solid dari ${homeTeam}!`,
+          `Tekel brilian dari pemain ${homeTeam}!`,
+          `${homeTeam} berhasil mematahkan serangan`,
+          `Lini belakang ${homeTeam} kokoh`,
+          `${homeTeam} mengamankan bola dengan baik!`
         ]
       },
-      [aiTeamId]: {
+      away: {
         chance: [
-          "Lawan mendapatkan peluang!",
-          "Hampir saja lawan mencetak gol!",
-          "Serangan berbahaya dari lawan!",
-          "Sundulan yang mengancam dari lawan!",
-          "Tembakan keras dari tim lawan!"
+          `${awayTeam} menciptakan peluang!`,
+          `Serangan berbahaya dari ${awayTeam}!`,
+          `${awayTeam} nyaris mencatatkan gol!`,
+          `Sundulan yang mengancam dari pemain ${awayTeam}!`,
+          `Tembakan keras dari ${awayTeam}!`
         ],
         possession: [
-          "Lawan menguasai permainan",
-          "Passing yang bagus dari tim lawan",
-          "Lawan mendominasi bola",
-          "Penguasaan bola yang baik dari lawan",
-          "Lawan membangun serangan"
+          `${awayTeam} menguasai permainan`,
+          `${awayTeam} memainkan bola dengan baik`,
+          `${awayTeam} membangun serangan`,
+          `Passing yang presisi dari ${awayTeam}`,
+          `${awayTeam} mendominasi penguasaan bola`
         ],
         tackle: [
-          "Pertahanan bagus dari lawan!",
-          "Tekel bagus dari pemain lawan!",
-          "Lawan berhasil mematahkan serangan",
-          "Lawan kokoh di belakang",
-          "Bola direbut oleh lawan!"
+          `Pertahanan apik dari ${awayTeam}!`,
+          `Tekel bagus dari pemain ${awayTeam}!`,
+          `${awayTeam} mematahkan serangan`,
+          `Barisan pertahanan ${awayTeam} solid`,
+          `${awayTeam} berhasil merebut bola!`
         ]
       }
     };
     
-    const team = Math.random() > 0.5 ? playerTeamId : aiTeamId;
+    const team = Math.random() > 0.5 ? 'home' : 'away';
     const commentary = teamCommentaries[team][type][Math.floor(Math.random() * teamCommentaries[team][type].length)];
     
     return {
       minute,
       type: "commentary" as const,
-      team: team,
+      team: team === 'home' ? homeTeam : awayTeam,
       description: commentary
     };
   };
 
-  const calculateTeamStrength = (playerIds: string[]) => {
-    const players = playerIds.map(id => playersData.players.find(p => p.id === id))
-      .filter(p => p !== undefined);
-    
-    if (!players.length) return 0;
-    
-    return players.reduce((acc, player) => {
-      if (!player) return acc;
-      
-      switch (player.position) {
-        case "ST":
-          return acc + ((player.abilities.shooting * 3 + player.abilities.pace * 2 + player.abilities.dribbling + player.abilities.physical) / 6);
-        case "CF":
-          return acc + ((player.abilities.shooting * 3 + player.abilities.pace * 2 + player.abilities.passing + player.abilities.physical) / 6);
-        case "RW":
-        case "LW":
-          return acc + ((player.abilities.pace * 3 + player.abilities.dribbling * 2 + player.abilities.physical + player.abilities.passing) / 6);
-        case "CAM":
-        case "CM":
-          return acc + ((player.abilities.passing * 3 + player.abilities.dribbling * 2 + player.abilities.shooting) / 6);
-        case "CDM":
-          return acc + ((player.abilities.defending * 3 + player.abilities.physical * 2 + player.abilities.passing) / 6);
-        case "CB":
-          return acc + ((player.abilities.defending * 3 + player.abilities.physical * 2 + player.abilities.positioning + (player.abilities.pace / 2)) / 6);
-        case "LB":
-        case "RB":
-          return acc + ((player.abilities.pace * 3 + player.abilities.physical * 2 + player.abilities.defending + (player.abilities.passing / 2) + (player.abilities.dribbling / 3)) / 6);
-        case "GK":
-          return acc + ((player.abilities.reflexes * 4 + player.abilities.positioning + player.abilities.handling + player.abilities.diving) / 5);
-        default:
-          return acc + Object.values(player.abilities).reduce((sum, val) => sum + val, 0) / 6;
-      }
-    }, 0) / players.length;
+  const calculateTeamStrength = (playerIds: string[], tactic: any) => {
+    const baseStrength = playerIds
+      .map(id => playersData.players.find(p => p.id === id))
+      .filter(p => p !== undefined)
+      .reduce((acc, player) => {
+        if (!player) return acc;
+        
+        const positionBonus = {
+          "ST": tactic.attributes.counter * 0.3 + tactic.attributes.possession * 0.1,
+          "CF": tactic.attributes.possession * 0.2 + tactic.attributes.passing * 0.2,
+          "RW": tactic.attributes.counter * 0.2 + tactic.attributes.pressure * 0.2,
+          "LW": tactic.attributes.counter * 0.2 + tactic.attributes.pressure * 0.2,
+          "CAM": tactic.attributes.passing * 0.3 + tactic.attributes.possession * 0.2,
+          "CM": tactic.attributes.passing * 0.25 + tactic.attributes.possession * 0.25,
+          "CDM": tactic.attributes.defensive * 0.3 + tactic.attributes.pressure * 0.2,
+          "CB": tactic.attributes.defensive * 0.4,
+          "LB": tactic.attributes.pressure * 0.2 + tactic.attributes.counter * 0.1,
+          "RB": tactic.attributes.pressure * 0.2 + tactic.attributes.counter * 0.1,
+          "GK": tactic.attributes.defensive * 0.2
+        }[player.position] || 0;
+
+        return acc + (
+          Object.values(player.abilities).reduce((sum, val) => sum + val, 0) / 6
+        ) * (1 + positionBonus);
+      }, 0) / playerIds.length;
+
+    return baseStrength;
   };
 
-  const simulateAttack = (attackingTeam: string[], defendingTeam: string[]) => {
-    const attackingStrength = calculateTeamStrength(attackingTeam);
-    const defendingStrength = calculateTeamStrength(defendingTeam);
-    const formation = state.formation;
+  const simulateAttack = (attackingTeam: string[], defendingTeam: string[], attackingTactic: any, defendingTactic: any) => {
+    const attackingStrength = calculateTeamStrength(attackingTeam, attackingTactic);
+    const defendingStrength = calculateTeamStrength(defendingTeam, defendingTactic);
+    
+    const tacticEffect = (
+      attackingTactic.attributes.possession * 0.3 +
+      attackingTactic.attributes.passing * 0.2 +
+      attackingTactic.attributes.pressure * 0.2 +
+      attackingTactic.attributes.counter * 0.2 -
+      defendingTactic.attributes.defensive * 0.4
+    );
     
     const strengthDifference = attackingStrength - defendingStrength;
     let baseProb = 0.08;
     
-    if (formation) {
-      baseProb += formation.strength;
-    }
-    
+    baseProb += tacticEffect * 0.1;
     baseProb += (strengthDifference / 300);
     
     const randomFactor = Math.random() * 0.05;
@@ -200,14 +199,16 @@ const Simulation = () => {
 
       if (Math.random() < 0.2) {
         const commentaryType = ["chance", "possession", "tackle"][Math.floor(Math.random() * 3)] as "chance" | "possession" | "tackle";
-        setGameEvents(prev => [...prev, generateCommentary(gameTime, commentaryType)]);
+        setGameEvents(prev => [...prev, generateCommentary(gameTime, commentaryType, homeTeam, awayTeam, playerSide)]);
       }
 
       if (Math.random() < 0.15) {
         const homeAttackers = getAttackers(playerSide === "Home" ? selectedPlayers : aiSelectedPlayers);
         if (simulateAttack(
           playerSide === "Home" ? selectedPlayers : aiSelectedPlayers,
-          playerSide === "Home" ? aiSelectedPlayers : selectedPlayers
+          playerSide === "Home" ? aiSelectedPlayers : selectedPlayers,
+          tactics.home,
+          tactics.away
         )) {
           const scorer = homeAttackers[Math.floor(Math.random() * homeAttackers.length)];
           if (scorer) {
@@ -226,7 +227,9 @@ const Simulation = () => {
           const awayAttackers = getAttackers(playerSide === "Away" ? selectedPlayers : aiSelectedPlayers);
           if (simulateAttack(
             playerSide === "Away" ? selectedPlayers : aiSelectedPlayers,
-            playerSide === "Away" ? aiSelectedPlayers : selectedPlayers
+            playerSide === "Away" ? aiSelectedPlayers : selectedPlayers,
+            tactics.away,
+            tactics.home
           )) {
             const scorer = awayAttackers[Math.floor(Math.random() * awayAttackers.length)];
             if (scorer) {

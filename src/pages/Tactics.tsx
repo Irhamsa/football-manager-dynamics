@@ -12,36 +12,89 @@ interface LocationState {
   playerSide: string;
 }
 
-const formations = [
-  { id: "4-4-2", name: "4-4-2", strength: 0.1 },
-  { id: "4-3-3", name: "4-3-3", strength: 0.12 },
-  { id: "4-2-3-1", name: "4-2-3-1", strength: 0.11 },
-  { id: "3-5-2", name: "3-5-2", strength: 0.09 },
-  { id: "5-3-2", name: "5-3-2", strength: 0.08 },
-  { id: "4-5-1", name: "4-5-1", strength: 0.07 },
-  { id: "3-4-3", name: "3-4-3", strength: 0.13 },
-  { id: "5-4-1", name: "5-4-1", strength: 0.06 },
-  { id: "4-1-4-1", name: "4-1-4-1", strength: 0.08 },
-  { id: "4-4-1-1", name: "4-4-1-1", strength: 0.09 },
-  { id: "4-3-2-1", name: "4-3-2-1", strength: 0.11 },
-  { id: "3-5-1-1", name: "3-5-1-1", strength: 0.08 },
-  { id: "3-4-2-1", name: "3-4-2-1", strength: 0.1 },
-  { id: "5-2-3", name: "5-2-3", strength: 0.09 },
-  { id: "3-3-3-1", name: "3-3-3-1", strength: 0.07 },
-  { id: "4-2-2-2", name: "4-2-2-2", strength: 0.1 },
-  { id: "4-1-3-2", name: "4-1-3-2", strength: 0.09 },
-  { id: "3-6-1", name: "3-6-1", strength: 0.06 },
-  { id: "5-3-1-1", name: "5-3-1-1", strength: 0.07 },
-  { id: "2-3-5", name: "2-3-5", strength: 0.15 }
+const tactics = [
+  { 
+    id: "possession",
+    name: "Possession Game",
+    description: "Menguasai bola dengan passing pendek",
+    attributes: {
+      possession: 0.3,
+      passing: 0.25,
+      pressure: 0.1,
+      counter: -0.1,
+      defensive: -0.05
+    }
+  },
+  {
+    id: "counter",
+    name: "Counter Attack",
+    description: "Bertahan dan menyerang dengan cepat",
+    attributes: {
+      possession: -0.15,
+      passing: 0.1,
+      pressure: -0.1,
+      counter: 0.35,
+      defensive: 0.15
+    }
+  },
+  {
+    id: "tiki_taka",
+    name: "Tiki-taka",
+    description: "Passing cepat dengan pergerakan dinamis",
+    attributes: {
+      possession: 0.35,
+      passing: 0.3,
+      pressure: 0.15,
+      counter: -0.15,
+      defensive: -0.1
+    }
+  },
+  {
+    id: "high_pressure",
+    name: "High Pressure",
+    description: "Menekan lawan secara agresif",
+    attributes: {
+      possession: 0.1,
+      passing: 0,
+      pressure: 0.35,
+      counter: 0.15,
+      defensive: -0.2
+    }
+  },
+  {
+    id: "park_bus",
+    name: "Park The Bus",
+    description: "Bertahan sangat dalam",
+    attributes: {
+      possession: -0.25,
+      passing: -0.15,
+      pressure: -0.2,
+      counter: 0.1,
+      defensive: 0.35
+    }
+  }
 ];
+
+const aiTacticSelection = (teamStrength: number, opponentStrength: number) => {
+  if (teamStrength > opponentStrength + 10) {
+    return "possession"; // Tim lebih kuat bermain menguasai
+  } else if (teamStrength < opponentStrength - 10) {
+    return "park_bus"; // Tim lebih lemah bertahan
+  } else if (teamStrength < opponentStrength - 5) {
+    return "counter"; // Tim sedikit lebih lemah counter attack
+  } else if (Math.abs(teamStrength - opponentStrength) <= 5) {
+    return "high_pressure"; // Tim seimbang bermain pressing
+  } else {
+    return "tiki_taka"; // Default tiki-taka
+  }
+};
 
 const Tactics = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { toast } = useToast();
-  const [selectedFormation, setSelectedFormation] = useState("");
+  const [selectedTactic, setSelectedTactic] = useState("");
 
-  // Get state from location and handle missing state
   const state = location.state as LocationState;
   
   if (!state || !state.homeTeam || !state.awayTeam || !state.selectedPlayers || !state.playerSide) {
@@ -51,29 +104,33 @@ const Tactics = () => {
   }
 
   const handleConfirm = () => {
-    if (!selectedFormation) {
+    if (!selectedTactic) {
       toast({
         title: "Kesalahan",
-        description: "Silakan pilih formasi terlebih dahulu",
+        description: "Silakan pilih taktik terlebih dahulu",
         variant: "destructive"
       });
       return;
     }
 
-    const formation = formations.find(f => f.id === selectedFormation);
-    if (!formation) {
+    const tactic = tactics.find(t => t.id === selectedTactic);
+    if (!tactic) {
       toast({
         title: "Kesalahan",
-        description: "Formasi tidak valid",
+        description: "Taktik tidak valid",
         variant: "destructive"
       });
       return;
     }
+
+    // Pilih taktik AI untuk lawan secara otomatis
+    const aiTactic = tactics.find(t => t.id === aiTacticSelection(75, 70)); // Contoh nilai kekuatan tim
 
     navigate("/simulation", {
       state: {
         ...state,
-        formation: formation
+        playerTactic: tactic,
+        aiTactic: aiTactic
       }
     });
   };
@@ -98,23 +155,40 @@ const Tactics = () => {
       </div>
 
       <div className="max-w-4xl mx-auto pt-12">
-        <h1 className="text-3xl font-bold mb-8">Pilih Formasi Tim</h1>
+        <h1 className="text-3xl font-bold mb-8">Pilih Taktik Tim</h1>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {formations.map((formation) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {tactics.map((tactic) => (
             <div
-              key={formation.id}
+              key={tactic.id}
               className={`p-4 border rounded-lg cursor-pointer transition-all ${
-                selectedFormation === formation.id
+                selectedTactic === tactic.id
                   ? "border-primary bg-primary/10"
                   : "border-gray-600 hover:border-primary"
               }`}
-              onClick={() => setSelectedFormation(formation.id)}
+              onClick={() => setSelectedTactic(tactic.id)}
             >
-              <h3 className="text-xl font-semibold text-center">{formation.name}</h3>
-              <p className="text-sm text-center text-muted-foreground mt-2">
-                Tingkat Kekuatan: {Math.round(formation.strength * 100)}%
+              <h3 className="text-xl font-semibold">{tactic.name}</h3>
+              <p className="text-sm text-muted-foreground mt-2">
+                {tactic.description}
               </p>
+              <div className="mt-4 space-y-2">
+                <div className="text-sm">
+                  Possession: {Math.round(tactic.attributes.possession * 100)}%
+                </div>
+                <div className="text-sm">
+                  Passing: {Math.round(tactic.attributes.passing * 100)}%
+                </div>
+                <div className="text-sm">
+                  Pressure: {Math.round(tactic.attributes.pressure * 100)}%
+                </div>
+                <div className="text-sm">
+                  Counter: {Math.round(tactic.attributes.counter * 100)}%
+                </div>
+                <div className="text-sm">
+                  Defensive: {Math.round(tactic.attributes.defensive * 100)}%
+                </div>
+              </div>
             </div>
           ))}
         </div>
@@ -122,10 +196,10 @@ const Tactics = () => {
         <div className="mt-8 flex justify-end">
           <Button 
             onClick={handleConfirm}
-            disabled={!selectedFormation}
+            disabled={!selectedTactic}
             className="w-full md:w-auto"
           >
-            Konfirmasi Formasi
+            Konfirmasi Taktik
           </Button>
         </div>
       </div>
