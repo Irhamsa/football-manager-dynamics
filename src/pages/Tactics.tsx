@@ -58,6 +58,14 @@ const Tactics = () => {
     }
 
     const formation = formations.find(f => f.id === selectedFormation);
+    if (!formation) {
+      toast({
+        title: "Kesalahan",
+        description: "Formasi tidak valid",
+        variant: "destructive"
+      });
+      return;
+    }
 
     navigate("/simulation", {
       state: {
@@ -101,12 +109,19 @@ const Tactics = () => {
               onClick={() => setSelectedFormation(formation.id)}
             >
               <h3 className="text-xl font-semibold text-center">{formation.name}</h3>
+              <p className="text-sm text-center text-muted-foreground mt-2">
+                Tingkat Kekuatan: {Math.round(formation.strength * 100)}%
+              </p>
             </div>
           ))}
         </div>
 
         <div className="mt-8 flex justify-end">
-          <Button onClick={handleConfirm}>
+          <Button 
+            onClick={handleConfirm}
+            disabled={!selectedFormation}
+            className="w-full md:w-auto"
+          >
             Konfirmasi Formasi
           </Button>
         </div>
@@ -116,3 +131,4 @@ const Tactics = () => {
 };
 
 export default Tactics;
+
