@@ -39,10 +39,13 @@ const Tactics = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { toast } = useToast();
-  const state = location.state as LocationState;
   const [selectedFormation, setSelectedFormation] = useState("");
 
-  if (!state) {
+  // Get state from location and handle missing state
+  const state = location.state as LocationState;
+  
+  if (!state || !state.homeTeam || !state.awayTeam || !state.selectedPlayers || !state.playerSide) {
+    console.log("Missing state:", state);
     navigate("/match");
     return null;
   }
@@ -131,4 +134,3 @@ const Tactics = () => {
 };
 
 export default Tactics;
-
