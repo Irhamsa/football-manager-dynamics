@@ -67,48 +67,48 @@ const Simulation = () => {
     const teamCommentaries = {
       home: {
         chance: [
-          `${homeTeam} mendapatkan peluang emas!`,
-          `Serangan berbahaya dari ${homeTeam}!`,
-          `${homeTeam} hampir saja membobol gawang!`,
-          `Sundulan yang mengancam dari pemain ${homeTeam}!`,
-          `Tembakan keras dari ${homeTeam}!`
+          `${homeTeam} menciptakan peluang emas melalui serangan yang terstruktur!`,
+          `Pergerakan dinamis dari para pemain ${homeTeam}!`,
+          `${homeTeam} mengancam pertahanan lawan dengan kombinasi passing yang apik!`,
+          `Serangan berbahaya dari ${homeTeam} melalui sayap!`,
+          `${homeTeam} membangun serangan dengan sangat baik!`
         ],
         possession: [
-          `${homeTeam} menguasai jalannya pertandingan`,
-          `Penguasaan bola yang apik dari ${homeTeam}`,
-          `${homeTeam} membangun serangan dengan sabar`,
-          `Passing yang indah dari ${homeTeam}`,
-          `${homeTeam} mendominasi di lini tengah`
+          `${homeTeam} mendominasi penguasaan bola dengan passing pendek yang presisi`,
+          `Permainan posesif yang ditunjukkan ${homeTeam} sangat efektif`,
+          `${homeTeam} dengan sabar membangun serangan dari lini belakang`,
+          `Kontrol bola yang sempurna dari para pemain ${homeTeam}`,
+          `${homeTeam} mendikte jalannya pertandingan dengan penguasaan bola yang baik`
         ],
         tackle: [
-          `Pertahanan solid dari ${homeTeam}!`,
-          `Tekel brilian dari pemain ${homeTeam}!`,
-          `${homeTeam} berhasil mematahkan serangan`,
-          `Lini belakang ${homeTeam} kokoh`,
-          `${homeTeam} mengamankan bola dengan baik!`
+          `Pertahanan solid dari barisan belakang ${homeTeam}!`,
+          `Tekel brilian dari defender ${homeTeam}!`,
+          `${homeTeam} berhasil mematahkan serangan dengan timing yang tepat`,
+          `Organisasi pertahanan ${homeTeam} sangat rapi`,
+          `${homeTeam} sukses mengamankan pertahanan mereka!`
         ]
       },
       away: {
         chance: [
-          `${awayTeam} menciptakan peluang!`,
-          `Serangan berbahaya dari ${awayTeam}!`,
-          `${awayTeam} nyaris mencatatkan gol!`,
-          `Sundulan yang mengancam dari pemain ${awayTeam}!`,
-          `Tembakan keras dari ${awayTeam}!`
+          `${awayTeam} mengancam melalui serangan balik yang cepat!`,
+          `Peluang bagus tercipta untuk ${awayTeam}!`,
+          `${awayTeam} hampir membuat kejutan dengan serangan mendadak!`,
+          `Pergerakan tanpa bola yang berbahaya dari ${awayTeam}!`,
+          `${awayTeam} menciptakan kesempatan mencetak gol!`
         ],
         possession: [
-          `${awayTeam} menguasai permainan`,
-          `${awayTeam} memainkan bola dengan baik`,
-          `${awayTeam} membangun serangan`,
-          `Passing yang presisi dari ${awayTeam}`,
-          `${awayTeam} mendominasi penguasaan bola`
+          `${awayTeam} mulai menguasai jalannya permainan`,
+          `Rotasi bola yang bagus dari ${awayTeam}`,
+          `${awayTeam} bermain dengan tempo yang terkontrol`,
+          `Distribusi bola yang akurat dari lini tengah ${awayTeam}`,
+          `${awayTeam} berhasil mengatur ritme permainan`
         ],
         tackle: [
-          `Pertahanan apik dari ${awayTeam}!`,
-          `Tekel bagus dari pemain ${awayTeam}!`,
-          `${awayTeam} mematahkan serangan`,
-          `Barisan pertahanan ${awayTeam} solid`,
-          `${awayTeam} berhasil merebut bola!`
+          `Antisipasi sempurna dari pertahanan ${awayTeam}!`,
+          `${awayTeam} bermain disiplin di lini belakang!`,
+          `Pressing agresif dari para pemain ${awayTeam}!`,
+          `${awayTeam} menunjukkan pertahanan yang kompak`,
+          `Lini belakang ${awayTeam} bermain dengan sangat baik!`
         ]
       }
     };
@@ -153,30 +153,38 @@ const Simulation = () => {
     return baseStrength;
   };
 
-  const simulateAttack = (attackingTeam: string[], defendingTeam: string[], attackingTactic: any, defendingTactic: any) => {
-    const attackingStrength = calculateTeamStrength(attackingTeam, attackingTactic);
-    const defendingStrength = calculateTeamStrength(defendingTeam, defendingTactic);
+  const simulateAttack = (
+    attackingTeam: string[], 
+    defendingTeam: string[], 
+    attackingTactics: any, 
+    defendingTactics: any
+  ) => {
+    const BASE_GOAL_CHANCE = 0.08;
     
-    const tacticEffect = (
-      attackingTactic.attributes.possession * 0.3 +
-      attackingTactic.attributes.passing * 0.2 +
-      attackingTactic.attributes.pressure * 0.2 +
-      attackingTactic.attributes.counter * 0.2 -
-      defendingTactic.attributes.defensive * 0.4
+    // Pengaruh taktik pada peluang gol
+    const attackingModifier = (
+      (attackingTactics.settings.mentality / 100) * 0.1 +
+      (attackingTactics.settings.attackStyle / 100) * 0.1 +
+      (attackingTactics.settings.attackTempo / 100) * 0.1 +
+      (attackingTactics.settings.risk / 100) * 0.05
     );
-    
-    const strengthDifference = attackingStrength - defendingStrength;
-    let baseProb = 0.08;
-    
-    baseProb += tacticEffect * 0.1;
-    baseProb += (strengthDifference / 300);
-    
-    const randomFactor = Math.random() * 0.05;
-    const underdogBonus = defendingStrength > attackingStrength ? 0.03 : 0;
-    
-    const finalProb = Math.max(0.03, Math.min(0.15, baseProb + randomFactor + underdogBonus));
-    
-    return Math.random() < finalProb;
+
+    const defendingModifier = (
+      (defendingTactics.settings.defenseLine / 100) * 0.1 +
+      (defendingTactics.settings.marking / 100) * 0.1 +
+      (defendingTactics.settings.defenseStyle / 100) * 0.1 +
+      (defendingTactics.settings.pressing / 100) * 0.05
+    );
+
+    // Faktor acak untuk menambah ketidakpastian
+    const randomFactor = (Math.random() - 0.5) * 0.1;
+
+    const finalChance = BASE_GOAL_CHANCE + 
+      attackingModifier - 
+      defendingModifier + 
+      randomFactor;
+
+    return Math.random() < Math.max(0.01, Math.min(0.2, finalChance));
   };
 
   useEffect(() => {

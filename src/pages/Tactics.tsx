@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ArrowLeft, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { Slider } from "@/components/ui/slider";
 
 interface LocationState {
   homeTeam: string;
@@ -12,88 +13,255 @@ interface LocationState {
   playerSide: string;
 }
 
-const tactics = [
-  { 
+interface TacticSetting {
+  id: string;
+  name: string;
+  description: string;
+  min: number;
+  max: number;
+  defaultValue: number;
+}
+
+const tacticSettings: TacticSetting[] = [
+  {
+    id: "tempo",
+    name: "Tempo Permainan",
+    description: "Kecepatan dalam memainkan bola",
+    min: 0,
+    max: 100,
+    defaultValue: 50
+  },
+  {
+    id: "playStyle",
+    name: "Gaya Bermain",
+    description: "Tingkat agresifitas dalam menyerang",
+    min: 0,
+    max: 100,
+    defaultValue: 50
+  },
+  {
+    id: "attackTempo",
+    name: "Tempo Serangan",
+    description: "Kecepatan dalam melakukan serangan",
+    min: 0,
+    max: 100,
+    defaultValue: 50
+  },
+  {
+    id: "defenseLine",
+    name: "Garis Pertahanan",
+    description: "Posisi lini pertahanan (rendah-tinggi)",
+    min: 0,
+    max: 100,
+    defaultValue: 50
+  },
+  {
+    id: "attackStyle",
+    name: "Gaya Serangan",
+    description: "Pendek-langsung dalam menyerang",
+    min: 0,
+    max: 100,
+    defaultValue: 50
+  },
+  {
+    id: "defenseStyle",
+    name: "Gaya Bertahan",
+    description: "Pasif-agresif dalam bertahan",
+    min: 0,
+    max: 100,
+    defaultValue: 50
+  },
+  {
+    id: "mentality",
+    name: "Mentalitas",
+    description: "Bertahan-menyerang",
+    min: 0,
+    max: 100,
+    defaultValue: 50
+  },
+  {
+    id: "playerDistance",
+    name: "Jarak Antar Pemain",
+    description: "Rapat-renggang",
+    min: 0,
+    max: 100,
+    defaultValue: 50
+  },
+  {
+    id: "pressing",
+    name: "Intensitas Pressing",
+    description: "Tingkat agresifitas dalam menekan",
+    min: 0,
+    max: 100,
+    defaultValue: 50
+  },
+  {
+    id: "marking",
+    name: "Sistem Marking",
+    description: "Zona-man to man",
+    min: 0,
+    max: 100,
+    defaultValue: 50
+  },
+  {
     id: "possession",
-    name: "Possession Game",
-    description: "Menguasai bola dengan passing pendek",
-    attributes: {
-      possession: 0.3,
-      passing: 0.25,
-      pressure: 0.1,
-      counter: -0.1,
-      defensive: -0.05
-    }
+    name: "Penguasaan Bola",
+    description: "Prioritas penguasaan bola",
+    min: 0,
+    max: 100,
+    defaultValue: 50
   },
   {
-    id: "counter",
-    name: "Counter Attack",
-    description: "Bertahan dan menyerang dengan cepat",
-    attributes: {
-      possession: -0.15,
-      passing: 0.1,
-      pressure: -0.1,
-      counter: 0.35,
-      defensive: 0.15
-    }
+    id: "width",
+    name: "Lebar Permainan",
+    description: "Sempit-lebar",
+    min: 0,
+    max: 100,
+    defaultValue: 50
   },
   {
-    id: "tiki_taka",
-    name: "Tiki-taka",
-    description: "Passing cepat dengan pergerakan dinamis",
-    attributes: {
-      possession: 0.35,
-      passing: 0.3,
-      pressure: 0.15,
-      counter: -0.15,
-      defensive: -0.1
-    }
+    id: "crossFrequency",
+    name: "Frekuensi Crossing",
+    description: "Seberapa sering melakukan crossing",
+    min: 0,
+    max: 100,
+    defaultValue: 50
   },
   {
-    id: "high_pressure",
-    name: "High Pressure",
-    description: "Menekan lawan secara agresif",
-    attributes: {
-      possession: 0.1,
-      passing: 0,
-      pressure: 0.35,
-      counter: 0.15,
-      defensive: -0.2
-    }
+    id: "longShots",
+    name: "Tembakan Jarak Jauh",
+    description: "Frekuensi tembakan jarak jauh",
+    min: 0,
+    max: 100,
+    defaultValue: 50
   },
   {
-    id: "park_bus",
-    name: "Park The Bus",
-    description: "Bertahan sangat dalam",
-    attributes: {
-      possession: -0.25,
-      passing: -0.15,
-      pressure: -0.2,
-      counter: 0.1,
-      defensive: 0.35
-    }
+    id: "dribbling",
+    name: "Prioritas Dribbling",
+    description: "Seberapa sering melakukan dribbling",
+    min: 0,
+    max: 100,
+    defaultValue: 50
+  },
+  {
+    id: "offsideTrap",
+    name: "Jebakan Offside",
+    description: "Penggunaan taktik offside trap",
+    min: 0,
+    max: 100,
+    defaultValue: 50
+  },
+  {
+    id: "counterAttack",
+    name: "Serangan Balik",
+    description: "Prioritas serangan balik",
+    min: 0,
+    max: 100,
+    defaultValue: 50
+  },
+  {
+    id: "setPieces",
+    name: "Strategi Bola Mati",
+    description: "Agresifitas dalam bola mati",
+    min: 0,
+    max: 100,
+    defaultValue: 50
+  },
+  {
+    id: "playmaking",
+    name: "Kreativitas",
+    description: "Kebebasan dalam menciptakan peluang",
+    min: 0,
+    max: 100,
+    defaultValue: 50
+  },
+  {
+    id: "risk",
+    name: "Pengambilan Risiko",
+    description: "Tingkat pengambilan risiko",
+    min: 0,
+    max: 100,
+    defaultValue: 50
   }
 ];
 
+const calculateTacticStrength = (settings: Record<string, number>) => {
+  const weights = {
+    tempo: 0.05,
+    playStyle: 0.05,
+    attackTempo: 0.05,
+    defenseLine: 0.05,
+    attackStyle: 0.05,
+    defenseStyle: 0.05,
+    mentality: 0.05,
+    playerDistance: 0.05,
+    pressing: 0.05,
+    marking: 0.05,
+    possession: 0.05,
+    width: 0.05,
+    crossFrequency: 0.05,
+    longShots: 0.05,
+    dribbling: 0.05,
+    offsideTrap: 0.05,
+    counterAttack: 0.05,
+    setPieces: 0.05,
+    playmaking: 0.05,
+    risk: 0.05
+  };
+
+  return Object.entries(settings).reduce((strength, [setting, value]) => {
+    return strength + (value / 100) * (weights[setting as keyof typeof weights] || 0);
+  }, 0);
+};
+
 const aiTacticSelection = (teamStrength: number, opponentStrength: number) => {
+  const settings: Record<string, number> = {};
+  
+  // AI logic untuk memilih taktik berdasarkan kekuatan tim
   if (teamStrength > opponentStrength + 10) {
-    return "possession"; // Tim lebih kuat bermain menguasai
+    // Tim lebih kuat - bermain menyerang
+    settings.mentality = 75;
+    settings.defenseLine = 70;
+    settings.pressing = 70;
+    settings.possession = 70;
+    settings.attackStyle = 70;
   } else if (teamStrength < opponentStrength - 10) {
-    return "park_bus"; // Tim lebih lemah bertahan
-  } else if (teamStrength < opponentStrength - 5) {
-    return "counter"; // Tim sedikit lebih lemah counter attack
-  } else if (Math.abs(teamStrength - opponentStrength) <= 5) {
-    return "high_pressure"; // Tim seimbang bermain pressing
+    // Tim lebih lemah - bermain bertahan
+    settings.mentality = 30;
+    settings.defenseLine = 30;
+    settings.pressing = 40;
+    settings.counterAttack = 80;
+    settings.risk = 30;
   } else {
-    return "tiki_taka"; // Default tiki-taka
+    // Tim seimbang - bermain berimbang
+    settings.mentality = 50;
+    settings.defenseLine = 50;
+    settings.pressing = 60;
+    settings.possession = 55;
+    settings.risk = 50;
   }
+
+  // Isi nilai default untuk setting yang belum diatur
+  tacticSettings.forEach(setting => {
+    if (settings[setting.id] === undefined) {
+      settings[setting.id] = setting.defaultValue;
+    }
+  });
+
+  return settings;
 };
 
 const Tactics = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { toast } = useToast();
-  const [selectedTactic, setSelectedTactic] = useState("");
+  const [tacticValues, setTacticValues] = useState<Record<string, number>>(() => {
+    const initialValues: Record<string, number> = {};
+    tacticSettings.forEach(setting => {
+      initialValues[setting.id] = setting.defaultValue;
+    });
+    return initialValues;
+  });
 
   const state = location.state as LocationState;
   
@@ -104,35 +272,30 @@ const Tactics = () => {
   }
 
   const handleConfirm = () => {
-    if (!selectedTactic) {
-      toast({
-        title: "Kesalahan",
-        description: "Silakan pilih taktik terlebih dahulu",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    const tactic = tactics.find(t => t.id === selectedTactic);
-    if (!tactic) {
-      toast({
-        title: "Kesalahan",
-        description: "Taktik tidak valid",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    // Pilih taktik AI untuk lawan secara otomatis
-    const aiTactic = tactics.find(t => t.id === aiTacticSelection(75, 70)); // Contoh nilai kekuatan tim
+    const playerTacticStrength = calculateTacticStrength(tacticValues);
+    const aiTactics = aiTacticSelection(75, 70); // Contoh nilai kekuatan tim
+    const aiTacticStrength = calculateTacticStrength(aiTactics);
 
     navigate("/simulation", {
       state: {
         ...state,
-        playerTactic: tactic,
-        aiTactic: aiTactic
+        playerTactics: {
+          settings: tacticValues,
+          strength: playerTacticStrength
+        },
+        aiTactics: {
+          settings: aiTactics,
+          strength: aiTacticStrength
+        }
       }
     });
+  };
+
+  const handleSliderChange = (settingId: string, value: number[]) => {
+    setTacticValues(prev => ({
+      ...prev,
+      [settingId]: value[0]
+    }));
   };
 
   return (
@@ -154,41 +317,28 @@ const Tactics = () => {
         </button>
       </div>
 
-      <div className="max-w-4xl mx-auto pt-12">
-        <h1 className="text-3xl font-bold mb-8">Pilih Taktik Tim</h1>
+      <div className="max-w-4xl mx-auto">
+        <h1 className="text-3xl font-bold mb-8">Pengaturan Taktik Tim</h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {tactics.map((tactic) => (
-            <div
-              key={tactic.id}
-              className={`p-4 border rounded-lg cursor-pointer transition-all ${
-                selectedTactic === tactic.id
-                  ? "border-primary bg-primary/10"
-                  : "border-gray-600 hover:border-primary"
-              }`}
-              onClick={() => setSelectedTactic(tactic.id)}
-            >
-              <h3 className="text-xl font-semibold">{tactic.name}</h3>
-              <p className="text-sm text-muted-foreground mt-2">
-                {tactic.description}
-              </p>
-              <div className="mt-4 space-y-2">
-                <div className="text-sm">
-                  Possession: {Math.round(tactic.attributes.possession * 100)}%
+        <div className="grid gap-6">
+          {tacticSettings.map((setting) => (
+            <div key={setting.id} className="space-y-2">
+              <div className="flex justify-between">
+                <div>
+                  <h3 className="font-semibold">{setting.name}</h3>
+                  <p className="text-sm text-muted-foreground">{setting.description}</p>
                 </div>
-                <div className="text-sm">
-                  Passing: {Math.round(tactic.attributes.passing * 100)}%
-                </div>
-                <div className="text-sm">
-                  Pressure: {Math.round(tactic.attributes.pressure * 100)}%
-                </div>
-                <div className="text-sm">
-                  Counter: {Math.round(tactic.attributes.counter * 100)}%
-                </div>
-                <div className="text-sm">
-                  Defensive: {Math.round(tactic.attributes.defensive * 100)}%
-                </div>
+                <span className="font-mono">{tacticValues[setting.id]}%</span>
               </div>
+              <Slider
+                defaultValue={[setting.defaultValue]}
+                max={setting.max}
+                min={setting.min}
+                step={1}
+                value={[tacticValues[setting.id]]}
+                onValueChange={(value) => handleSliderChange(setting.id, value)}
+                className="w-full"
+              />
             </div>
           ))}
         </div>
@@ -196,7 +346,6 @@ const Tactics = () => {
         <div className="mt-8 flex justify-end">
           <Button 
             onClick={handleConfirm}
-            disabled={!selectedTactic}
             className="w-full md:w-auto"
           >
             Konfirmasi Taktik
