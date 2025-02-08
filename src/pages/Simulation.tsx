@@ -262,11 +262,22 @@ const Simulation = () => {
     return () => clearInterval(gameInterval);
   }, [isPlaying, gameTime]);
 
+  const handleBack = () => {
+    navigate("/tactics", {
+      state: {
+        homeTeam,
+        awayTeam,
+        selectedPlayers,
+        playerSide
+      }
+    });
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground p-6">
       <div className="flex justify-between items-center mb-6">
         <button
-          onClick={() => navigate("/tactics")}
+          onClick={handleBack}
           className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
         >
           <ArrowLeft className="w-5 h-5" />
@@ -286,9 +297,9 @@ const Simulation = () => {
           <h1 className="text-3xl font-bold mb-4">Simulasi Pertandingan</h1>
           <div className="flex justify-center items-center gap-4 mb-4">
             <div className={`text-center ${playerSide === "Home" ? "text-yellow-400" : ""}`}>
-              <Avatar className="mb-2">
+              <Avatar className="w-20 h-20 mx-auto mb-2">
                 <AvatarImage 
-                  src={homeTeamData?.icon} 
+                  src={homeTeamData?.icon}
                   alt={homeTeamData?.name}
                   onError={(e) => {
                     const img = e.target as HTMLImageElement;
@@ -297,15 +308,15 @@ const Simulation = () => {
                 />
                 <AvatarFallback>{homeTeamData?.name.substring(0, 2)}</AvatarFallback>
               </Avatar>
-              <span className="text-xl block">{homeTeamData?.name}</span>
+              <span className="text-xl block font-medium">{homeTeamData?.name}</span>
             </div>
-            <div className="text-6xl font-bold">
+            <div className="text-6xl font-bold px-8">
               {score.home} - {score.away}
             </div>
             <div className={`text-center ${playerSide === "Away" ? "text-yellow-400" : ""}`}>
-              <Avatar className="mb-2">
+              <Avatar className="w-20 h-20 mx-auto mb-2">
                 <AvatarImage 
-                  src={awayTeamData?.icon} 
+                  src={awayTeamData?.icon}
                   alt={awayTeamData?.name}
                   onError={(e) => {
                     const img = e.target as HTMLImageElement;
@@ -314,7 +325,7 @@ const Simulation = () => {
                 />
                 <AvatarFallback>{awayTeamData?.name.substring(0, 2)}</AvatarFallback>
               </Avatar>
-              <span className="text-xl block">{awayTeamData?.name}</span>
+              <span className="text-xl block font-medium">{awayTeamData?.name}</span>
             </div>
           </div>
           <div className="text-xl mb-4">
