@@ -1,4 +1,3 @@
-
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
@@ -110,7 +109,7 @@ const Simulation = () => {
           `${awayTeamName} bermain disiplin di lini belakang!`,
           `Pressing agresif dari para pemain ${awayTeamName}!`,
           `${awayTeamName} menunjukkan pertahanan yang kompak`,
-          `Lini belakang ${awayTeamName} bermain dengan sangat baik!`
+          `${awayTeamName} lini belakang bermain dengan sangat baik!`
         ]
       }
     };
@@ -267,11 +266,11 @@ const Simulation = () => {
     <div className="min-h-screen bg-background text-foreground p-6">
       <div className="flex justify-between items-center mb-6">
         <button
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/tactics")}
           className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
         >
           <ArrowLeft className="w-5 h-5" />
-          <span>Kembali ke Beranda</span>
+          <span>Kembali ke Taktik</span>
         </button>
         <button
           onClick={() => navigate("/")}
@@ -370,4 +369,3 @@ const Simulation = () => {
 };
 
 export default Simulation;
-
