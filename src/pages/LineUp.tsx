@@ -1,3 +1,4 @@
+
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { ArrowLeft, Home } from "lucide-react";
@@ -21,7 +22,7 @@ const LineUp = () => {
   const state = location.state as LocationState;
 
   if (!state) {
-    navigate("/match");
+    navigate("/");
     return null;
   }
 
@@ -112,11 +113,11 @@ const LineUp = () => {
     <div className="min-h-screen bg-background text-foreground p-6">
       <div className="flex justify-between items-center mb-6">
         <button
-          onClick={() => navigate(-1)}
+          onClick={() => navigate("/")}
           className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
         >
           <ArrowLeft className="w-5 h-5" />
-          <span>Kembali</span>
+          <span>Kembali ke Beranda</span>
         </button>
         <button
           onClick={() => navigate("/")}
@@ -205,3 +206,4 @@ const LineUp = () => {
 };
 
 export default LineUp;
+
