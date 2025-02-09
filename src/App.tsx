@@ -11,6 +11,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Index />} />
+        <Route path="/index.html" element={<Index />} />
         <Route path="/match" element={<Match />} />
         <Route path="/lineup" element={<LineUp />} />
         <Route path="/simulation" element={<Simulation />} />
