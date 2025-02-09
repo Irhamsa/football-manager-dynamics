@@ -1,3 +1,4 @@
+
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { ArrowLeft, Home } from "lucide-react";
@@ -98,7 +99,7 @@ const LineUp = () => {
       return;
     }
 
-    navigate("/simulation", {
+    navigate("/tactics", {
       state: {
         homeTeam,
         awayTeam,
@@ -108,15 +109,29 @@ const LineUp = () => {
     });
   };
 
+  const handleBack = () => {
+    if (location.state) {
+      navigate("/match", { 
+        state: { 
+          homeTeam, 
+          awayTeam,
+          playerSide 
+        } 
+      });
+    } else {
+      navigate("/match");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground p-6">
       <div className="flex justify-between items-center mb-6">
         <button
-          onClick={() => navigate(-1)}
+          onClick={handleBack}
           className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
         >
           <ArrowLeft className="w-5 h-5" />
-          <span>Kembali</span>
+          <span>Kembali ke Pemilihan Tim</span>
         </button>
         <button
           onClick={() => navigate("/")}
@@ -131,7 +146,14 @@ const LineUp = () => {
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
             <Avatar className="w-16 h-16">
-              <AvatarImage src={selectedTeamData?.icon} alt={selectedTeamData?.name} />
+              <AvatarImage 
+                src={selectedTeamData?.icon}
+                alt={selectedTeamData?.name}
+                onError={(e) => {
+                  const img = e.target as HTMLImageElement;
+                  img.src = "/placeholder.svg";
+                }}
+              />
               <AvatarFallback>
                 {selectedTeamData?.name.substring(0, 2)}
               </AvatarFallback>
@@ -147,15 +169,22 @@ const LineUp = () => {
           {teamPlayers.map((player) => (
             <div
               key={player.id}
-              className={`bg-card p-4 rounded-lg shadow-md transition-all
+              className={`bg-card p-4 rounded-lg shadow-md transition-all cursor-pointer
                 ${selectedPlayers.includes(player.id) 
                   ? 'ring-2 ring-primary' 
                   : 'hover:shadow-lg'}`}
               onClick={() => handlePlayerSelect(player.id)}
             >
               <div className="flex items-center gap-4">
-                <Avatar>
-                  <AvatarImage src={player.icon} alt={player.name} />
+                <Avatar className="w-12 h-12">
+                  <AvatarImage 
+                    src={player.icon}
+                    alt={player.name}
+                    onError={(e) => {
+                      const img = e.target as HTMLImageElement;
+                      img.src = "/placeholder.svg";
+                    }}
+                  />
                   <AvatarFallback>{player.name.substring(0, 2)}</AvatarFallback>
                 </Avatar>
                 <div>

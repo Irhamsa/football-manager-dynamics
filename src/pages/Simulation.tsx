@@ -2,7 +2,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowLeft, Home } from "lucide-react";
+import { ArrowLeft, Home, Play, Pause } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import teamsData from "../data/teams.json";
 import playersData from "../data/players.json";
 
@@ -11,6 +12,8 @@ interface LocationState {
   awayTeam: string;
   selectedPlayers: string[];
   playerSide: string;
+  formation: { strength: number };
+  tactics: any;
 }
 
 interface GameEvent {
@@ -30,13 +33,14 @@ const Simulation = () => {
   const [gameTime, setGameTime] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [gameEvents, setGameEvents] = useState<GameEvent[]>([]);
+  const [gameEnded, setGameEnded] = useState(false);
 
   if (!state) {
     navigate("/match");
     return null;
   }
 
-  const { homeTeam, awayTeam, selectedPlayers, playerSide } = state;
+  const { homeTeam, awayTeam, selectedPlayers, playerSide, formation, tactics } = state;
 
   const homeTeamData = teamsData.teams.find(team => team.id === homeTeam);
   const awayTeamData = teamsData.teams.find(team => team.id === awayTeam);
@@ -60,91 +64,126 @@ const Simulation = () => {
       .map(p => p!);
   };
 
-  const generateCommentary = (minute: number, type: "chance" | "possession" | "tackle") => {
-    const commentaries = {
-      chance: [
-        "Peluang bagus!",
-        "Hampir saja!",
-        "Mereka mengancam gawang!",
-        "Kiper terlewati tapi melebar!",
-        "Gerakan brilian tapi tidak berhasil!"
-      ],
-      possession: [
-        "Mengontrol permainan dengan baik",
-        "Passing yang indah",
-        "Mendominasi penguasaan bola",
-        "Menjaga bola dengan baik",
-        "Membangun serangan dengan sabar"
-      ],
-      tackle: [
-        "Pertahanan yang bagus!",
-        "Tekel brilian!",
-        "Pertahanan berdiri kokoh",
-        "Mereka berhasil merebut bola",
-        "Pertahanan yang solid"
-      ]
+  const generateCommentary = (minute: number, type: "chance" | "possession" | "tackle", homeTeamName: string, awayTeamName: string, playerSide: string) => {
+    const teamCommentaries = {
+      home: {
+        chance: [
+          `${homeTeamName} menciptakan peluang emas melalui serangan yang terstruktur!`,
+          `Pergerakan dinamis dari para pemain ${homeTeamName}!`,
+          `${homeTeamName} mengancam pertahanan lawan dengan kombinasi passing yang apik!`,
+          `Serangan berbahaya dari ${homeTeamName} melalui sayap!`,
+          `${homeTeamName} membangun serangan dengan sangat baik!`
+        ],
+        possession: [
+          `${homeTeamName} mendominasi penguasaan bola dengan passing pendek yang presisi`,
+          `Permainan posesif yang ditunjukkan ${homeTeamName} sangat efektif`,
+          `${homeTeamName} dengan sabar membangun serangan dari lini belakang`,
+          `Kontrol bola yang sempurna dari para pemain ${homeTeamName}`,
+          `${homeTeamName} mendikte jalannya pertandingan dengan penguasaan bola yang baik`
+        ],
+        tackle: [
+          `Pertahanan solid dari barisan belakang ${homeTeamName}!`,
+          `Tekel brilian dari defender ${homeTeamName}!`,
+          `${homeTeamName} berhasil mematahkan serangan dengan timing yang tepat`,
+          `Organisasi pertahanan ${homeTeamName} sangat rapi`,
+          `${homeTeamName} sukses mengamankan pertahanan mereka!`
+        ]
+      },
+      away: {
+        chance: [
+          `${awayTeamName} mengancam melalui serangan balik yang cepat!`,
+          `Peluang bagus tercipta untuk ${awayTeamName}!`,
+          `${awayTeamName} hampir membuat kejutan dengan serangan mendadak!`,
+          `Pergerakan tanpa bola yang berbahaya dari ${awayTeamName}!`,
+          `${awayTeamName} menciptakan kesempatan mencetak gol!`
+        ],
+        possession: [
+          `${awayTeamName} mulai menguasai jalannya permainan`,
+          `Rotasi bola yang bagus dari ${awayTeamName}`,
+          `${awayTeamName} bermain dengan tempo yang terkontrol`,
+          `Distribusi bola yang akurat dari lini tengah ${awayTeamName}`,
+          `${awayTeamName} berhasil mengatur ritme permainan`
+        ],
+        tackle: [
+          `Antisipasi sempurna dari pertahanan ${awayTeamName}!`,
+          `${awayTeamName} bermain disiplin di lini belakang!`,
+          `Pressing agresif dari para pemain ${awayTeamName}!`,
+          `${awayTeamName} menunjukkan pertahanan yang kompak`,
+          `${awayTeamName} lini belakang bermain dengan sangat baik!`
+        ]
+      }
     };
     
-    const commentary = commentaries[type][Math.floor(Math.random() * commentaries[type].length)];
+    const team = Math.random() > 0.5 ? 'home' : 'away';
+    const commentary = teamCommentaries[team][type][Math.floor(Math.random() * teamCommentaries[team][type].length)];
+    
     return {
       minute,
       type: "commentary" as const,
-      team: Math.random() > 0.5 ? playerTeamId : aiTeamId,
+      team: team === 'home' ? homeTeamData?.name || "" : awayTeamData?.name || "",
       description: commentary
     };
   };
 
-  const calculateTeamStrength = (playerIds: string[]) => {
-    const players = playerIds.map(id => playersData.players.find(p => p.id === id))
-      .filter(p => p !== undefined);
-    
-    if (!players.length) return 0;
-    
-    return players.reduce((acc, player) => {
-      if (!player) return acc;
-      
-      switch (player.position) {
-        case "ST":
-          return acc + ((player.abilities.shooting * 3 + player.abilities.pace * 2 + player.abilities.dribbling + player.abilities.physical) / 6);
-        case "CF":
-          return acc + ((player.abilities.shooting * 3 + player.abilities.pace * 2 + player.abilities.passing + player.abilities.physical) / 6);
-        case "RW":
-        case "LW":
-          return acc + ((player.abilities.pace * 3 + player.abilities.dribbling * 2 + player.abilities.physical + player.abilities.passing) / 6);
-        case "CAM":
-        case "CM":
-          return acc + ((player.abilities.passing * 3 + player.abilities.dribbling * 2 + player.abilities.shooting) / 6);
-        case "CDM":
-          return acc + ((player.abilities.defending * 3 + player.abilities.physical * 2 + player.abilities.passing) / 6);
-        case "CB":
-          return acc + ((player.abilities.defending * 3 + player.abilities.physical * 2 + player.abilities.positioning + (player.abilities.pace / 2)) / 6);
-        case "LB":
-        case "RB":
-          return acc + ((player.abilities.pace * 3 + player.abilities.physical * 2 + player.abilities.defending + (player.abilities.passing / 2) + (player.abilities.dribbling / 3)) / 6);
-        case "GK":
-          return acc + ((player.abilities.reflexes * 4 + player.abilities.positioning + player.abilities.handling + player.abilities.diving) / 5);
-        default:
-          return acc + Object.values(player.abilities).reduce((sum, val) => sum + val, 0) / 6;
-      }
-    }, 0) / players.length;
+  const calculateTeamStrength = (playerIds: string[], tactic: any) => {
+    const baseStrength = playerIds
+      .map(id => playersData.players.find(p => p.id === id))
+      .filter(p => p !== undefined)
+      .reduce((acc, player) => {
+        if (!player) return acc;
+        
+        const positionBonus = {
+          "ST": tactic.settings.mentality * 0.3 + tactic.settings.attackStyle * 0.2,
+          "CF": tactic.settings.possession * 0.2 + tactic.settings.playmaking * 0.2,
+          "RW": tactic.settings.counterAttack * 0.2 + tactic.settings.width * 0.2,
+          "LW": tactic.settings.counterAttack * 0.2 + tactic.settings.width * 0.2,
+          "CAM": tactic.settings.playmaking * 0.3 + tactic.settings.possession * 0.2,
+          "CM": tactic.settings.possession * 0.25 + tactic.settings.playmaking * 0.25,
+          "CDM": tactic.settings.defenseStyle * 0.3 + tactic.settings.pressing * 0.2,
+          "CB": tactic.settings.defenseLine * 0.4,
+          "LB": tactic.settings.pressing * 0.2 + tactic.settings.counterAttack * 0.1,
+          "RB": tactic.settings.pressing * 0.2 + tactic.settings.counterAttack * 0.1,
+          "GK": tactic.settings.defenseLine * 0.2
+        }[player.position] || 0;
+
+        return acc + (
+          Object.values(player.abilities).reduce((sum, val) => sum + val, 0) / 6
+        ) * (1 + positionBonus);
+      }, 0) / playerIds.length;
+
+    return baseStrength;
   };
 
-  const simulateAttack = (attackingTeam: string[], defendingTeam: string[]) => {
-    const attackingStrength = calculateTeamStrength(attackingTeam);
-    const defendingStrength = calculateTeamStrength(defendingTeam);
+  const simulateAttack = (
+    attackingTeam: string[], 
+    defendingTeam: string[], 
+    attackingTactics: any, 
+    defendingTactics: any
+  ) => {
+    const BASE_GOAL_CHANCE = 0.12; // Adjusted for better balance
     
-    const strengthDifference = attackingStrength - defendingStrength;
-    let baseProb = 0.08;
-    
-    baseProb += (strengthDifference / 300);
-    
-    const randomFactor = Math.random() * 0.05;
-    
-    const underdogBonus = defendingStrength > attackingStrength ? 0.03 : 0;
-    
-    const finalProb = Math.max(0.03, Math.min(0.15, baseProb + randomFactor + underdogBonus));
-    
-    return Math.random() < finalProb;
+    const attackingModifier = (
+      (attackingTactics.settings.mentality / 100) * 0.15 +
+      (attackingTactics.settings.attackStyle / 100) * 0.15 +
+      (attackingTactics.settings.attackTempo / 100) * 0.1 +
+      (attackingTactics.settings.risk / 100) * 0.1
+    );
+
+    const defendingModifier = (
+      (defendingTactics.settings.defenseLine / 100) * 0.15 +
+      (defendingTactics.settings.marking / 100) * 0.15 +
+      (defendingTactics.settings.defenseStyle / 100) * 0.1 +
+      (defendingTactics.settings.pressing / 100) * 0.1
+    );
+
+    const randomFactor = (Math.random() - 0.5) * 0.15;
+
+    const finalChance = BASE_GOAL_CHANCE + 
+      attackingModifier - 
+      defendingModifier + 
+      randomFactor;
+
+    return Math.random() < Math.max(0.05, Math.min(0.25, finalChance));
   };
 
   useEffect(() => {
@@ -153,6 +192,11 @@ const Simulation = () => {
     const gameInterval = setInterval(() => {
       if (gameTime >= 90) {
         setIsPlaying(false);
+        setGameEnded(true);
+        toast({
+          title: "Pertandingan Selesai",
+          description: "Pertandingan telah berakhir!",
+        });
         return;
       }
 
@@ -160,14 +204,25 @@ const Simulation = () => {
 
       if (Math.random() < 0.2) {
         const commentaryType = ["chance", "possession", "tackle"][Math.floor(Math.random() * 3)] as "chance" | "possession" | "tackle";
-        setGameEvents(prev => [...prev, generateCommentary(gameTime, commentaryType)]);
+        setGameEvents(prev => [
+          ...prev, 
+          generateCommentary(
+            gameTime, 
+            commentaryType, 
+            homeTeamData?.name || "", 
+            awayTeamData?.name || "", 
+            playerSide
+          )
+        ]);
       }
 
       if (Math.random() < 0.15) {
         const homeAttackers = getAttackers(playerSide === "Home" ? selectedPlayers : aiSelectedPlayers);
         if (simulateAttack(
           playerSide === "Home" ? selectedPlayers : aiSelectedPlayers,
-          playerSide === "Home" ? aiSelectedPlayers : selectedPlayers
+          playerSide === "Home" ? aiSelectedPlayers : selectedPlayers,
+          tactics.home,
+          tactics.away
         )) {
           const scorer = homeAttackers[Math.floor(Math.random() * homeAttackers.length)];
           if (scorer) {
@@ -175,30 +230,30 @@ const Simulation = () => {
             setGameEvents(prev => [...prev, {
               minute: gameTime,
               type: "goal",
-              team: playerSide === "Home" ? playerTeamId : aiTeamId,
-              description: `GOL! ${scorer.name} berhasil mencatatkan namanya di papan skor!`,
+              team: homeTeamData?.name || "",
+              description: `GOL! ${scorer.name} berhasil mencatatkan namanya di papan skor untuk ${homeTeamData?.name}!`,
               scorer: scorer.name
             }]);
           }
         }
 
-        if (Math.random() < 0.15) {
-          const awayAttackers = getAttackers(playerSide === "Away" ? selectedPlayers : aiSelectedPlayers);
-          if (simulateAttack(
-            playerSide === "Away" ? selectedPlayers : aiSelectedPlayers,
-            playerSide === "Away" ? aiSelectedPlayers : selectedPlayers
-          )) {
-            const scorer = awayAttackers[Math.floor(Math.random() * awayAttackers.length)];
-            if (scorer) {
-              setScore(prev => ({ ...prev, away: prev.away + 1 }));
-              setGameEvents(prev => [...prev, {
-                minute: gameTime,
-                type: "goal",
-                team: playerSide === "Away" ? playerTeamId : aiTeamId,
-                description: `GOL! ${scorer.name} mencetak gol untuk ${playerSide === "Away" ? awayTeamData?.name : homeTeamData?.name}!`,
-                scorer: scorer.name
-              }]);
-            }
+        const awayAttackers = getAttackers(playerSide === "Away" ? selectedPlayers : aiSelectedPlayers);
+        if (simulateAttack(
+          playerSide === "Away" ? selectedPlayers : aiSelectedPlayers,
+          playerSide === "Away" ? aiSelectedPlayers : selectedPlayers,
+          tactics.away,
+          tactics.home
+        )) {
+          const scorer = awayAttackers[Math.floor(Math.random() * awayAttackers.length)];
+          if (scorer) {
+            setScore(prev => ({ ...prev, away: prev.away + 1 }));
+            setGameEvents(prev => [...prev, {
+              minute: gameTime,
+              type: "goal",
+              team: awayTeamData?.name || "",
+              description: `GOL! ${scorer.name} mencetak gol untuk ${awayTeamData?.name}!`,
+              scorer: scorer.name
+            }]);
           }
         }
       }
@@ -207,15 +262,26 @@ const Simulation = () => {
     return () => clearInterval(gameInterval);
   }, [isPlaying, gameTime]);
 
+  const handleBack = () => {
+    navigate("/tactics", {
+      state: {
+        homeTeam,
+        awayTeam,
+        selectedPlayers,
+        playerSide
+      }
+    });
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground p-6">
       <div className="flex justify-between items-center mb-6">
         <button
-          onClick={() => navigate(-1)}
+          onClick={handleBack}
           className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
         >
           <ArrowLeft className="w-5 h-5" />
-          <span>Kembali</span>
+          <span>Kembali ke Taktik</span>
         </button>
         <button
           onClick={() => navigate("/")}
@@ -231,15 +297,35 @@ const Simulation = () => {
           <h1 className="text-3xl font-bold mb-4">Simulasi Pertandingan</h1>
           <div className="flex justify-center items-center gap-4 mb-4">
             <div className={`text-center ${playerSide === "Home" ? "text-yellow-400" : ""}`}>
-              <img src={homeTeamData?.icon} alt={homeTeamData?.name} className="w-12 h-12 mx-auto mb-2" />
-              <span className="text-xl">{homeTeamData?.name}</span>
+              <Avatar className="w-20 h-20 mx-auto mb-2">
+                <AvatarImage 
+                  src={homeTeamData?.icon}
+                  alt={homeTeamData?.name}
+                  onError={(e) => {
+                    const img = e.target as HTMLImageElement;
+                    img.src = "/placeholder.svg";
+                  }}
+                />
+                <AvatarFallback>{homeTeamData?.name.substring(0, 2)}</AvatarFallback>
+              </Avatar>
+              <span className="text-xl block font-medium">{homeTeamData?.name}</span>
             </div>
-            <div className="text-6xl font-bold">
+            <div className="text-6xl font-bold px-8">
               {score.home} - {score.away}
             </div>
             <div className={`text-center ${playerSide === "Away" ? "text-yellow-400" : ""}`}>
-              <img src={awayTeamData?.icon} alt={awayTeamData?.name} className="w-12 h-12 mx-auto mb-2" />
-              <span className="text-xl">{awayTeamData?.name}</span>
+              <Avatar className="w-20 h-20 mx-auto mb-2">
+                <AvatarImage 
+                  src={awayTeamData?.icon}
+                  alt={awayTeamData?.name}
+                  onError={(e) => {
+                    const img = e.target as HTMLImageElement;
+                    img.src = "/placeholder.svg";
+                  }}
+                />
+                <AvatarFallback>{awayTeamData?.name.substring(0, 2)}</AvatarFallback>
+              </Avatar>
+              <span className="text-xl block font-medium">{awayTeamData?.name}</span>
             </div>
           </div>
           <div className="text-xl mb-4">
@@ -247,12 +333,26 @@ const Simulation = () => {
           </div>
           {!isPlaying && gameTime === 0 && (
             <Button onClick={() => setIsPlaying(true)}>
+              <Play className="w-4 h-4 mr-2" />
               Mulai Pertandingan
             </Button>
           )}
           {isPlaying && (
             <Button onClick={() => setIsPlaying(false)}>
+              <Pause className="w-4 h-4 mr-2" />
               Jeda
+            </Button>
+          )}
+          {!isPlaying && gameTime > 0 && !gameEnded && (
+            <Button onClick={() => setIsPlaying(true)}>
+              <Play className="w-4 h-4 mr-2" />
+              Lanjutkan
+            </Button>
+          )}
+          {gameEnded && (
+            <Button onClick={() => navigate("/match")}>
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Kembali ke Pemilihan Tim
             </Button>
           )}
         </div>

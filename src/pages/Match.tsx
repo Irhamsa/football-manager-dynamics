@@ -143,18 +143,22 @@ const Match = () => {
                   onClick={() => setShowHomeTeamDropdown(!showHomeTeamDropdown)}
                 >
                   {selectedHomeTeam ? (
-                    <>
-                      <Avatar className="w-6 h-6">
+                    <div className="flex items-center gap-3 w-full">
+                      <Avatar className="w-8 h-8">
                         <AvatarImage 
                           src={teamsData.teams.find(team => team.id === selectedHomeTeam)?.icon} 
                           alt={teamsData.teams.find(team => team.id === selectedHomeTeam)?.name} 
+                          onError={(e) => {
+                            const img = e.target as HTMLImageElement;
+                            img.src = "/placeholder.svg";
+                          }}
                         />
                         <AvatarFallback>
                           {teamsData.teams.find(team => team.id === selectedHomeTeam)?.name.substring(0, 2)}
                         </AvatarFallback>
                       </Avatar>
-                      {teamsData.teams.find(team => team.id === selectedHomeTeam)?.name}
-                    </>
+                      <span>{teamsData.teams.find(team => team.id === selectedHomeTeam)?.name}</span>
+                    </div>
                   ) : (
                     "Pilih Tim Tuan Rumah"
                   )}
@@ -168,7 +172,7 @@ const Match = () => {
                         className="p-3 hover:bg-primary/10 cursor-pointer transition-colors flex items-center gap-3"
                         onClick={() => handleHomeTeamSelect(team.id)}
                       >
-                        <Avatar className="w-6 h-6">
+                        <Avatar className="w-8 h-8">
                           <AvatarImage src={team.icon} alt={team.name} />
                           <AvatarFallback>{team.name.substring(0, 2)}</AvatarFallback>
                         </Avatar>
@@ -232,18 +236,22 @@ const Match = () => {
                   onClick={() => setShowAwayTeamDropdown(!showAwayTeamDropdown)}
                 >
                   {selectedAwayTeam ? (
-                    <>
-                      <Avatar className="w-6 h-6">
+                    <div className="flex items-center gap-3 w-full">
+                      <Avatar className="w-8 h-8">
                         <AvatarImage 
                           src={teamsData.teams.find(team => team.id === selectedAwayTeam)?.icon} 
                           alt={teamsData.teams.find(team => team.id === selectedAwayTeam)?.name} 
+                          onError={(e) => {
+                            const img = e.target as HTMLImageElement;
+                            img.src = "/placeholder.svg";
+                          }}
                         />
                         <AvatarFallback>
                           {teamsData.teams.find(team => team.id === selectedAwayTeam)?.name.substring(0, 2)}
                         </AvatarFallback>
                       </Avatar>
-                      {teamsData.teams.find(team => team.id === selectedAwayTeam)?.name}
-                    </>
+                      <span>{teamsData.teams.find(team => team.id === selectedAwayTeam)?.name}</span>
+                    </div>
                   ) : (
                     "Pilih Tim Tamu"
                   )}
@@ -257,7 +265,7 @@ const Match = () => {
                         className="p-3 hover:bg-primary/10 cursor-pointer transition-colors flex items-center gap-3"
                         onClick={() => handleAwayTeamSelect(team.id)}
                       >
-                        <Avatar className="w-6 h-6">
+                        <Avatar className="w-8 h-8">
                           <AvatarImage src={team.icon} alt={team.name} />
                           <AvatarFallback>{team.name.substring(0, 2)}</AvatarFallback>
                         </Avatar>
@@ -293,6 +301,10 @@ const Match = () => {
                         <AvatarImage 
                           src={teamsData.teams.find(team => team.id === selectedHomeTeam)?.icon} 
                           alt={teamsData.teams.find(team => team.id === selectedHomeTeam)?.name} 
+                          onError={(e) => {
+                            const img = e.target as HTMLImageElement;
+                            img.src = "/placeholder.svg";
+                          }}
                         />
                         <AvatarFallback>
                           {teamsData.teams.find(team => team.id === selectedHomeTeam)?.name.substring(0, 2)}
@@ -310,6 +322,10 @@ const Match = () => {
                         <AvatarImage 
                           src={teamsData.teams.find(team => team.id === selectedAwayTeam)?.icon} 
                           alt={teamsData.teams.find(team => team.id === selectedAwayTeam)?.name} 
+                          onError={(e) => {
+                            const img = e.target as HTMLImageElement;
+                            img.src = "/placeholder.svg";
+                          }}
                         />
                         <AvatarFallback>
                           {teamsData.teams.find(team => team.id === selectedAwayTeam)?.name.substring(0, 2)}
