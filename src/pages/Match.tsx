@@ -1,3 +1,4 @@
+
 import { ArrowLeft, Home } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -58,12 +59,11 @@ const Match = () => {
 
   const handleConfirm = () => {
     if (selectedHomeTeam && selectedAwayTeam && selectedSide) {
-      navigate("/lineup", {
+      navigate("/tactics", {
         state: {
           homeTeam: selectedHomeTeam,
           awayTeam: selectedAwayTeam,
-          playerSide: selectedSide,
-          selectedTeam: selectedSide === "Home" ? selectedHomeTeam : selectedAwayTeam
+          playerSide: selectedSide
         }
       });
     }

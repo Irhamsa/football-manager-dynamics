@@ -10,10 +10,13 @@ import playersData from "../data/players.json";
 interface LocationState {
   homeTeam: string;
   awayTeam: string;
-  selectedPlayers: string[];
   playerSide: string;
-  formation: { strength: number };
-  tactics: any;
+  tactics: {
+    home: Record<string, number>;
+    away: Record<string, number>;
+    homeStrength: number;
+    awayStrength: number;
+  };
 }
 
 interface GameEvent {
@@ -40,7 +43,7 @@ const Simulation = () => {
     return null;
   }
 
-  const { homeTeam, awayTeam, selectedPlayers, playerSide, formation, tactics } = state;
+  const { homeTeam, awayTeam, selectedPlayers, playerSide, tactics } = state;
 
   const homeTeamData = teamsData.teams.find(team => team.id === homeTeam);
   const awayTeamData = teamsData.teams.find(team => team.id === awayTeam);
@@ -155,25 +158,29 @@ const Simulation = () => {
   };
 
   const simulateAttack = (
-    attackingTeam: string[], 
-    defendingTeam: string[], 
-    attackingTactics: any, 
-    defendingTactics: any
+    attackingTeamName: string,
+    defendingTeamName: string,
+    attackingTactics: Record<string, number>,
+    defendingTactics: Record<string, number>,
+    attackingStrength: number,
+    defendingStrength: number
   ) => {
-    const BASE_GOAL_CHANCE = 0.12; // Adjusted for better balance
+    const BASE_GOAL_CHANCE = 0.12;
     
     const attackingModifier = (
-      (attackingTactics.settings.mentality / 100) * 0.15 +
-      (attackingTactics.settings.attackStyle / 100) * 0.15 +
-      (attackingTactics.settings.attackTempo / 100) * 0.1 +
-      (attackingTactics.settings.risk / 100) * 0.1
+      (attackingTactics.mentality / 100) * 0.15 +
+      (attackingTactics.attackStyle / 100) * 0.15 +
+      (attackingTactics.attackTempo / 100) * 0.1 +
+      (attackingTactics.risk / 100) * 0.1 +
+      (attackingStrength / 100) * 0.2
     );
 
     const defendingModifier = (
-      (defendingTactics.settings.defenseLine / 100) * 0.15 +
-      (defendingTactics.settings.marking / 100) * 0.15 +
-      (defendingTactics.settings.defenseStyle / 100) * 0.1 +
-      (defendingTactics.settings.pressing / 100) * 0.1
+      (defendingTactics.defenseLine / 100) * 0.15 +
+      (defendingTactics.marking / 100) * 0.15 +
+      (defendingTactics.defenseStyle / 100) * 0.1 +
+      (defendingTactics.pressing / 100) * 0.1 +
+      (defendingStrength / 100) * 0.2
     );
 
     const randomFactor = (Math.random() - 0.5) * 0.15;
@@ -217,44 +224,38 @@ const Simulation = () => {
       }
 
       if (Math.random() < 0.15) {
-        const homeAttackers = getAttackers(playerSide === "Home" ? selectedPlayers : aiSelectedPlayers);
         if (simulateAttack(
-          playerSide === "Home" ? selectedPlayers : aiSelectedPlayers,
-          playerSide === "Home" ? aiSelectedPlayers : selectedPlayers,
-          tactics.home,
-          tactics.away
+          homeTeamData?.name || "",
+          awayTeamData?.name || "",
+          state.tactics.home,
+          state.tactics.away,
+          state.tactics.homeStrength,
+          state.tactics.awayStrength
         )) {
-          const scorer = homeAttackers[Math.floor(Math.random() * homeAttackers.length)];
-          if (scorer) {
-            setScore(prev => ({ ...prev, home: prev.home + 1 }));
-            setGameEvents(prev => [...prev, {
-              minute: gameTime,
-              type: "goal",
-              team: homeTeamData?.name || "",
-              description: `GOL! ${scorer.name} berhasil mencatatkan namanya di papan skor untuk ${homeTeamData?.name}!`,
-              scorer: scorer.name
-            }]);
-          }
+          setScore(prev => ({ ...prev, home: prev.home + 1 }));
+          setGameEvents(prev => [...prev, {
+            minute: gameTime,
+            type: "goal",
+            team: homeTeamData?.name || "",
+            description: `GOL! ${homeTeamData?.name} berhasil mencetak gol!`,
+          }]);
         }
 
-        const awayAttackers = getAttackers(playerSide === "Away" ? selectedPlayers : aiSelectedPlayers);
         if (simulateAttack(
-          playerSide === "Away" ? selectedPlayers : aiSelectedPlayers,
-          playerSide === "Away" ? aiSelectedPlayers : selectedPlayers,
-          tactics.away,
-          tactics.home
+          awayTeamData?.name || "",
+          homeTeamData?.name || "",
+          state.tactics.away,
+          state.tactics.home,
+          state.tactics.awayStrength,
+          state.tactics.homeStrength
         )) {
-          const scorer = awayAttackers[Math.floor(Math.random() * awayAttackers.length)];
-          if (scorer) {
-            setScore(prev => ({ ...prev, away: prev.away + 1 }));
-            setGameEvents(prev => [...prev, {
-              minute: gameTime,
-              type: "goal",
-              team: awayTeamData?.name || "",
-              description: `GOL! ${scorer.name} mencetak gol untuk ${awayTeamData?.name}!`,
-              scorer: scorer.name
-            }]);
-          }
+          setScore(prev => ({ ...prev, away: prev.away + 1 }));
+          setGameEvents(prev => [...prev, {
+            minute: gameTime,
+            type: "goal",
+            team: awayTeamData?.name || "",
+            description: `GOL! ${awayTeamData?.name} mencetak gol!`,
+          }]);
         }
       }
     }, 1000);

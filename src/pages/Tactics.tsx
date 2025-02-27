@@ -1,4 +1,3 @@
-
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { ArrowLeft, Home } from "lucide-react";
@@ -9,7 +8,6 @@ import { Slider } from "@/components/ui/slider";
 interface LocationState {
   homeTeam: string;
   awayTeam: string;
-  selectedPlayers: string[];
   playerSide: string;
 }
 
@@ -217,23 +215,19 @@ const calculateTacticStrength = (settings: Record<string, number>) => {
 const aiTacticSelection = (teamStrength: number, opponentStrength: number) => {
   const settings: Record<string, number> = {};
   
-  // AI logic untuk memilih taktik berdasarkan kekuatan tim
   if (teamStrength > opponentStrength + 10) {
-    // Tim lebih kuat - bermain menyerang
     settings.mentality = 75;
     settings.defenseLine = 70;
     settings.pressing = 70;
     settings.possession = 70;
     settings.attackStyle = 70;
   } else if (teamStrength < opponentStrength - 10) {
-    // Tim lebih lemah - bermain bertahan
     settings.mentality = 30;
     settings.defenseLine = 30;
     settings.pressing = 40;
     settings.counterAttack = 80;
     settings.risk = 30;
   } else {
-    // Tim seimbang - bermain berimbang
     settings.mentality = 50;
     settings.defenseLine = 50;
     settings.pressing = 60;
@@ -241,7 +235,6 @@ const aiTacticSelection = (teamStrength: number, opponentStrength: number) => {
     settings.risk = 50;
   }
 
-  // Isi nilai default untuk setting yang belum diatur
   tacticSettings.forEach(setting => {
     if (settings[setting.id] === undefined) {
       settings[setting.id] = setting.defaultValue;
@@ -265,7 +258,7 @@ const Tactics = () => {
 
   const state = location.state as LocationState;
   
-  if (!state || !state.homeTeam || !state.awayTeam || !state.selectedPlayers || !state.playerSide) {
+  if (!state || !state.homeTeam || !state.awayTeam || !state.playerSide) {
     console.log("Missing state:", state);
     navigate("/match");
     return null;
@@ -273,19 +266,17 @@ const Tactics = () => {
 
   const handleConfirm = () => {
     const playerTacticStrength = calculateTacticStrength(tacticValues);
-    const aiTactics = aiTacticSelection(75, 70); // Contoh nilai kekuatan tim
+    const aiTactics = aiTacticSelection(75, 70);
     const aiTacticStrength = calculateTacticStrength(aiTactics);
 
     navigate("/simulation", {
       state: {
         ...state,
-        playerTactics: {
-          settings: tacticValues,
-          strength: playerTacticStrength
-        },
-        aiTactics: {
-          settings: aiTactics,
-          strength: aiTacticStrength
+        tactics: {
+          home: state.playerSide === "Home" ? tacticValues : aiTactics,
+          away: state.playerSide === "Away" ? tacticValues : aiTactics,
+          homeStrength: state.playerSide === "Home" ? playerTacticStrength : aiTacticStrength,
+          awayStrength: state.playerSide === "Away" ? playerTacticStrength : aiTacticStrength
         }
       }
     });
