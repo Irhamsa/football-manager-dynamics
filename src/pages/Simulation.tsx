@@ -1,3 +1,4 @@
+
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
@@ -43,7 +44,7 @@ const Simulation = () => {
     return null;
   }
 
-  const { homeTeam, awayTeam, selectedPlayers, playerSide, tactics } = state;
+  const { homeTeam, awayTeam, playerSide, tactics } = state;
 
   const homeTeamData = teamsData.teams.find(team => team.id === homeTeam);
   const awayTeamData = teamsData.teams.find(team => team.id === awayTeam);
@@ -268,7 +269,6 @@ const Simulation = () => {
       state: {
         homeTeam,
         awayTeam,
-        selectedPlayers,
         playerSide
       }
     });
@@ -381,3 +381,4 @@ const Simulation = () => {
 };
 
 export default Simulation;
+
