@@ -6,7 +6,6 @@
   "name": "Japan",
   "confederation": "afc",
   "icon": "/images/teams/japan.png",
-  "ovr": 84,
   "serangan": 83,
   "possession": 85,
   "defense": 82
@@ -16,7 +15,6 @@
   "name": "Australia",
   "confederation": "afc",
   "icon": "/images/teams/australia.png",
-    "ovr": 79,
     "serangan": 77,
     "possession": 78,
     "defense": 80
@@ -26,7 +24,6 @@
   "name": "Iran",
   "confederation": "afc",
   "icon": "/images/teams/iran.png",
-    "ovr": 78,
     "serangan": 76,
     "possession": 77,
     "defense": 79
@@ -36,7 +33,6 @@
   "name": "Saudi Arabia",
   "confederation": "afc",
   "icon": "/images/teams/saudi_arabia.png",
-    "ovr": 75,
     "serangan": 74,
     "possession": 76,
     "defense": 74
@@ -46,7 +42,6 @@
   "name": "South Korea",
   "confederation": "afc",
   "icon": "/images/teams/south_korea.png",
-    "ovr": 81,
     "serangan": 80,
     "possession": 82,
     "defense": 80
@@ -56,7 +51,6 @@
   "name": "China",
   "confederation": "afc",
   "icon": "/images/teams/china.png",
-    "ovr": 69,
     "serangan": 68,
     "possession": 70,
     "defense": 68
@@ -66,7 +60,6 @@
   "name": "Iraq",
   "confederation": "afc",
   "icon": "/images/teams/iraq.png",
-    "ovr": 72,
     "serangan": 71,
     "possession": 73,
     "defense": 71
@@ -76,7 +69,6 @@
   "name": "Uzbekistan",
   "confederation": "afc",
   "icon": "/images/teams/uzbekistan.png",
-    "ovr": 70,
     "serangan": 69,
     "possession": 71,
     "defense": 69
@@ -86,7 +78,6 @@
   "name": "Indonesia",
   "confederation": "afc",
   "icon": "/images/teams/indonesia.png",
-    "ovr": 68,
     "serangan": 67,
     "possession": 69,
     "defense": 67
@@ -96,7 +87,6 @@
   "name": "India",
   "confederation": "afc",
   "icon": "/images/teams/india.png",
-    "ovr": 65,
     "serangan": 64,
     "possession": 66,
     "defense": 64
@@ -106,7 +96,6 @@
   "name": "Qatar",
   "confederation": "afc",
   "icon": "/images/teams/qatar.png",
-    "ovr": 73,
     "serangan": 72,
     "possession": 74,
     "defense": 72
@@ -116,7 +105,6 @@
   "name": "Bahrain",
   "confederation": "afc",
   "icon": "/images/teams/bahrain.png",
-    "ovr": 67,
     "serangan": 66,
     "possession": 68,
     "defense": 66
@@ -126,7 +114,6 @@
   "name": "Syria",
   "confederation": "afc",
   "icon": "/images/teams/syria.png",
-    "ovr": 66,
     "serangan": 65,
     "possession": 67,
     "defense": 65
@@ -136,7 +123,6 @@
   "name": "Yemen",
   "confederation": "afc",
   "icon": "/images/teams/yemen.png",
-    "ovr": 62,
     "serangan": 61,
     "possession": 63,
     "defense": 61
@@ -146,7 +132,6 @@
   "name": "Kuwait",
   "confederation": "afc",
   "icon": "/images/teams/kuwait.png",
-    "ovr": 64,
     "serangan": 63,
     "possession": 65,
     "defense": 63
@@ -156,7 +141,6 @@
   "name": "Lebanon",
   "confederation": "afc",
   "icon": "/images/teams/lebanon.png",
-    "ovr": 63,
     "serangan": 62,
     "possession": 64,
     "defense": 62
@@ -166,7 +150,6 @@
   "name": "Oman",
   "confederation": "afc",
   "icon": "/images/teams/oman.png",
-    "ovr": 69,
     "serangan": 68,
     "possession": 70,
     "defense": 68
@@ -176,7 +159,6 @@
   "name": "Tajikistan",
   "confederation": "afc",
   "icon": "/images/teams/tajikistan.png",
-    "ovr": 61,
     "serangan": 60,
     "possession": 62,
     "defense": 60
@@ -186,7 +168,6 @@
   "name": "Afghanistan",
   "confederation": "afc",
   "icon": "/images/teams/afghanistan.png",
-    "ovr": 58,
     "serangan": 57,
     "possession": 59,
     "defense": 57
@@ -196,7 +177,6 @@
   "name": "Singapore",
   "confederation": "afc",
   "icon": "/images/teams/singapore.png",
-    "ovr": 60,
     "serangan": 59,
     "possession": 61,
     "defense": 59
@@ -206,7 +186,6 @@
   "name": "Malaysia",
   "confederation": "afc",
   "icon": "/images/teams/malaysia.png",
-    "ovr": 66,
     "serangan": 65,
     "possession": 67,
     "defense": 65
@@ -216,7 +195,6 @@
   "name": "Thailand",
   "confederation": "afc",
   "icon": "/images/teams/thailand.png",
-    "ovr": 64,
     "serangan": 63,
     "possession": 65,
     "defense": 63
@@ -226,7 +204,6 @@
   "name": "Philippines",
   "confederation": "afc",
   "icon": "/images/teams/philippines.png",
-    "ovr": 62,
     "serangan": 61,
     "possession": 63,
     "defense": 61
@@ -236,7 +213,6 @@
   "name": "Brunei Darussalam",
   "confederation": "afc",
   "icon": "/images/teams/brunei.png",
-    "ovr": 57,
     "serangan": 56,
     "possession": 58,
     "defense": 56
@@ -246,7 +222,6 @@
   "name": "Maldives",
   "confederation": "afc",
   "icon": "/images/teams/maldives.png",
-    "ovr": 56,
     "serangan": 55,
     "possession": 57,
     "defense": 55
@@ -256,7 +231,6 @@
   "name": "Mongolia",
   "confederation": "afc",
   "icon": "/images/teams/mongolia.png",
-    "ovr": 54,
     "serangan": 53,
     "possession": 55,
     "defense": 53
@@ -266,7 +240,6 @@
   "name": "Bhutan",
   "confederation": "afc",
   "icon": "/images/teams/bhutan.png",
-    "ovr": 53,
     "serangan": 52,
     "possession": 54,
     "defense": 52
@@ -276,7 +249,6 @@
   "name": "Turkmenistan",
   "confederation": "afc",
   "icon": "/images/teams/turkmenistan.png",
-    "ovr": 59,
     "serangan": 58,
     "possession": 60,
     "defense": 58
@@ -286,7 +258,6 @@
   "name": "Nepal",
   "confederation": "afc",
   "icon": "/images/teams/nepal.png",
-    "ovr": 55,
     "serangan": 54,
     "possession": 56,
     "defense": 54
@@ -296,7 +267,6 @@
   "name": "Laos",
   "confederation": "afc",
   "icon": "/images/teams/laos.png",
-    "ovr": 52,
     "serangan": 51,
     "possession": 53,
     "defense": 51
@@ -306,7 +276,6 @@
   "name": "Cambodia",
   "confederation": "afc",
   "icon": "/images/teams/cambodia.png",
-    "ovr": 57,
     "serangan": 56,
     "possession": 58,
     "defense": 56
@@ -316,7 +285,6 @@
   "name": "North Korea",
   "confederation": "afc",
   "icon": "/images/teams/north_korea.png",
-    "ovr": 67,
     "serangan": 66,
     "possession": 68,
     "defense": 66
@@ -327,7 +295,6 @@
   "name": "France",
   "confederation": "uefa",
   "icon": "/images/teams/france.png",
-    "ovr": 88,
     "serangan": 89,
     "possession": 87,
     "defense": 86
@@ -337,7 +304,6 @@
   "name": "Germany",
   "confederation": "uefa",
   "icon": "/images/teams/germany.png",
-    "ovr": 87,
     "serangan": 86,
     "possession": 88,
     "defense": 85
@@ -347,7 +313,6 @@
   "name": "Spain",
   "confederation": "uefa",
   "icon": "/images/teams/spain.png",
-    "ovr": 86,
     "serangan": 85,
     "possession": 89,
     "defense": 84
@@ -357,7 +322,6 @@
   "name": "England",
   "confederation": "uefa",
   "icon": "/images/teams/england.png",
-    "ovr": 85,
     "serangan": 84,
     "possession": 86,
     "defense": 83
@@ -367,7 +331,6 @@
   "name": "Italy",
   "confederation": "uefa",
   "icon": "/images/teams/italy.png",
-    "ovr": 84,
     "serangan": 83,
     "possession": 85,
     "defense": 82
@@ -377,7 +340,6 @@
   "name": "Netherlands",
   "confederation": "uefa",
   "icon": "/images/teams/netherlands.png",
-    "ovr": 83,
     "serangan": 82,
     "possession": 84,
     "defense": 81
@@ -387,7 +349,6 @@
   "name": "Portugal",
   "confederation": "uefa",
   "icon": "/images/teams/portugal.png",
-    "ovr": 86,
     "serangan": 87,
     "possession": 85,
     "defense": 84
@@ -397,7 +358,6 @@
   "name": "Belgium",
   "confederation": "uefa",
   "icon": "/images/teams/belgium.png",
-    "ovr": 82,
     "serangan": 81,
     "possession": 83,
     "defense": 80
@@ -407,7 +367,6 @@
   "name": "Croatia",
   "confederation": "uefa",
   "icon": "/images/teams/croatia.png",
-    "ovr": 81,
     "serangan": 80,
     "possession": 82,
     "defense": 79
@@ -417,7 +376,6 @@
   "name": "Sweden",
   "confederation": "uefa",
   "icon": "/images/teams/sweden.png",
-    "ovr": 79,
     "serangan": 78,
     "possession": 80,
     "defense": 77
@@ -427,7 +385,6 @@
   "name": "Austria",
   "confederation": "uefa",
   "icon": "/images/teams/austria.png",
-    "ovr": 77,
     "serangan": 76,
     "possession": 78,
     "defense": 75
@@ -437,7 +394,6 @@
   "name": "Poland",
   "confederation": "uefa",
   "icon": "/images/teams/poland.png",
-    "ovr": 78,
     "serangan": 77,
     "possession": 79,
     "defense": 76
@@ -447,7 +403,6 @@
   "name": "Scotland",
   "confederation": "uefa",
   "icon": "/images/teams/scotland.png",
-    "ovr": 76,
     "serangan": 75,
     "possession": 77,
     "defense": 74
@@ -457,7 +412,6 @@
   "name": "Switzerland",
   "confederation": "uefa",
   "icon": "/images/teams/switzerland.png",
-    "ovr": 80,
     "serangan": 79,
     "possession": 81,
     "defense": 78
@@ -467,7 +421,6 @@
   "name": "Denmark",
   "confederation": "uefa",
   "icon": "/images/teams/denmark.png",
-    "ovr": 79,
     "serangan": 78,
     "possession": 80,
     "defense": 77
@@ -477,7 +430,6 @@
   "name": "Russia",
   "confederation": "uefa",
   "icon": "/images/teams/russia.png",
-    "ovr": 75,
     "serangan": 74,
     "possession": 76,
     "defense": 73
@@ -487,7 +439,6 @@
   "name": "Turkey",
   "confederation": "uefa",
   "icon": "/images/teams/turkey.png",
-    "ovr": 77,
     "serangan": 76,
     "possession": 78,
     "defense": 75
@@ -497,7 +448,6 @@
   "name": "Czech Republic",
   "confederation": "uefa",
   "icon": "/images/teams/czech_republic.png",
-    "ovr": 76,
     "serangan": 75,
     "possession": 77,
     "defense": 74
@@ -507,7 +457,6 @@
   "name": "Iceland",
   "confederation": "uefa",
   "icon": "/images/teams/iceland.png",
-    "ovr": 74,
     "serangan": 73,
     "possession": 75,
     "defense": 72
@@ -517,7 +466,6 @@
   "name": "Ukraine",
   "confederation": "uefa",
   "icon": "/images/teams/ukraine.png",
-    "ovr": 77,
     "serangan": 76,
     "possession": 78,
     "defense": 75
@@ -527,7 +475,6 @@
   "name": "Albania",
   "confederation": "uefa",
   "icon": "/images/teams/albania.png",
-    "ovr": 72,
     "serangan": 71,
     "possession": 73,
     "defense": 70
@@ -537,7 +484,6 @@
   "name": "Armenia",
   "confederation": "uefa",
   "icon": "/images/teams/armenia.png",
-    "ovr": 69,
     "serangan": 68,
     "possession": 70,
     "defense": 67
@@ -547,7 +493,6 @@
   "name": "Andorra",
   "confederation": "uefa",
   "icon": "/images/teams/andorra.png",
-    "ovr": 60,
     "serangan": 59,
     "possession": 61,
     "defense": 58
@@ -557,7 +502,6 @@
   "name": "Azerbaijan",
   "confederation": "uefa",
   "icon": "/images/teams/azerbaijan.png",
-    "ovr": 65,
     "serangan": 64,
     "possession": 66,
     "defense": 63
@@ -567,7 +511,6 @@
   "name": "Bulgaria",
   "confederation": "uefa",
   "icon": "/images/teams/bulgaria.png",
-    "ovr": 70,
     "serangan": 69,
     "possession": 71,
     "defense": 68
@@ -577,7 +520,6 @@
   "name": "Bosnia and Herzegovina",
   "confederation": "uefa",
   "icon": "/images/teams/bosnia_and_herzegovina.png",
-    "ovr": 73,
     "serangan": 72,
     "possession": 74,
     "defense": 71
@@ -587,7 +529,6 @@
   "name": "Georgia",
   "confederation": "uefa",
   "icon": "/images/teams/georgia.png",
-    "ovr": 71,
     "serangan": 70,
     "possession": 72,
     "defense": 69
@@ -597,7 +538,6 @@
   "name": "Great Britain",
   "confederation": "uefa",
   "icon": "/images/teams/great_britain.png",
-    "ovr": 89,
     "serangan": 90,
     "possession": 88,
     "defense": 87
@@ -607,7 +547,6 @@
   "name": "Iceland",
   "confederation": "uefa",
   "icon": "/images/teams/iceland.png",
-    "ovr": 74,
     "serangan": 73,
     "possession": 75,
     "defense": 72
@@ -617,7 +556,6 @@
   "name": "North Macedonia",
   "confederation": "uefa",
   "icon": "/images/teams/north_macedonia.png",
-    "ovr": 70,
     "serangan": 69,
     "possession": 71,
     "defense": 68
@@ -627,7 +565,6 @@
   "name": "Kosovo",
   "confederation": "uefa",
   "icon": "/images/teams/kosovo.png",
-    "ovr": 68,
     "serangan": 67,
     "possession": 69,
     "defense": 66
@@ -637,7 +574,6 @@
   "name": "Latvia",
   "confederation": "uefa",
   "icon": "/images/teams/latvia.png",
-    "ovr": 66,
     "serangan": 65,
     "possession": 67,
     "defense": 64
@@ -647,7 +583,6 @@
   "name": "Liechtenstein",
   "confederation": "uefa",
   "icon": "/images/teams/liechtenstein.png",
-    "ovr": 58,
     "serangan": 57,
     "possession": 59,
     "defense": 56
@@ -657,7 +592,6 @@
   "name": "Luxembourg",
   "confederation": "uefa",
   "icon": "/images/teams/luxembourg.png",
-    "ovr": 67,
     "serangan": 66,
     "possession": 68,
     "defense": 65
@@ -667,7 +601,6 @@
   "name": "Moldova",
   "confederation": "uefa",
   "icon": "/images/teams/moldova.png",
-    "ovr": 64,
     "serangan": 63,
     "possession": 65,
     "defense": 62
@@ -677,7 +610,6 @@
   "name": "Montenegro",
   "confederation": "uefa",
   "icon": "/images/teams/montenegro.png",
-    "ovr": 72,
     "serangan": 71,
     "possession": 73,
     "defense": 70
@@ -687,7 +619,6 @@
   "name": "San Marino",
   "confederation": "uefa",
   "icon": "/images/teams/san_marino.png",
-    "ovr": 45,
     "serangan": 44,
     "possession": 46,
     "defense": 43
@@ -697,7 +628,6 @@
   "name": "Slovenia",
   "confederation": "uefa",
   "icon": "/images/teams/slovenia.png",
-    "ovr": 75,
     "serangan": 74,
     "possession": 76,
     "defense": 73
@@ -707,7 +637,6 @@
   "name": "Slovakia",
   "confederation": "uefa",
   "icon": "/images/teams/slovakia.png",
-    "ovr": 73,
     "serangan": 72,
     "possession": 74,
     "defense": 71
@@ -717,7 +646,6 @@
   "name": "Estonia",
   "confederation": "uefa",
   "icon": "/images/teams/estonia.png",
-    "ovr": 67,
     "serangan": 66,
     "possession": 68,
     "defense": 65
@@ -727,7 +655,6 @@
   "name": "Finland",
   "confederation": "uefa",
   "icon": "/images/teams/finland.png",
-    "ovr": 74,
     "serangan": 73,
     "possession": 75,
     "defense": 72
@@ -737,7 +664,6 @@
   "name": "Northern Ireland",
   "confederation": "uefa",
   "icon": "/images/teams/northern_ireland.png",
-    "ovr": 72,
     "serangan": 71,
     "possession": 73,
     "defense": 70
@@ -747,7 +673,6 @@
   "name": "Malta",
   "confederation": "uefa",
   "icon": "/images/teams/malta.png",
-    "ovr": 62,
     "serangan": 61,
     "possession": 63,
     "defense": 60
@@ -757,7 +682,6 @@
   "name": "Liechtenstein",
   "confederation": "uefa",
   "icon": "/images/teams/liechtenstein.png",
-    "ovr": 58,
     "serangan": 57,
     "possession": 59,
     "defense": 56

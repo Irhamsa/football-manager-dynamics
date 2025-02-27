@@ -143,12 +143,18 @@ const Simulation = () => {
   ) => {
     const BASE_GOAL_CHANCE = 0.12;
     
+    const attackingTeam = teamsData.teams.find(team => team.name === attackingTeamName);
+    const defendingTeam = teamsData.teams.find(team => team.name === defendingTeamName);
+    
+    if (!attackingTeam || !defendingTeam) return false;
+
     const attackingModifier = (
       (attackingTactics.mentality / 100) * 0.15 +
       (attackingTactics.attackStyle / 100) * 0.15 +
       (attackingTactics.attackTempo / 100) * 0.1 +
       (attackingTactics.risk / 100) * 0.1 +
-      (attackingStrength / 100) * 0.2
+      (attackingTeam.serangan / 100) * 0.2 +
+      (attackingTeam.possession / 100) * 0.1
     );
 
     const defendingModifier = (
@@ -156,7 +162,7 @@ const Simulation = () => {
       (defendingTactics.marking / 100) * 0.15 +
       (defendingTactics.defenseStyle / 100) * 0.1 +
       (defendingTactics.pressing / 100) * 0.1 +
-      (defendingStrength / 100) * 0.2
+      (defendingTeam.defense / 100) * 0.2
     );
 
     const randomFactor = (Math.random() - 0.5) * 0.15;
