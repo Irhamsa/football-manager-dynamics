@@ -5,458 +5,762 @@
   "id": "jpn",
   "name": "Japan",
   "confederation": "afc",
-  "icon": "/images/teams/japan.png"
+  "icon": "/images/teams/japan.png",
+  "ovr": 84,
+  "serangan": 83,
+  "possession": 85,
+  "defense": 82
 },
 {
   "id": "aus",
   "name": "Australia",
   "confederation": "afc",
-  "icon": "/images/teams/australia.png"
+  "icon": "/images/teams/australia.png",
+    "ovr": 79,
+    "serangan": 77,
+    "possession": 78,
+    "defense": 80
 },
 {
   "id": "irn",
   "name": "Iran",
   "confederation": "afc",
-  "icon": "/images/teams/iran.png"
+  "icon": "/images/teams/iran.png",
+    "ovr": 78,
+    "serangan": 76,
+    "possession": 77,
+    "defense": 79
 },
 {
   "id": "ksa",
   "name": "Saudi Arabia",
   "confederation": "afc",
-  "icon": "/images/teams/saudi_arabia.png"
+  "icon": "/images/teams/saudi_arabia.png",
+    "ovr": 75,
+    "serangan": 74,
+    "possession": 76,
+    "defense": 74
 },
 {
   "id": "kor",
   "name": "South Korea",
   "confederation": "afc",
-  "icon": "/images/teams/south_korea.png"
+  "icon": "/images/teams/south_korea.png",
+    "ovr": 81,
+    "serangan": 80,
+    "possession": 82,
+    "defense": 80
 },
 {
   "id": "chn",
   "name": "China",
   "confederation": "afc",
-  "icon": "/images/teams/china.png"
+  "icon": "/images/teams/china.png",
+    "ovr": 69,
+    "serangan": 68,
+    "possession": 70,
+    "defense": 68
 },
 {
   "id": "irq",
   "name": "Iraq",
   "confederation": "afc",
-  "icon": "/images/teams/iraq.png"
+  "icon": "/images/teams/iraq.png",
+    "ovr": 72,
+    "serangan": 71,
+    "possession": 73,
+    "defense": 71
 },
 {
   "id": "uzb",
   "name": "Uzbekistan",
   "confederation": "afc",
-  "icon": "/images/teams/uzbekistan.png"
+  "icon": "/images/teams/uzbekistan.png",
+    "ovr": 70,
+    "serangan": 69,
+    "possession": 71,
+    "defense": 69
 },
 {
   "id": "idn",
   "name": "Indonesia",
   "confederation": "afc",
-  "icon": "/images/teams/indonesia.png"
+  "icon": "/images/teams/indonesia.png",
+    "ovr": 68,
+    "serangan": 67,
+    "possession": 69,
+    "defense": 67
 },
 {
   "id": "ind",
   "name": "India",
   "confederation": "afc",
-  "icon": "/images/teams/india.png"
+  "icon": "/images/teams/india.png",
+    "ovr": 65,
+    "serangan": 64,
+    "possession": 66,
+    "defense": 64
 },
 {
   "id": "qat",
   "name": "Qatar",
   "confederation": "afc",
-  "icon": "/images/teams/qatar.png"
+  "icon": "/images/teams/qatar.png",
+    "ovr": 73,
+    "serangan": 72,
+    "possession": 74,
+    "defense": 72
 },
 {
   "id": "bhr",
   "name": "Bahrain",
   "confederation": "afc",
-  "icon": "/images/teams/bahrain.png"
+  "icon": "/images/teams/bahrain.png",
+    "ovr": 67,
+    "serangan": 66,
+    "possession": 68,
+    "defense": 66
 },
 {
   "id": "syr",
   "name": "Syria",
   "confederation": "afc",
-  "icon": "/images/teams/syria.png"
+  "icon": "/images/teams/syria.png",
+    "ovr": 66,
+    "serangan": 65,
+    "possession": 67,
+    "defense": 65
 },
 {
   "id": "yem",
   "name": "Yemen",
   "confederation": "afc",
-  "icon": "/images/teams/yemen.png"
+  "icon": "/images/teams/yemen.png",
+    "ovr": 62,
+    "serangan": 61,
+    "possession": 63,
+    "defense": 61
 },
 {
   "id": "kwt",
   "name": "Kuwait",
   "confederation": "afc",
-  "icon": "/images/teams/kuwait.png"
+  "icon": "/images/teams/kuwait.png",
+    "ovr": 64,
+    "serangan": 63,
+    "possession": 65,
+    "defense": 63
 },
 {
   "id": "lbn",
   "name": "Lebanon",
   "confederation": "afc",
-  "icon": "/images/teams/lebanon.png"
+  "icon": "/images/teams/lebanon.png",
+    "ovr": 63,
+    "serangan": 62,
+    "possession": 64,
+    "defense": 62
 },
 {
   "id": "omn",
   "name": "Oman",
   "confederation": "afc",
-  "icon": "/images/teams/oman.png"
+  "icon": "/images/teams/oman.png",
+    "ovr": 69,
+    "serangan": 68,
+    "possession": 70,
+    "defense": 68
 },
 {
   "id": "tjk",
   "name": "Tajikistan",
   "confederation": "afc",
-  "icon": "/images/teams/tajikistan.png"
+  "icon": "/images/teams/tajikistan.png",
+    "ovr": 61,
+    "serangan": 60,
+    "possession": 62,
+    "defense": 60
 },
 {
   "id": "afg",
   "name": "Afghanistan",
   "confederation": "afc",
-  "icon": "/images/teams/afghanistan.png"
+  "icon": "/images/teams/afghanistan.png",
+    "ovr": 58,
+    "serangan": 57,
+    "possession": 59,
+    "defense": 57
 },
 {
   "id": "sgp",
   "name": "Singapore",
   "confederation": "afc",
-  "icon": "/images/teams/singapore.png"
+  "icon": "/images/teams/singapore.png",
+    "ovr": 60,
+    "serangan": 59,
+    "possession": 61,
+    "defense": 59
 },
 {
   "id": "mas",
   "name": "Malaysia",
   "confederation": "afc",
-  "icon": "/images/teams/malaysia.png"
+  "icon": "/images/teams/malaysia.png",
+    "ovr": 66,
+    "serangan": 65,
+    "possession": 67,
+    "defense": 65
 },
 {
   "id": "tha",
   "name": "Thailand",
   "confederation": "afc",
-  "icon": "/images/teams/thailand.png"
+  "icon": "/images/teams/thailand.png",
+    "ovr": 64,
+    "serangan": 63,
+    "possession": 65,
+    "defense": 63
 },
 {
   "id": "phl",
   "name": "Philippines",
   "confederation": "afc",
-  "icon": "/images/teams/philippines.png"
+  "icon": "/images/teams/philippines.png",
+    "ovr": 62,
+    "serangan": 61,
+    "possession": 63,
+    "defense": 61
 },
 {
   "id": "brn",
   "name": "Brunei Darussalam",
   "confederation": "afc",
-  "icon": "/images/teams/brunei.png"
+  "icon": "/images/teams/brunei.png",
+    "ovr": 57,
+    "serangan": 56,
+    "possession": 58,
+    "defense": 56
 },
 {
   "id": "mdv",
   "name": "Maldives",
   "confederation": "afc",
-  "icon": "/images/teams/maldives.png"
+  "icon": "/images/teams/maldives.png",
+    "ovr": 56,
+    "serangan": 55,
+    "possession": 57,
+    "defense": 55
 },
 {
   "id": "mng",
   "name": "Mongolia",
   "confederation": "afc",
-  "icon": "/images/teams/mongolia.png"
+  "icon": "/images/teams/mongolia.png",
+    "ovr": 54,
+    "serangan": 53,
+    "possession": 55,
+    "defense": 53
 },
 {
   "id": "blm",
   "name": "Bhutan",
   "confederation": "afc",
-  "icon": "/images/teams/bhutan.png"
+  "icon": "/images/teams/bhutan.png",
+    "ovr": 53,
+    "serangan": 52,
+    "possession": 54,
+    "defense": 52
 },
 {
   "id": "tkm",
   "name": "Turkmenistan",
   "confederation": "afc",
-  "icon": "/images/teams/turkmenistan.png"
+  "icon": "/images/teams/turkmenistan.png",
+    "ovr": 59,
+    "serangan": 58,
+    "possession": 60,
+    "defense": 58
 },
 {
   "id": "neo",
   "name": "Nepal",
   "confederation": "afc",
-  "icon": "/images/teams/nepal.png"
+  "icon": "/images/teams/nepal.png",
+    "ovr": 55,
+    "serangan": 54,
+    "possession": 56,
+    "defense": 54
 },
 {
   "id": "lai",
   "name": "Laos",
   "confederation": "afc",
-  "icon": "/images/teams/laos.png"
+  "icon": "/images/teams/laos.png",
+    "ovr": 52,
+    "serangan": 51,
+    "possession": 53,
+    "defense": 51
 },
 {
   "id": "cam",
   "name": "Cambodia",
   "confederation": "afc",
-  "icon": "/images/teams/cambodia.png"
+  "icon": "/images/teams/cambodia.png",
+    "ovr": 57,
+    "serangan": 56,
+    "possession": 58,
+    "defense": 56
 },
 {
   "id": "prk",
   "name": "North Korea",
   "confederation": "afc",
-  "icon": "/images/teams/north_korea.png"
+  "icon": "/images/teams/north_korea.png",
+    "ovr": 67,
+    "serangan": 66,
+    "possession": 68,
+    "defense": 66
 },
 
 {
   "id": "fra",
   "name": "France",
   "confederation": "uefa",
-  "icon": "/images/teams/france.png"
+  "icon": "/images/teams/france.png",
+    "ovr": 88,
+    "serangan": 89,
+    "possession": 87,
+    "defense": 86
 },
 {
   "id": "ger",
   "name": "Germany",
   "confederation": "uefa",
-  "icon": "/images/teams/germany.png"
+  "icon": "/images/teams/germany.png",
+    "ovr": 87,
+    "serangan": 86,
+    "possession": 88,
+    "defense": 85
 },
 {
   "id": "esp",
   "name": "Spain",
   "confederation": "uefa",
-  "icon": "/images/teams/spain.png"
+  "icon": "/images/teams/spain.png",
+    "ovr": 86,
+    "serangan": 85,
+    "possession": 89,
+    "defense": 84
 },
 {
   "id": "eng",
   "name": "England",
   "confederation": "uefa",
-  "icon": "/images/teams/england.png"
+  "icon": "/images/teams/england.png",
+    "ovr": 85,
+    "serangan": 84,
+    "possession": 86,
+    "defense": 83
 },
 {
   "id": "ita",
   "name": "Italy",
   "confederation": "uefa",
-  "icon": "/images/teams/italy.png"
+  "icon": "/images/teams/italy.png",
+    "ovr": 84,
+    "serangan": 83,
+    "possession": 85,
+    "defense": 82
 },
 {
   "id": "ned",
   "name": "Netherlands",
   "confederation": "uefa",
-  "icon": "/images/teams/netherlands.png"
+  "icon": "/images/teams/netherlands.png",
+    "ovr": 83,
+    "serangan": 82,
+    "possession": 84,
+    "defense": 81
 },
 {
   "id": "por",
   "name": "Portugal",
   "confederation": "uefa",
-  "icon": "/images/teams/portugal.png"
+  "icon": "/images/teams/portugal.png",
+    "ovr": 86,
+    "serangan": 87,
+    "possession": 85,
+    "defense": 84
 },
 {
   "id": "bel",
   "name": "Belgium",
   "confederation": "uefa",
-  "icon": "/images/teams/belgium.png"
+  "icon": "/images/teams/belgium.png",
+    "ovr": 82,
+    "serangan": 81,
+    "possession": 83,
+    "defense": 80
 },
 {
   "id": "cro",
   "name": "Croatia",
   "confederation": "uefa",
-  "icon": "/images/teams/croatia.png"
+  "icon": "/images/teams/croatia.png",
+    "ovr": 81,
+    "serangan": 80,
+    "possession": 82,
+    "defense": 79
 },
 {
   "id": "swe",
   "name": "Sweden",
   "confederation": "uefa",
-  "icon": "/images/teams/sweden.png"
+  "icon": "/images/teams/sweden.png",
+    "ovr": 79,
+    "serangan": 78,
+    "possession": 80,
+    "defense": 77
 },
 {
   "id": "aut",
   "name": "Austria",
   "confederation": "uefa",
-  "icon": "/images/teams/austria.png"
+  "icon": "/images/teams/austria.png",
+    "ovr": 77,
+    "serangan": 76,
+    "possession": 78,
+    "defense": 75
 },
 {
   "id": "pol",
   "name": "Poland",
   "confederation": "uefa",
-  "icon": "/images/teams/poland.png"
+  "icon": "/images/teams/poland.png",
+    "ovr": 78,
+    "serangan": 77,
+    "possession": 79,
+    "defense": 76
 },
 {
   "id": "sco",
   "name": "Scotland",
   "confederation": "uefa",
-  "icon": "/images/teams/scotland.png"
+  "icon": "/images/teams/scotland.png",
+    "ovr": 76,
+    "serangan": 75,
+    "possession": 77,
+    "defense": 74
 },
 {
   "id": "che",
   "name": "Switzerland",
   "confederation": "uefa",
-  "icon": "/images/teams/switzerland.png"
+  "icon": "/images/teams/switzerland.png",
+    "ovr": 80,
+    "serangan": 79,
+    "possession": 81,
+    "defense": 78
 },
 {
   "id": "den",
   "name": "Denmark",
   "confederation": "uefa",
-  "icon": "/images/teams/denmark.png"
+  "icon": "/images/teams/denmark.png",
+    "ovr": 79,
+    "serangan": 78,
+    "possession": 80,
+    "defense": 77
 },
 {
   "id": "rus",
   "name": "Russia",
   "confederation": "uefa",
-  "icon": "/images/teams/russia.png"
+  "icon": "/images/teams/russia.png",
+    "ovr": 75,
+    "serangan": 74,
+    "possession": 76,
+    "defense": 73
 },
 {
   "id": "tur",
   "name": "Turkey",
   "confederation": "uefa",
-  "icon": "/images/teams/turkey.png"
+  "icon": "/images/teams/turkey.png",
+    "ovr": 77,
+    "serangan": 76,
+    "possession": 78,
+    "defense": 75
 },
 {
   "id": "cze",
   "name": "Czech Republic",
   "confederation": "uefa",
-  "icon": "/images/teams/czech_republic.png"
+  "icon": "/images/teams/czech_republic.png",
+    "ovr": 76,
+    "serangan": 75,
+    "possession": 77,
+    "defense": 74
 },
 {
   "id": "isl",
   "name": "Iceland",
   "confederation": "uefa",
-  "icon": "/images/teams/iceland.png"
+  "icon": "/images/teams/iceland.png",
+    "ovr": 74,
+    "serangan": 73,
+    "possession": 75,
+    "defense": 72
 },
 {
   "id": "ukr",
   "name": "Ukraine",
   "confederation": "uefa",
-  "icon": "/images/teams/ukraine.png"
+  "icon": "/images/teams/ukraine.png",
+    "ovr": 77,
+    "serangan": 76,
+    "possession": 78,
+    "defense": 75
 },
 {
   "id": "alb",
   "name": "Albania",
   "confederation": "uefa",
-  "icon": "/images/teams/albania.png"
+  "icon": "/images/teams/albania.png",
+    "ovr": 72,
+    "serangan": 71,
+    "possession": 73,
+    "defense": 70
 },
 {
   "id": "arm",
   "name": "Armenia",
   "confederation": "uefa",
-  "icon": "/images/teams/armenia.png"
+  "icon": "/images/teams/armenia.png",
+    "ovr": 69,
+    "serangan": 68,
+    "possession": 70,
+    "defense": 67
 },
 {
   "id": "and",
   "name": "Andorra",
   "confederation": "uefa",
-  "icon": "/images/teams/andorra.png"
+  "icon": "/images/teams/andorra.png",
+    "ovr": 60,
+    "serangan": 59,
+    "possession": 61,
+    "defense": 58
 },
 {
   "id": "aze",
   "name": "Azerbaijan",
   "confederation": "uefa",
-  "icon": "/images/teams/azerbaijan.png"
+  "icon": "/images/teams/azerbaijan.png",
+    "ovr": 65,
+    "serangan": 64,
+    "possession": 66,
+    "defense": 63
 },
 {
   "id": "blg",
   "name": "Bulgaria",
   "confederation": "uefa",
-  "icon": "/images/teams/bulgaria.png"
+  "icon": "/images/teams/bulgaria.png",
+    "ovr": 70,
+    "serangan": 69,
+    "possession": 71,
+    "defense": 68
 },
 {
   "id": "bio",
   "name": "Bosnia and Herzegovina",
   "confederation": "uefa",
-  "icon": "/images/teams/bosnia_and_herzegovina.png"
+  "icon": "/images/teams/bosnia_and_herzegovina.png",
+    "ovr": 73,
+    "serangan": 72,
+    "possession": 74,
+    "defense": 71
 },
 {
   "id": "geo",
   "name": "Georgia",
   "confederation": "uefa",
-  "icon": "/images/teams/georgia.png"
+  "icon": "/images/teams/georgia.png",
+    "ovr": 71,
+    "serangan": 70,
+    "possession": 72,
+    "defense": 69
 },
 {
   "id": "gbr",
   "name": "Great Britain",
   "confederation": "uefa",
-  "icon": "/images/teams/great_britain.png"
+  "icon": "/images/teams/great_britain.png",
+    "ovr": 89,
+    "serangan": 90,
+    "possession": 88,
+    "defense": 87
 },
 {
   "id": "isl",
   "name": "Iceland",
   "confederation": "uefa",
-  "icon": "/images/teams/iceland.png"
+  "icon": "/images/teams/iceland.png",
+    "ovr": 74,
+    "serangan": 73,
+    "possession": 75,
+    "defense": 72
 },
 {
   "id": "mkd",
   "name": "North Macedonia",
   "confederation": "uefa",
-  "icon": "/images/teams/north_macedonia.png"
+  "icon": "/images/teams/north_macedonia.png",
+    "ovr": 70,
+    "serangan": 69,
+    "possession": 71,
+    "defense": 68
 },
 {
   "id": "kos",
   "name": "Kosovo",
   "confederation": "uefa",
-  "icon": "/images/teams/kosovo.png"
+  "icon": "/images/teams/kosovo.png",
+    "ovr": 68,
+    "serangan": 67,
+    "possession": 69,
+    "defense": 66
 },
 {
   "id": "lva",
   "name": "Latvia",
   "confederation": "uefa",
-  "icon": "/images/teams/latvia.png"
+  "icon": "/images/teams/latvia.png",
+    "ovr": 66,
+    "serangan": 65,
+    "possession": 67,
+    "defense": 64
 },
 {
   "id": "ltn",
   "name": "Liechtenstein",
   "confederation": "uefa",
-  "icon": "/images/teams/liechtenstein.png"
+  "icon": "/images/teams/liechtenstein.png",
+    "ovr": 58,
+    "serangan": 57,
+    "possession": 59,
+    "defense": 56
 },
 {
   "id": "lux",
   "name": "Luxembourg",
   "confederation": "uefa",
-  "icon": "/images/teams/luxembourg.png"
+  "icon": "/images/teams/luxembourg.png",
+    "ovr": 67,
+    "serangan": 66,
+    "possession": 68,
+    "defense": 65
 },
 {
   "id": "mda",
   "name": "Moldova",
   "confederation": "uefa",
-  "icon": "/images/teams/moldova.png"
+  "icon": "/images/teams/moldova.png",
+    "ovr": 64,
+    "serangan": 63,
+    "possession": 65,
+    "defense": 62
 },
 {
   "id": "mne",
   "name": "Montenegro",
   "confederation": "uefa",
-  "icon": "/images/teams/montenegro.png"
+  "icon": "/images/teams/montenegro.png",
+    "ovr": 72,
+    "serangan": 71,
+    "possession": 73,
+    "defense": 70
 },
 {
   "id": "smr",
   "name": "San Marino",
   "confederation": "uefa",
-  "icon": "/images/teams/san_marino.png"
+  "icon": "/images/teams/san_marino.png",
+    "ovr": 45,
+    "serangan": 44,
+    "possession": 46,
+    "defense": 43
 },
 {
   "id": "svn",
   "name": "Slovenia",
   "confederation": "uefa",
-  "icon": "/images/teams/slovenia.png"
+  "icon": "/images/teams/slovenia.png",
+    "ovr": 75,
+    "serangan": 74,
+    "possession": 76,
+    "defense": 73
 },
 {
   "id": "svk",
   "name": "Slovakia",
   "confederation": "uefa",
-  "icon": "/images/teams/slovakia.png"
+  "icon": "/images/teams/slovakia.png",
+    "ovr": 73,
+    "serangan": 72,
+    "possession": 74,
+    "defense": 71
 },
 {
   "id": "est",
   "name": "Estonia",
   "confederation": "uefa",
-  "icon": "/images/teams/estonia.png"
+  "icon": "/images/teams/estonia.png",
+    "ovr": 67,
+    "serangan": 66,
+    "possession": 68,
+    "defense": 65
 },
 {
   "id": "fin",
   "name": "Finland",
   "confederation": "uefa",
-  "icon": "/images/teams/finland.png"
+  "icon": "/images/teams/finland.png",
+    "ovr": 74,
+    "serangan": 73,
+    "possession": 75,
+    "defense": 72
 },
 {
   "id": "nir",
   "name": "Northern Ireland",
   "confederation": "uefa",
-  "icon": "/images/teams/northern_ireland.png"
+  "icon": "/images/teams/northern_ireland.png",
+    "ovr": 72,
+    "serangan": 71,
+    "possession": 73,
+    "defense": 70
 },
 {
   "id": "mlt",
   "name": "Malta",
   "confederation": "uefa",
-  "icon": "/images/teams/malta.png"
+  "icon": "/images/teams/malta.png",
+    "ovr": 62,
+    "serangan": 61,
+    "possession": 63,
+    "defense": 60
 },
 {
   "id": "lcn",
   "name": "Liechtenstein",
   "confederation": "uefa",
-  "icon": "/images/teams/liechtenstein.png"
+  "icon": "/images/teams/liechtenstein.png",
+    "ovr": 58,
+    "serangan": 57,
+    "possession": 59,
+    "defense": 56
 }
 
     
