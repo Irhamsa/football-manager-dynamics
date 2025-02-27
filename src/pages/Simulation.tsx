@@ -1,4 +1,3 @@
-
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
@@ -129,32 +128,8 @@ const Simulation = () => {
     };
   };
 
-  const calculateTeamStrength = (playerIds: string[], tactic: any) => {
-    const baseStrength = playerIds
-      .map(id => playersData.players.find(p => p.id === id))
-      .filter(p => p !== undefined)
-      .reduce((acc, player) => {
-        if (!player) return acc;
-        
-        const positionBonus = {
-          "ST": tactic.settings.mentality * 0.3 + tactic.settings.attackStyle * 0.2,
-          "CF": tactic.settings.possession * 0.2 + tactic.settings.playmaking * 0.2,
-          "RW": tactic.settings.counterAttack * 0.2 + tactic.settings.width * 0.2,
-          "LW": tactic.settings.counterAttack * 0.2 + tactic.settings.width * 0.2,
-          "CAM": tactic.settings.playmaking * 0.3 + tactic.settings.possession * 0.2,
-          "CM": tactic.settings.possession * 0.25 + tactic.settings.playmaking * 0.25,
-          "CDM": tactic.settings.defenseStyle * 0.3 + tactic.settings.pressing * 0.2,
-          "CB": tactic.settings.defenseLine * 0.4,
-          "LB": tactic.settings.pressing * 0.2 + tactic.settings.counterAttack * 0.1,
-          "RB": tactic.settings.pressing * 0.2 + tactic.settings.counterAttack * 0.1,
-          "GK": tactic.settings.defenseLine * 0.2
-        }[player.position] || 0;
-
-        return acc + (
-          Object.values(player.abilities).reduce((sum, val) => sum + val, 0) / 6
-        ) * (1 + positionBonus);
-      }, 0) / playerIds.length;
-
+  const calculateTacticStrength = (settings: Record<string, number>) => {
+    const baseStrength = Object.values(settings).reduce((acc, val) => acc + val, 0) / Object.keys(settings).length;
     return baseStrength;
   };
 
@@ -381,4 +356,3 @@ const Simulation = () => {
 };
 
 export default Simulation;
-
