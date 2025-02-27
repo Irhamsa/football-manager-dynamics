@@ -129,8 +129,32 @@ const Simulation = () => {
   };
 
   const calculateTacticStrength = (settings: Record<string, number>) => {
-    const baseStrength = Object.values(settings).reduce((acc, val) => acc + val, 0) / Object.keys(settings).length;
-    return baseStrength;
+    const weights = {
+      tempo: 0.05,
+      playStyle: 0.05,
+      attackTempo: 0.08,
+      defenseLine: 0.07,
+      attackStyle: 0.08,
+      defenseStyle: 0.07,
+      mentality: 0.1,
+      playerDistance: 0.05,
+      pressing: 0.07,
+      marking: 0.07,
+      possession: 0.1,
+      width: 0.05,
+      crossFrequency: 0.03,
+      longShots: 0.03,
+      dribbling: 0.05,
+      offsideTrap: 0.03,
+      counterAttack: 0.05,
+      setPieces: 0.02,
+      playmaking: 0.07,
+      risk: 0.05
+    };
+
+    return Object.entries(settings).reduce((strength, [setting, value]) => {
+      return strength + (value / 100) * (weights[setting as keyof typeof weights] || 0);
+    }, 0);
   };
 
   const simulateAttack = (
@@ -141,7 +165,7 @@ const Simulation = () => {
     attackingStrength: number,
     defendingStrength: number
   ) => {
-    const BASE_GOAL_CHANCE = 0.12;
+    const BASE_GOAL_CHANCE = 0.1;
     
     const attackingTeam = teamsData.teams.find(team => team.name === attackingTeamName);
     const defendingTeam = teamsData.teams.find(team => team.name === defendingTeamName);
@@ -153,6 +177,12 @@ const Simulation = () => {
       (attackingTactics.attackStyle / 100) * 0.15 +
       (attackingTactics.attackTempo / 100) * 0.1 +
       (attackingTactics.risk / 100) * 0.1 +
+      (attackingTactics.playmaking / 100) * 0.1 +
+      (attackingTactics.counterAttack / 100) * 0.1 +
+      (attackingTactics.crossFrequency / 100) * 0.05 +
+      (attackingTactics.longShots / 100) * 0.05 +
+      (attackingTactics.dribbling / 100) * 0.1 +
+      (attackingTactics.width / 100) * 0.05 +
       (attackingTeam.serangan / 100) * 0.2 +
       (attackingTeam.possession / 100) * 0.1
     );
@@ -162,17 +192,38 @@ const Simulation = () => {
       (defendingTactics.marking / 100) * 0.15 +
       (defendingTactics.defenseStyle / 100) * 0.1 +
       (defendingTactics.pressing / 100) * 0.1 +
-      (defendingTeam.defense / 100) * 0.2
+      (defendingTactics.playerDistance / 100) * 0.1 +
+      (defendingTactics.offsideTrap / 100) * 0.1 +
+      (defendingTeam.defense / 100) * 0.2 +
+      ((100 - defendingTactics.risk) / 100) * 0.1
     );
 
-    const randomFactor = (Math.random() - 0.5) * 0.15;
+    const possessionInfluence = (
+      (attackingTeam.possession / 100) * 0.3 +
+      (attackingTactics.possession / 100) * 0.2 +
+      (attackingTactics.playStyle / 100) * 0.2 +
+      ((100 - defendingTactics.pressing) / 100) * 0.15 +
+      ((100 - defendingTeam.defense) / 100) * 0.15
+    );
+
+    const tacticalBonus = Math.min(0.1, Math.max(-0.1, 
+      attackingModifier - defendingModifier + 
+      (possessionInfluence * 0.2)
+    ));
+
+    const teamStrengthDifference = (
+      (attackingTeam.serangan + attackingTeam.possession) / 2 -
+      (defendingTeam.defense + defendingTeam.possession) / 2
+    ) / 100 * 0.1;
+
+    const randomFactor = (Math.random() - 0.5) * 0.1;
 
     const finalChance = BASE_GOAL_CHANCE + 
-      attackingModifier - 
-      defendingModifier + 
+      tacticalBonus + 
+      teamStrengthDifference + 
       randomFactor;
 
-    return Math.random() < Math.max(0.05, Math.min(0.25, finalChance));
+    return Math.random() < Math.max(0.05, Math.min(0.3, finalChance));
   };
 
   useEffect(() => {
@@ -191,7 +242,7 @@ const Simulation = () => {
 
       setGameTime(prev => prev + 1);
 
-      if (Math.random() < 0.2) {
+      if (Math.random() < 0.25) {
         const commentaryType = ["chance", "possession", "tackle"][Math.floor(Math.random() * 3)] as "chance" | "possession" | "tackle";
         setGameEvents(prev => [
           ...prev, 
@@ -205,7 +256,19 @@ const Simulation = () => {
         ]);
       }
 
-      if (Math.random() < 0.15) {
+      const homeAttackChance = Math.random() < (
+        0.15 + 
+        (state.tactics.home.mentality / 1000) + 
+        (homeTeamData?.possession || 0) / 1000
+      );
+      
+      const awayAttackChance = Math.random() < (
+        0.15 + 
+        (state.tactics.away.mentality / 1000) + 
+        (awayTeamData?.possession || 0) / 1000
+      );
+
+      if (homeAttackChance) {
         if (simulateAttack(
           homeTeamData?.name || "",
           awayTeamData?.name || "",
@@ -222,7 +285,9 @@ const Simulation = () => {
             description: `GOL! ${homeTeamData?.name} berhasil mencetak gol!`,
           }]);
         }
+      }
 
+      if (awayAttackChance) {
         if (simulateAttack(
           awayTeamData?.name || "",
           homeTeamData?.name || "",
