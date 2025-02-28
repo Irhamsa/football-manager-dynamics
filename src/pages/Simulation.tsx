@@ -311,13 +311,17 @@ const Simulation = () => {
   }, [isPlaying, gameTime]);
 
   const handleBack = () => {
-    navigate("/tactics", {
-      state: {
-        homeTeam,
-        awayTeam,
-        playerSide
-      }
-    });
+    if (gameEnded) {
+      navigate("/match");
+    } else {
+      navigate("/tactics", {
+        state: {
+          homeTeam,
+          awayTeam,
+          playerSide
+        }
+      });
+    }
   };
 
   return (
@@ -328,7 +332,7 @@ const Simulation = () => {
           className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
         >
           <ArrowLeft className="w-5 h-5" />
-          <span>Kembali ke Taktik</span>
+          <span>{gameEnded ? "Kembali ke Pilih Tim" : "Kembali ke Taktik"}</span>
         </button>
         <button
           onClick={() => navigate("/")}
