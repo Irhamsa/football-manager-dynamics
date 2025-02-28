@@ -1,8 +1,9 @@
+
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowLeft, Home, Play, Pause } from "lucide-react";
+import { Home, Play, Pause } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import teamsData from "../data/teams.json";
 import playersData from "../data/players.json";
@@ -165,7 +166,8 @@ const Simulation = () => {
     attackingStrength: number,
     defendingStrength: number
   ) => {
-    const BASE_GOAL_CHANCE = 0.1;
+    // Mengurangi BASE_GOAL_CHANCE untuk membuat pertandingan lebih realistis
+    const BASE_GOAL_CHANCE = 0.05;
     
     const attackingTeam = teamsData.teams.find(team => team.name === attackingTeamName);
     const defendingTeam = teamsData.teams.find(team => team.name === defendingTeamName);
@@ -198,6 +200,7 @@ const Simulation = () => {
       ((100 - defendingTactics.risk) / 100) * 0.1
     );
 
+    // Meningkatkan pengaruh pertahanan untuk mengurangi gol
     const possessionInfluence = (
       (attackingTeam.possession / 100) * 0.3 +
       (attackingTactics.possession / 100) * 0.2 +
@@ -206,24 +209,28 @@ const Simulation = () => {
       ((100 - defendingTeam.defense) / 100) * 0.15
     );
 
-    const tacticalBonus = Math.min(0.1, Math.max(-0.1, 
+    // Mengurangi bonus taktis maksimum
+    const tacticalBonus = Math.min(0.05, Math.max(-0.05, 
       attackingModifier - defendingModifier + 
-      (possessionInfluence * 0.2)
+      (possessionInfluence * 0.1)
     ));
 
+    // Mengurangi pengaruh perbedaan kekuatan tim
     const teamStrengthDifference = (
       (attackingTeam.serangan + attackingTeam.possession) / 2 -
       (defendingTeam.defense + defendingTeam.possession) / 2
-    ) / 100 * 0.1;
+    ) / 100 * 0.05;
 
-    const randomFactor = (Math.random() - 0.5) * 0.1;
+    // Mengurangi faktor random
+    const randomFactor = (Math.random() - 0.5) * 0.08;
 
     const finalChance = BASE_GOAL_CHANCE + 
       tacticalBonus + 
       teamStrengthDifference + 
       randomFactor;
 
-    return Math.random() < Math.max(0.05, Math.min(0.3, finalChance));
+    // Membatasi peluang gol maksimum yang lebih rendah
+    return Math.random() < Math.max(0.02, Math.min(0.15, finalChance));
   };
 
   useEffect(() => {
@@ -242,7 +249,8 @@ const Simulation = () => {
 
       setGameTime(prev => prev + 1);
 
-      if (Math.random() < 0.25) {
+      // Meningkatkan frekuensi komentar untuk memberikan lebih banyak narasi permainan
+      if (Math.random() < 0.3) {
         const commentaryType = ["chance", "possession", "tackle"][Math.floor(Math.random() * 3)] as "chance" | "possession" | "tackle";
         setGameEvents(prev => [
           ...prev, 
@@ -256,16 +264,17 @@ const Simulation = () => {
         ]);
       }
 
+      // Mengurangi kesempatan serangan untuk keseimbangan
       const homeAttackChance = Math.random() < (
-        0.15 + 
+        0.12 + 
         (state.tactics.home.mentality / 1000) + 
-        (homeTeamData?.possession || 0) / 1000
+        (homeTeamData?.possession || 0) / 1200
       );
       
       const awayAttackChance = Math.random() < (
-        0.15 + 
+        0.12 + 
         (state.tactics.away.mentality / 1000) + 
-        (awayTeamData?.possession || 0) / 1000
+        (awayTeamData?.possession || 0) / 1200
       );
 
       if (homeAttackChance) {
@@ -310,30 +319,10 @@ const Simulation = () => {
     return () => clearInterval(gameInterval);
   }, [isPlaying, gameTime]);
 
-  const handleBack = () => {
-    if (gameEnded) {
-      navigate("/match");
-    } else {
-      navigate("/tactics", {
-        state: {
-          homeTeam,
-          awayTeam,
-          playerSide
-        }
-      });
-    }
-  };
-
   return (
     <div className="min-h-screen bg-background text-foreground p-6">
       <div className="flex justify-between items-center mb-6">
-        <button
-          onClick={handleBack}
-          className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
-        >
-          <ArrowLeft className="w-5 h-5" />
-          <span>{gameEnded ? "Kembali ke Pilih Tim" : "Kembali ke Taktik"}</span>
-        </button>
+        {/* Hanya menampilkan tombol "Beranda" */}
         <button
           onClick={() => navigate("/")}
           className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
@@ -402,7 +391,7 @@ const Simulation = () => {
           )}
           {gameEnded && (
             <Button onClick={() => navigate("/match")}>
-              <ArrowLeft className="w-4 h-4 mr-2" />
+              <Home className="w-4 h-4 mr-2" />
               Kembali ke Pemilihan Tim
             </Button>
           )}
