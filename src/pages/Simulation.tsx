@@ -333,11 +333,12 @@ const Simulation = () => {
       </div>
 
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold mb-4">Simulasi Pertandingan</h1>
-          <div className="flex justify-center items-center gap-4 mb-4">
+        <div className="text-center mb-6">
+          <h1 className="text-2xl font-bold mb-3">Simulasi Pertandingan</h1>
+          <div className="flex justify-center items-center gap-3 mb-3">
             <div className={`text-center ${playerSide === "Home" ? "text-yellow-400" : ""}`}>
-              <Avatar className="w-20 h-20 mx-auto mb-2">
+              {/* Mengurangi ukuran Avatar dan teks tim */}
+              <Avatar className="w-12 h-12 mx-auto mb-1">
                 <AvatarImage 
                   src={homeTeamData?.icon}
                   alt={homeTeamData?.name}
@@ -348,13 +349,15 @@ const Simulation = () => {
                 />
                 <AvatarFallback>{homeTeamData?.name.substring(0, 2)}</AvatarFallback>
               </Avatar>
-              <span className="text-xl block font-medium">{homeTeamData?.name}</span>
+              <span className="text-base block font-medium">{homeTeamData?.name}</span>
             </div>
-            <div className="text-6xl font-bold px-8">
+            {/* Mengurangi ukuran skor */}
+            <div className="text-4xl font-bold px-4">
               {score.home} - {score.away}
             </div>
             <div className={`text-center ${playerSide === "Away" ? "text-yellow-400" : ""}`}>
-              <Avatar className="w-20 h-20 mx-auto mb-2">
+              {/* Mengurangi ukuran Avatar dan teks tim */}
+              <Avatar className="w-12 h-12 mx-auto mb-1">
                 <AvatarImage 
                   src={awayTeamData?.icon}
                   alt={awayTeamData?.name}
@@ -365,10 +368,10 @@ const Simulation = () => {
                 />
                 <AvatarFallback>{awayTeamData?.name.substring(0, 2)}</AvatarFallback>
               </Avatar>
-              <span className="text-xl block font-medium">{awayTeamData?.name}</span>
+              <span className="text-base block font-medium">{awayTeamData?.name}</span>
             </div>
           </div>
-          <div className="text-xl mb-4">
+          <div className="text-lg mb-3">
             Waktu: {gameTime}'
           </div>
           {!isPlaying && gameTime === 0 && (
@@ -398,7 +401,7 @@ const Simulation = () => {
         </div>
 
         <div className="bg-card p-4 rounded-lg">
-          <h2 className="text-xl font-bold mb-4">Komentar Pertandingan</h2>
+          <h2 className="text-lg font-bold mb-3">Komentar Pertandingan</h2>
           <div className="space-y-2 max-h-96 overflow-y-auto">
             {gameEvents.map((event, index) => (
               <div 
