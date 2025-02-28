@@ -73,7 +73,7 @@ const Match = () => {
     <div className="min-h-screen bg-background text-foreground p-6">
       <div className="flex justify-between items-center mb-6">
         <button
-          onClick={() => navigate(-1)}
+          onClick={() => navigate("/")}
           className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
         >
           <ArrowLeft className="w-5 h-5" />
