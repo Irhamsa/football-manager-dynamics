@@ -1,6 +1,6 @@
 
-import { ArrowLeft, Home, Trophy, Calendar, Users, ChevronRight } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { ArrowLeft, Home, Trophy, Calendar, Users, ChevronRight, Table } from "lucide-react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -36,8 +36,43 @@ const qualificationRounds = {
   ]
 };
 
+// Interface for match data
+interface Match {
+  id: string;
+  homeTeam: string;
+  awayTeam: string;
+  played: boolean;
+  homeScore: number | null;
+  awayScore: number | null;
+  round: number;
+  matchType: string;
+  leg: 1 | 2; // 1st or 2nd leg
+  matchPair: string; // ID to link the two legs of the same fixture
+}
+
+// Interface for group standings
+interface TeamStanding {
+  teamId: string;
+  played: number;
+  won: number;
+  drawn: number;
+  lost: number;
+  goalsFor: number;
+  goalsAgainst: number;
+  points: number;
+}
+
+// Group structure
+interface Group {
+  name: string;
+  teams: string[]; // Team IDs
+  standings: TeamStanding[];
+  matches: Match[];
+}
+
 const Career = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [selectedConfederation, setSelectedConfederation] = useState("");
   const [selectedTeam, setSelectedTeam] = useState("");
   const [showConfederationDropdown, setShowConfederationDropdown] = useState(false);
@@ -52,8 +87,43 @@ const Career = () => {
   const [teamPlayers, setTeamPlayers] = useState<any[]>([]);
   
   // Match simulation state 
-  const [matchSchedule, setMatchSchedule] = useState<any[]>([]);
+  const [matchSchedule, setMatchSchedule] = useState<Match[]>([]);
   const [currentMatchIndex, setCurrentMatchIndex] = useState(0);
+  
+  // Groups and standings state
+  const [groups, setGroups] = useState<Group[]>([]);
+  const [currentGroup, setCurrentGroup] = useState<Group | null>(null);
+
+  // Handle match results from Simulation page
+  useEffect(() => {
+    const state = location.state as any;
+    if (state?.resumeCareer && state?.matchResult) {
+      const result = state.matchResult;
+      
+      // Update match in schedule
+      const updatedSchedule = matchSchedule.map(match => {
+        if (match.id === result.matchId) {
+          return {
+            ...match,
+            played: true,
+            homeScore: result.homeScore,
+            awayScore: result.awayScore
+          };
+        }
+        return match;
+      });
+      
+      setMatchSchedule(updatedSchedule);
+      
+      // Update group standings if in group stage
+      if (currentGroup) {
+        updateGroupStandings(result.matchId, result.homeScore, result.awayScore);
+      }
+      
+      // Clear location state to prevent re-processing
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state]);
 
   const filteredTeams = teamsData.teams.filter(team => {
     const confederation = confederationsData.confederations.find(conf => conf.id === team.confederation);
@@ -77,6 +147,8 @@ const Career = () => {
     setCurrentRound(0);
     setQualificationProgress(0);
     setWorldCupQualified(false);
+    setGroups([]);
+    setCurrentGroup(null);
   };
 
   const handleTeamSelect = (teamId: string) => {
@@ -92,11 +164,204 @@ const Career = () => {
       setQualificationProgress(0);
       setCurrentRound(0);
       setWorldCupQualified(false);
+      setGroups([]);
       
-      // Generate qualification matches
-      generateQualificationMatches();
+      // Check if confederation uses group format
+      const confRounds = qualificationRounds[selectedConfederation as keyof typeof qualificationRounds] || [];
+      const currentRoundData = confRounds[currentRound];
+      
+      if (currentRoundData && (selectedConfederation === "UEFA" || selectedConfederation === "OFC")) {
+        // Setup group stage
+        generateGroups();
+      } else {
+        // Setup two-legged fixtures
+        generateQualificationMatches();
+      }
     } else {
       toast.error("Silahkan pilih konfederasi dan tim terlebih dahulu!");
+    }
+  };
+
+  // Generate qualification groups for UEFA and OFC
+  const generateGroups = () => {
+    // For simplicity, let's create just one group with 4 teams including the player's team
+    const potentialOpponents = teamsData.teams.filter(team => {
+      const teamConf = confederationsData.confederations.find(conf => conf.id === team.confederation);
+      return (teamConf?.name === selectedConfederation) && (team.id !== selectedTeam);
+    });
+    
+    // Select 3 random opponents
+    const groupOpponents = [...potentialOpponents]
+      .sort(() => 0.5 - Math.random())
+      .slice(0, 3);
+      
+    const groupTeams = [selectedTeam, ...groupOpponents.map(t => t.id)];
+    
+    // Initialize standings
+    const standings: TeamStanding[] = groupTeams.map(teamId => ({
+      teamId,
+      played: 0,
+      won: 0,
+      drawn: 0,
+      lost: 0,
+      goalsFor: 0,
+      goalsAgainst: 0,
+      points: 0
+    }));
+    
+    // Generate home and away matches for each team against all others
+    const matches: Match[] = [];
+    let matchIdCounter = 1;
+    
+    // For each team
+    for (let i = 0; i < groupTeams.length; i++) {
+      // Against each other team
+      for (let j = 0; j < groupTeams.length; j++) {
+        if (i !== j) {
+          // Create unique ID for match pair to link the two legs
+          const matchPairId = `pair_${Math.min(i, j)}_${Math.max(i, j)}`;
+          
+          // First leg - home
+          matches.push({
+            id: `match_${matchIdCounter++}`,
+            homeTeam: groupTeams[i],
+            awayTeam: groupTeams[j],
+            played: false,
+            homeScore: null,
+            awayScore: null,
+            round: currentRound + 1,
+            matchType: "group",
+            leg: 1,
+            matchPair: matchPairId
+          });
+          
+          // Second leg - away
+          matches.push({
+            id: `match_${matchIdCounter++}`,
+            homeTeam: groupTeams[j],
+            awayTeam: groupTeams[i],
+            played: false,
+            homeScore: null,
+            awayScore: null,
+            round: currentRound + 1,
+            matchType: "group",
+            leg: 2,
+            matchPair: matchPairId
+          });
+        }
+      }
+    }
+    
+    // Create the group
+    const newGroup: Group = {
+      name: "Grup A",
+      teams: groupTeams,
+      standings,
+      matches
+    };
+    
+    setGroups([newGroup]);
+    setCurrentGroup(newGroup);
+    setMatchSchedule(matches);
+  };
+
+  // Update standings after a match is played
+  const updateGroupStandings = (matchId: string, homeScore: number, awayScore: number) => {
+    if (!currentGroup) return;
+    
+    // Find the match that was just played
+    const matchPlayed = currentGroup.matches.find(m => m.id === matchId);
+    if (!matchPlayed) return;
+    
+    // Make a copy of current standings
+    const updatedStandings = [...currentGroup.standings];
+    
+    // Update home team stats
+    const homeTeamStanding = updatedStandings.find(s => s.teamId === matchPlayed.homeTeam);
+    if (homeTeamStanding) {
+      homeTeamStanding.played += 1;
+      homeTeamStanding.goalsFor += homeScore;
+      homeTeamStanding.goalsAgainst += awayScore;
+      
+      if (homeScore > awayScore) {
+        homeTeamStanding.won += 1;
+        homeTeamStanding.points += 3;
+      } else if (homeScore === awayScore) {
+        homeTeamStanding.drawn += 1;
+        homeTeamStanding.points += 1;
+      } else {
+        homeTeamStanding.lost += 1;
+      }
+    }
+    
+    // Update away team stats
+    const awayTeamStanding = updatedStandings.find(s => s.teamId === matchPlayed.awayTeam);
+    if (awayTeamStanding) {
+      awayTeamStanding.played += 1;
+      awayTeamStanding.goalsFor += awayScore;
+      awayTeamStanding.goalsAgainst += homeScore;
+      
+      if (awayScore > homeScore) {
+        awayTeamStanding.won += 1;
+        awayTeamStanding.points += 3;
+      } else if (awayScore === homeScore) {
+        awayTeamStanding.drawn += 1;
+        awayTeamStanding.points += 1;
+      } else {
+        awayTeamStanding.lost += 1;
+      }
+    }
+    
+    // Sort standings by points, then goal difference, then goals scored
+    updatedStandings.sort((a, b) => {
+      if (a.points !== b.points) return b.points - a.points;
+      const aGD = a.goalsFor - a.goalsAgainst;
+      const bGD = b.goalsFor - b.goalsAgainst;
+      if (aGD !== bGD) return bGD - aGD;
+      return b.goalsFor - a.goalsFor;
+    });
+    
+    // Update the group with new standings
+    const updatedGroup = {
+      ...currentGroup,
+      standings: updatedStandings
+    };
+    
+    setCurrentGroup(updatedGroup);
+    
+    // Update the group in the groups array
+    const updatedGroups = groups.map(g => 
+      g.name === updatedGroup.name ? updatedGroup : g
+    );
+    
+    setGroups(updatedGroups);
+    
+    // Check if all group matches are played
+    const allMatchesPlayed = updatedGroup.matches.every(m => m.played);
+    if (allMatchesPlayed) {
+      // Check if player's team qualified (top 2 in group)
+      const playerTeamPosition = updatedStandings.findIndex(s => s.teamId === selectedTeam);
+      if (playerTeamPosition === 0 || playerTeamPosition === 1) {
+        toast.success("Tim Anda telah lolos ke babak berikutnya!");
+        setCurrentRound(currentRound + 1);
+        // Calculate progress
+        const confRounds = qualificationRounds[selectedConfederation as keyof typeof qualificationRounds] || [];
+        const totalRounds = confRounds.length;
+        setQualificationProgress(((currentRound + 1) / totalRounds) * 100);
+        
+        if (currentRound + 1 >= totalRounds) {
+          setWorldCupQualified(true);
+        } else {
+          // Generate next round matches
+          generateQualificationMatches();
+        }
+      } else {
+        toast.error("Tim Anda gagal lolos dari grup. Coba lagi tahun depan.");
+        // Reset career progress
+        setCareerStarted(false);
+        setCurrentRound(0);
+        setQualificationProgress(0);
+      }
     }
   };
 
@@ -112,37 +377,46 @@ const Career = () => {
       return (teamConf?.name === selectedConfederation) && (team.id !== selectedTeam);
     });
     
-    // Generate random matches (simplified version)
-    const matchCount = Math.min(6, potentialOpponents.length);
-    const newSchedule = [];
+    // For knockout rounds, create fewer matches (3 pairs = 6 matches for simplicity)
+    const matchCount = 3;
+    const newSchedule: Match[] = [];
+    let matchIdCounter = 1;
     
     // Create a subset of random opponents
     const randomOpponents = [...potentialOpponents]
       .sort(() => 0.5 - Math.random())
       .slice(0, matchCount);
     
-    // Create home and away matches against each opponent
+    // Create home and away matches against each opponent (two-legged ties)
     for (const opponent of randomOpponents) {
-      // Home match
+      const matchPairId = `pair_${selectedTeam}_${opponent.id}`;
+      
+      // First leg - home
       newSchedule.push({
+        id: `match_${matchIdCounter++}`,
         homeTeam: selectedTeam,
         awayTeam: opponent.id,
         played: false,
         homeScore: null,
         awayScore: null,
         round: currentRound + 1,
-        matchType: "qualification"
+        matchType: "qualification",
+        leg: 1,
+        matchPair: matchPairId
       });
       
-      // Away match
+      // Second leg - away
       newSchedule.push({
+        id: `match_${matchIdCounter++}`,
         homeTeam: opponent.id,
         awayTeam: selectedTeam,
         played: false,
         homeScore: null,
         awayScore: null,
         round: currentRound + 1,
-        matchType: "qualification"
+        matchType: "qualification",
+        leg: 2,
+        matchPair: matchPairId
       });
     }
     
@@ -164,53 +438,73 @@ const Career = () => {
     const teamName = teamsData.teams.find(team => team.id === selectedTeam)?.name;
     const teamStrength = teamsData.teams.find(team => team.id === selectedTeam)?.serangan || 70;
     
-    // Simulate all matches in the schedule
-    let points = 0;
-    let totalMatches = 0;
+    // Group matches by pair ID to handle two-legged ties
+    const matchPairs: Record<string, Match[]> = {};
     
-    const updatedSchedule = matchSchedule.map(match => {
-      if (match.played || match.round !== currentRound + 1) return match;
-      
-      totalMatches++;
-      
-      // Simple match simulation
-      const isHomeMatch = match.homeTeam === selectedTeam;
-      const opponentId = isHomeMatch ? match.awayTeam : match.homeTeam;
-      const opponentStrength = teamsData.teams.find(team => team.id === opponentId)?.serangan || 65;
-      
-      // Add home advantage
-      const effectiveTeamStrength = isHomeMatch ? teamStrength + 5 : teamStrength;
-      const effectiveOpponentStrength = !isHomeMatch ? opponentStrength + 5 : opponentStrength;
-      
-      // Generate scores
-      const teamScore = Math.floor(Math.random() * (effectiveTeamStrength / 20)) + (effectiveTeamStrength > 75 ? 1 : 0);
-      const opponentScore = Math.floor(Math.random() * (effectiveOpponentStrength / 20)) + (effectiveOpponentStrength > 75 ? 1 : 0);
-      
-      // Calculate points
-      if ((isHomeMatch && teamScore > opponentScore) || (!isHomeMatch && teamScore > opponentScore)) {
-        points += 3; // Win
-      } else if (teamScore === opponentScore) {
-        points += 1; // Draw
+    matchSchedule.forEach(match => {
+      if (!match.played && match.round === currentRound + 1) {
+        if (!matchPairs[match.matchPair]) {
+          matchPairs[match.matchPair] = [];
+        }
+        matchPairs[match.matchPair].push(match);
       }
+    });
+    
+    let wonTies = 0;
+    let totalTies = Object.keys(matchPairs).length;
+    const updatedSchedule = [...matchSchedule];
+    
+    // Simulate each tie
+    Object.entries(matchPairs).forEach(([pairId, matches]) => {
+      let playerTeamAggregateGoals = 0;
+      let opponentAggregateGoals = 0;
       
-      // Update match results
-      return {
-        ...match,
-        played: true,
-        homeScore: isHomeMatch ? teamScore : opponentScore,
-        awayScore: isHomeMatch ? opponentScore : teamScore
-      };
+      // Simulate both legs
+      matches.forEach(match => {
+        const isHomeMatch = match.homeTeam === selectedTeam;
+        const opponentId = isHomeMatch ? match.awayTeam : match.homeTeam;
+        const opponentStrength = teamsData.teams.find(team => team.id === opponentId)?.serangan || 65;
+        
+        // Add home advantage
+        const effectiveTeamStrength = isHomeMatch ? teamStrength + 5 : teamStrength;
+        const effectiveOpponentStrength = !isHomeMatch ? opponentStrength + 5 : opponentStrength;
+        
+        // Generate scores
+        const teamScore = Math.floor(Math.random() * (effectiveTeamStrength / 20)) + (effectiveTeamStrength > 75 ? 1 : 0);
+        const opponentScore = Math.floor(Math.random() * (effectiveOpponentStrength / 20)) + (effectiveOpponentStrength > 75 ? 1 : 0);
+        
+        // Update match in schedule
+        const matchIndex = updatedSchedule.findIndex(m => m.id === match.id);
+        if (matchIndex !== -1) {
+          updatedSchedule[matchIndex] = {
+            ...match,
+            played: true,
+            homeScore: isHomeMatch ? teamScore : opponentScore,
+            awayScore: isHomeMatch ? opponentScore : teamScore
+          };
+        }
+        
+        // Track aggregate score
+        if (isHomeMatch) {
+          playerTeamAggregateGoals += teamScore;
+          opponentAggregateGoals += opponentScore;
+        } else {
+          playerTeamAggregateGoals += teamScore;
+          opponentAggregateGoals += opponentScore;
+        }
+      });
+      
+      // Determine winner of the tie
+      if (playerTeamAggregateGoals > opponentAggregateGoals) {
+        wonTies++;
+      }
     });
     
     setMatchSchedule(updatedSchedule);
     
-    // Qualification success rate based on points
-    const maxPossiblePoints = totalMatches * 3;
-    const pointPercentage = (points / maxPossiblePoints) * 100;
-    
-    // Qualification threshold
-    const qualificationChance = Math.min(85, pointPercentage + Math.random() * 20);
-    const isQualified = qualificationChance > 50; // 50% threshold
+    // Determine if qualified to next round based on ties won
+    const qualificationRate = wonTies / totalTies;
+    const isQualified = qualificationRate >= 0.5; // Need to win at least half of ties
     
     if (isQualified) {
       toast.success(`${teamName} berhasil lolos dari ${round.name}!`);
@@ -219,10 +513,15 @@ const Career = () => {
       const totalRounds = confRounds.length;
       setQualificationProgress(((currentRound + 1) / totalRounds) * 100);
       
-      // Generate next round matches
-      setTimeout(() => {
-        generateQualificationMatches();
-      }, 500);
+      // Check if all rounds are completed
+      if (currentRound + 1 >= totalRounds) {
+        setWorldCupQualified(true);
+      } else {
+        // Generate next round matches
+        setTimeout(() => {
+          generateQualificationMatches();
+        }, 500);
+      }
     } else {
       toast.error(`${teamName} gagal lolos dari ${round.name}. Coba lagi tahun depan.`);
       // Reset career progress
@@ -495,59 +794,147 @@ const Career = () => {
                 </div>
               )}
               
+              {/* Group Standings Table (only shown if in group stage) */}
+              {currentGroup && (
+                <div className="mb-6">
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="font-semibold">Klasemen Grup:</h3>
+                    <Button variant="outline" size="sm" className="flex items-center gap-1">
+                      <Table className="w-4 h-4" />
+                      <span>Tabel</span>
+                    </Button>
+                  </div>
+                  
+                  <div className="overflow-x-auto">
+                    <table className="w-full border-collapse">
+                      <thead>
+                        <tr className="border-b border-border">
+                          <th className="px-3 py-2 text-left">Tim</th>
+                          <th className="px-3 py-2 text-center">M</th>
+                          <th className="px-3 py-2 text-center">M</th>
+                          <th className="px-3 py-2 text-center">S</th>
+                          <th className="px-3 py-2 text-center">K</th>
+                          <th className="px-3 py-2 text-center">GM</th>
+                          <th className="px-3 py-2 text-center">GK</th>
+                          <th className="px-3 py-2 text-center">+/-</th>
+                          <th className="px-3 py-2 text-center">Poin</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {currentGroup.standings.map((standing, idx) => {
+                          const team = teamsData.teams.find(t => t.id === standing.teamId);
+                          const isPlayerTeam = standing.teamId === selectedTeam;
+                          
+                          return (
+                            <tr 
+                              key={standing.teamId} 
+                              className={`border-b border-border/40 ${
+                                isPlayerTeam ? 'bg-primary/5 font-medium' : ''
+                              } ${idx < 2 ? 'text-green-500' : ''}`}
+                            >
+                              <td className="px-3 py-2 flex items-center gap-2">
+                                <span className="text-sm text-muted-foreground">{idx + 1}</span>
+                                <div className="flex items-center gap-2">
+                                  <Avatar className="w-6 h-6">
+                                    <AvatarImage src={team?.icon} alt={team?.name} />
+                                    <AvatarFallback>{team?.name.substring(0, 2)}</AvatarFallback>
+                                  </Avatar>
+                                  <span className={isPlayerTeam ? 'font-semibold' : ''}>
+                                    {team?.name}
+                                  </span>
+                                </div>
+                              </td>
+                              <td className="px-3 py-2 text-center">{standing.played}</td>
+                              <td className="px-3 py-2 text-center">{standing.won}</td>
+                              <td className="px-3 py-2 text-center">{standing.drawn}</td>
+                              <td className="px-3 py-2 text-center">{standing.lost}</td>
+                              <td className="px-3 py-2 text-center">{standing.goalsFor}</td>
+                              <td className="px-3 py-2 text-center">{standing.goalsAgainst}</td>
+                              <td className="px-3 py-2 text-center">
+                                {standing.goalsFor - standing.goalsAgainst}
+                              </td>
+                              <td className="px-3 py-2 text-center font-semibold">{standing.points}</td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )}
+              
+              {/* Match Schedule */}
               {matchSchedule.length > 0 && (
                 <div className="mb-6">
                   <h3 className="font-semibold mb-2">Jadwal Pertandingan:</h3>
                   <div className="space-y-2 max-h-60 overflow-y-auto">
-                    {matchSchedule.map((match, idx) => (
-                      <div 
-                        key={idx} 
-                        className={`p-3 rounded-lg hover:bg-primary/10 cursor-pointer flex items-center justify-between ${match.played ? 'bg-card/60' : 'bg-card/80'}`}
-                        onClick={() => !match.played && playMatch(idx)}
-                      >
-                        <div className="flex items-center gap-2">
-                          <Avatar className="w-6 h-6">
-                            <AvatarImage 
-                              src={teamsData.teams.find(team => team.id === match.homeTeam)?.icon} 
-                              alt={teamsData.teams.find(team => team.id === match.homeTeam)?.name} 
-                            />
-                            <AvatarFallback>
-                              {teamsData.teams.find(team => team.id === match.homeTeam)?.name.substring(0, 2)}
-                            </AvatarFallback>
-                          </Avatar>
-                          <span className={match.homeTeam === selectedTeam ? "font-semibold" : ""}>
-                            {teamsData.teams.find(team => team.id === match.homeTeam)?.name}
-                          </span>
-                        </div>
-                        
-                        {match.played ? (
-                          <div className="font-semibold">
-                            {match.homeScore} - {match.awayScore}
+                    {matchSchedule.map((match, idx) => {
+                      const isLeg = (match.matchType === "qualification");
+                      const homeName = teamsData.teams.find(team => team.id === match.homeTeam)?.name;
+                      const awayName = teamsData.teams.find(team => team.id === match.awayTeam)?.name;
+                      const isPlayerMatch = match.homeTeam === selectedTeam || match.awayTeam === selectedTeam;
+                      
+                      return (
+                        <div 
+                          key={match.id} 
+                          className={`p-3 rounded-lg ${isPlayerMatch ? 'hover:bg-primary/10 cursor-pointer' : ''} ${match.played ? 'bg-card/60' : 'bg-card/80'}`}
+                          onClick={() => isPlayerMatch && !match.played && playMatch(idx)}
+                        >
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <Avatar className="w-6 h-6">
+                                <AvatarImage 
+                                  src={teamsData.teams.find(team => team.id === match.homeTeam)?.icon} 
+                                  alt={homeName} 
+                                />
+                                <AvatarFallback>
+                                  {homeName?.substring(0, 2)}
+                                </AvatarFallback>
+                              </Avatar>
+                              <span className={match.homeTeam === selectedTeam ? "font-semibold" : ""}>
+                                {homeName}
+                              </span>
+                            </div>
+                            
+                            {match.played ? (
+                              <div className="font-semibold mx-2">
+                                {match.homeScore} - {match.awayScore}
+                              </div>
+                            ) : (
+                              <div className="text-sm text-muted-foreground mx-2">VS</div>
+                            )}
+                            
+                            <div className="flex items-center gap-2">
+                              <span className={match.awayTeam === selectedTeam ? "font-semibold" : ""}>
+                                {awayName}
+                              </span>
+                              <Avatar className="w-6 h-6">
+                                <AvatarImage 
+                                  src={teamsData.teams.find(team => team.id === match.awayTeam)?.icon} 
+                                  alt={awayName} 
+                                />
+                                <AvatarFallback>
+                                  {awayName?.substring(0, 2)}
+                                </AvatarFallback>
+                              </Avatar>
+                            </div>
                           </div>
-                        ) : (
-                          <div className="text-sm text-muted-foreground">VS</div>
-                        )}
-                        
-                        <div className="flex items-center gap-2">
-                          <span className={match.awayTeam === selectedTeam ? "font-semibold" : ""}>
-                            {teamsData.teams.find(team => team.id === match.awayTeam)?.name}
-                          </span>
-                          <Avatar className="w-6 h-6">
-                            <AvatarImage 
-                              src={teamsData.teams.find(team => team.id === match.awayTeam)?.icon} 
-                              alt={teamsData.teams.find(team => team.id === match.awayTeam)?.name} 
-                            />
-                            <AvatarFallback>
-                              {teamsData.teams.find(team => team.id === match.awayTeam)?.name.substring(0, 2)}
-                            </AvatarFallback>
-                          </Avatar>
+                          
+                          {/* Leg indicator and Play button */}
+                          <div className="flex justify-between items-center mt-1 text-xs">
+                            <span className="text-muted-foreground">
+                              {isLeg ? `Leg ${match.leg} dari 2` : "Pertandingan Grup"}
+                            </span>
+                            
+                            {isPlayerMatch && !match.played && (
+                              <span className="text-primary font-medium flex items-center gap-1">
+                                <Play className="w-3 h-3" /> Main
+                              </span>
+                            )}
+                          </div>
                         </div>
-                        
-                        {!match.played && (
-                          <ChevronRight className="w-4 h-4 text-muted-foreground" />
-                        )}
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
               )}

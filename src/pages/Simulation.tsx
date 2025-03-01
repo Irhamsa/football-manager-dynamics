@@ -12,6 +12,8 @@ interface LocationState {
   homeTeam: string;
   awayTeam: string;
   playerSide: string;
+  returnPath?: string;
+  matchData?: any;
   tactics: {
     home: Record<string, number>;
     away: Record<string, number>;
@@ -44,7 +46,7 @@ const Simulation = () => {
     return null;
   }
 
-  const { homeTeam, awayTeam, playerSide, tactics } = state;
+  const { homeTeam, awayTeam, playerSide, tactics, returnPath, matchData } = state;
 
   const homeTeamData = teamsData.teams.find(team => team.id === homeTeam);
   const awayTeamData = teamsData.teams.find(team => team.id === awayTeam);
@@ -319,10 +321,29 @@ const Simulation = () => {
     return () => clearInterval(gameInterval);
   }, [isPlaying, gameTime]);
 
+  const handleReturnToCareer = () => {
+    // Update match results when returning to career mode
+    if (returnPath === "/career" && matchData) {
+      navigate(returnPath, { 
+        state: { 
+          matchResult: {
+            homeScore: score.home,
+            awayScore: score.away,
+            matchId: matchData.id,
+            played: true
+          },
+          resumeCareer: true 
+        }
+      });
+    } else {
+      navigate("/match");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground p-6">
       <div className="flex justify-between items-center mb-6">
-        {/* Hanya menampilkan tombol "Beranda" */}
+        {/* Tombol Beranda */}
         <button
           onClick={() => navigate("/")}
           className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
@@ -337,7 +358,6 @@ const Simulation = () => {
           <h1 className="text-2xl font-bold mb-3">Simulasi Pertandingan</h1>
           <div className="flex justify-center items-center gap-3 mb-3">
             <div className={`text-center ${playerSide === "Home" ? "text-yellow-400" : ""}`}>
-              {/* Mengurangi ukuran Avatar dan teks tim */}
               <Avatar className="w-12 h-12 mx-auto mb-1">
                 <AvatarImage 
                   src={homeTeamData?.icon}
@@ -351,12 +371,10 @@ const Simulation = () => {
               </Avatar>
               <span className="text-base block font-medium">{homeTeamData?.name}</span>
             </div>
-            {/* Mengurangi ukuran skor */}
             <div className="text-4xl font-bold px-4">
               {score.home} - {score.away}
             </div>
             <div className={`text-center ${playerSide === "Away" ? "text-yellow-400" : ""}`}>
-              {/* Mengurangi ukuran Avatar dan teks tim */}
               <Avatar className="w-12 h-12 mx-auto mb-1">
                 <AvatarImage 
                   src={awayTeamData?.icon}
@@ -393,9 +411,9 @@ const Simulation = () => {
             </Button>
           )}
           {gameEnded && (
-            <Button onClick={() => navigate("/match")}>
+            <Button onClick={handleReturnToCareer}>
               <Home className="w-4 h-4 mr-2" />
-              Kembali ke Pemilihan Tim
+              {returnPath === "/career" ? "Kembali ke Mode Karir" : "Kembali ke Pemilihan Tim"}
             </Button>
           )}
         </div>
