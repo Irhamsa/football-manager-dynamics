@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -73,7 +74,7 @@ const Career = () => {
   };
 
   const generateGroups = () => {
-    const selectedTeams = teamsData
+    const selectedTeams = teamsData.teams
       .filter((team) => team.confederation === selectedConfederation)
       .map((team) => team.id);
     const shuffledTeams = [...selectedTeams].sort(() => Math.random() - 0.5);
@@ -213,7 +214,7 @@ const Career = () => {
                   <SelectValue placeholder="Select Confederation" />
                 </SelectTrigger>
                 <SelectContent>
-                  {confederationsData.map((confederation) => (
+                  {confederationsData.confederations.map((confederation) => (
                     <SelectItem key={confederation.id} value={confederation.id}>
                       {confederation.name}
                     </SelectItem>
@@ -228,7 +229,7 @@ const Career = () => {
               <h2 className="text-xl font-semibold mb-4">Team Selection</h2>
               {selectedConfederation && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                  {teamsData
+                  {teamsData.teams
                     .filter((team) => team.confederation === selectedConfederation)
                     .map((team) => (
                       <div
@@ -241,7 +242,7 @@ const Career = () => {
                         onClick={() => setSelectedTeam(team.id)}
                       >
                         <img
-                          src={`/images/teams/${team.flag}`}
+                          src={team.icon}
                           alt={team.name}
                           className="w-10 h-10 object-cover rounded"
                         />
@@ -267,7 +268,7 @@ const Career = () => {
           <div className="flex justify-between items-center">
             <h2 className="text-2xl font-bold">
               Managing{" "}
-              {teamsData.find((team) => team.id === selectedTeam)?.name}
+              {teamsData.teams.find((team) => team.id === selectedTeam)?.name}
             </h2>
             <div className="flex items-center gap-2">
               <span className="text-lg font-medium">
@@ -317,7 +318,7 @@ const Career = () => {
                               return b.goalsFor - a.goalsFor;
                             })
                             .map((standing) => {
-                              const team = teamsData.find(
+                              const team = teamsData.teams.find(
                                 (t) => t.id === standing.teamId
                               );
                               const isUserTeam = selectedTeam === standing.teamId;
@@ -331,7 +332,7 @@ const Career = () => {
                                   <td className="p-2">
                                     <div className="flex items-center gap-2">
                                       <img
-                                        src={`/images/teams/${team?.flag}`}
+                                        src={team?.icon}
                                         alt={team?.name}
                                         className="w-6 h-6 object-cover"
                                       />
@@ -378,10 +379,10 @@ const Career = () => {
                             groups[groupIndex].includes(fixture.homeTeam)
                         )
                         .map((fixture, fixtureIndex) => {
-                          const homeTeam = teamsData.find(
+                          const homeTeam = teamsData.teams.find(
                             (team) => team.id === fixture.homeTeam
                           );
-                          const awayTeam = teamsData.find(
+                          const awayTeam = teamsData.teams.find(
                             (team) => team.id === fixture.awayTeam
                           );
                           const isUserMatch =
@@ -409,7 +410,7 @@ const Career = () => {
                                     {homeTeam?.name}
                                   </span>
                                   <img
-                                    src={`/images/teams/${homeTeam?.flag}`}
+                                    src={homeTeam?.icon}
                                     alt={homeTeam?.name}
                                     className="w-6 h-6 object-cover"
                                   />
@@ -423,7 +424,7 @@ const Career = () => {
 
                                 <div className="flex-1 flex items-center gap-2">
                                   <img
-                                    src={`/images/teams/${awayTeam?.flag}`}
+                                    src={awayTeam?.icon}
                                     alt={awayTeam?.name}
                                     className="w-6 h-6 object-cover"
                                   />
@@ -443,7 +444,13 @@ const Career = () => {
                                 <div className="mt-3 flex justify-center">
                                   <Button
                                     size="sm"
-                                    onClick={() => playMatch(fixtureIndex)}
+                                    onClick={() => playMatch(
+                                      fixtures.findIndex(
+                                        (f) => 
+                                          f.homeTeam === fixture.homeTeam && 
+                                          f.awayTeam === fixture.awayTeam
+                                      )
+                                    )}
                                     className="gap-1"
                                   >
                                     <Play className="w-4 h-4" /> Play Match
@@ -474,10 +481,10 @@ const Career = () => {
                             groups[groupIndex].includes(fixture.homeTeam)
                         )
                         .map((fixture, fixtureIndex) => {
-                          const homeTeam = teamsData.find(
+                          const homeTeam = teamsData.teams.find(
                             (team) => team.id === fixture.homeTeam
                           );
-                          const awayTeam = teamsData.find(
+                          const awayTeam = teamsData.teams.find(
                             (team) => team.id === fixture.awayTeam
                           );
                           const isUserMatch =
@@ -505,7 +512,7 @@ const Career = () => {
                                     {homeTeam?.name}
                                   </span>
                                   <img
-                                    src={`/images/teams/${homeTeam?.flag}`}
+                                    src={homeTeam?.icon}
                                     alt={homeTeam?.name}
                                     className="w-6 h-6 object-cover"
                                   />
@@ -522,7 +529,7 @@ const Career = () => {
 
                                 <div className="flex-1 flex items-center gap-2">
                                   <img
-                                    src={`/images/teams/${awayTeam?.flag}`}
+                                    src={awayTeam?.icon}
                                     alt={awayTeam?.name}
                                     className="w-6 h-6 object-cover"
                                   />
