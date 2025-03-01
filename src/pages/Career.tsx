@@ -70,11 +70,15 @@ const Career = () => {
   };
 
   const handleConfirm = () => {
-    if (selectedTeam) {
+    if (selectedTeam && selectedConfederation) {
       const teamName = teamsData.teams.find(team => team.id === selectedTeam)?.name;
       toast.success(`Tim ${teamName} telah dipilih untuk mode karir!`);
       setCareerStarted(true);
       setQualificationProgress(0);
+      setCurrentRound(0);
+      setWorldCupQualified(false);
+    } else {
+      toast.error("Silahkan pilih konfederasi dan tim terlebih dahulu!");
     }
   };
 
