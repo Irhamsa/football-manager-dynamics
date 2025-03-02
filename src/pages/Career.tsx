@@ -102,20 +102,16 @@ const Career = () => {
   };
 
   const initializeFirstRound = () => {
-    // First round: 20 teams (ranked 27-46) play home and away
     const asianTeams = teamsData.teams
       .filter((team) => team.confederation === "afc")
       .sort((a, b) => {
-        // Simple rating calculation
         const ratingA = (a.serangan || 0) + (a.possession || 0) + (a.defense || 0);
         const ratingB = (b.serangan || 0) + (b.possession || 0) + (b.defense || 0);
         return ratingB - ratingA;
       });
 
-    // Get teams ranked 27-46 (last 20 teams)
     const lowerRankedTeams = asianTeams.slice(26, 46);
     
-    // Create 10 pairs for the first round
     const newGroups = [];
     for (let i = 0; i < 10; i++) {
       newGroups.push([lowerRankedTeams[i * 2].id, lowerRankedTeams[i * 2 + 1].id]);
@@ -126,8 +122,6 @@ const Career = () => {
   };
 
   const initializeSecondRound = () => {
-    // Second round: 36 teams (ranked 1-26 + 10 winners from first round)
-    // Divide into 9 groups of 4 teams
     const asianTeams = teamsData.teams
       .filter((team) => team.confederation === "afc")
       .sort((a, b) => {
@@ -136,13 +130,10 @@ const Career = () => {
         return ratingB - ratingA;
       });
 
-    // Get top 26 teams
     const topTeams = asianTeams.slice(0, 26).map(team => team.id);
     
-    // Combine with 10 qualified teams from previous round
     const secondRoundTeams = [...topTeams, ...qualifiedTeams.slice(0, 10)];
     
-    // Create 9 groups of 4 teams
     const newGroups = [];
     const shuffledTeams = [...secondRoundTeams].sort(() => Math.random() - 0.5);
     
@@ -155,7 +146,6 @@ const Career = () => {
   };
 
   const initializeThirdRound = () => {
-    // Third round: 18 teams from second round, 3 groups of 6 teams
     const shuffledTeams = [...qualifiedTeams].sort(() => Math.random() - 0.5);
     const newGroups = [];
     
@@ -168,7 +158,6 @@ const Career = () => {
   };
 
   const initializeFourthRound = () => {
-    // Fourth round: 6 teams from third round, 2 groups of 3 teams
     const shuffledTeams = [...qualifiedTeams].sort(() => Math.random() - 0.5);
     const newGroups = [];
     
@@ -181,7 +170,6 @@ const Career = () => {
   };
 
   const initializeFifthRound = () => {
-    // Fifth round: 2 teams from fourth round
     setGroups([qualifiedTeams]);
     setGroupStandings([[]]);
   };
@@ -200,7 +188,6 @@ const Career = () => {
             leg: 1,
           });
           
-          // For home and away format
           if (qualificationPhase <= 3 || qualificationPhase === 5) {
             newFixtures.push({
               homeTeam: group[j],
@@ -298,11 +285,9 @@ const Career = () => {
   };
 
   const advancePhase = () => {
-    // Calculate qualifying teams based on current standings
     const newQualifiedTeams: string[] = [];
     
     if (qualificationPhase === 1) {
-      // First round: Top team from each group qualifies (10 teams)
       groupStandings.forEach((group) => {
         const sortedGroup = [...group].sort((a, b) => {
           if (b.points !== a.points) return b.points - a.points;
@@ -318,7 +303,6 @@ const Career = () => {
       setQualifiedTeams(newQualifiedTeams);
       setQualificationPhase(2);
     } else if (qualificationPhase === 2) {
-      // Second round: 18 teams qualify (top 2 from each of 9 groups)
       groupStandings.forEach((group) => {
         const sortedGroup = [...group].sort((a, b) => {
           if (b.points !== a.points) return b.points - a.points;
@@ -334,7 +318,6 @@ const Career = () => {
       setQualifiedTeams(newQualifiedTeams);
       setQualificationPhase(3);
     } else if (qualificationPhase === 3) {
-      // Third round: 12 teams qualify (top 4 from each group)
       groupStandings.forEach((group) => {
         const sortedGroup = [...group].sort((a, b) => {
           if (b.points !== a.points) return b.points - a.points;
@@ -352,7 +335,6 @@ const Career = () => {
         }
       });
       
-      // Top 2 from each group (6 teams) qualify directly to FIFA World Cup
       const directQualifiers: string[] = [];
       groupStandings.forEach((group) => {
         const sortedGroup = [...group].sort((a, b) => {
@@ -369,8 +351,6 @@ const Career = () => {
       setQualifiedTeams(newQualifiedTeams);
       setQualificationPhase(4);
     } else if (qualificationPhase === 4) {
-      // Fourth round: Winners of each group qualify directly (2 teams)
-      // Runners-up from each group advance to fifth round (2 teams)
       groupStandings.forEach((group) => {
         const sortedGroup = [...group].sort((a, b) => {
           if (b.points !== a.points) return b.points - a.points;
@@ -386,15 +366,13 @@ const Career = () => {
       setQualifiedTeams(newQualifiedTeams);
       setQualificationPhase(5);
     } else if (qualificationPhase === 5) {
-      // Fifth round: Winner advances to inter-confederation play-offs
       setQualificationPhase(1);
       setCareerYear(careerYear + 1);
     }
     
-    // Reset fixtures
     setFixtures([]);
   };
-  
+
   const getQualificationPhaseTitle = () => {
     switch (qualificationPhase) {
       case 1:
