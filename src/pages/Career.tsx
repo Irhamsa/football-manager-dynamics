@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -75,7 +74,9 @@ const Career = () => {
   }, [fixtures]);
 
   const startCareer = () => {
-    setStarted(true);
+    if (selectedTeam) {
+      setStarted(true);
+    }
   };
 
   const initializeQualificationPhase = () => {
@@ -410,6 +411,10 @@ const Career = () => {
         return "";
     }
   };
+
+  const getTeamById = (teamId: string) => {
+    return teamsData.teams.find((team) => team.id === teamId);
+  };
   
   return (
     <div className="min-h-screen bg-background p-4 md:p-8">
@@ -451,28 +456,27 @@ const Career = () => {
             <CardContent className="pt-6">
               <h2 className="text-xl font-semibold mb-4">Pilih Tim</h2>
               {selectedConfederation && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                  {teamsData.teams
-                    .filter((team) => team.confederation === selectedConfederation)
-                    .map((team) => (
-                      <div
-                        key={team.id}
-                        className={`p-4 border rounded-lg cursor-pointer transition-all flex items-center gap-3 ${
-                          selectedTeam === team.id
-                            ? "border-primary bg-primary/10"
-                            : "border-border hover:border-primary/50"
-                        }`}
-                        onClick={() => setSelectedTeam(team.id)}
-                      >
-                        <img
-                          src={team.icon}
-                          alt={team.name}
-                          className="w-10 h-10 object-cover rounded"
-                        />
-                        <span>{team.name}</span>
-                      </div>
-                    ))}
-                </div>
+                <Select value={selectedTeam || ""} onValueChange={setSelectedTeam}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Pilih Tim" />
+                  </SelectTrigger>
+                  <SelectContent className="max-h-[300px]">
+                    {teamsData.teams
+                      .filter((team) => team.confederation === selectedConfederation)
+                      .map((team) => (
+                        <SelectItem key={team.id} value={team.id}>
+                          <div className="flex items-center gap-2">
+                            <img
+                              src={team.icon}
+                              alt={team.name}
+                              className="w-6 h-6 object-cover rounded"
+                            />
+                            <span>{team.name}</span>
+                          </div>
+                        </SelectItem>
+                      ))}
+                  </SelectContent>
+                </Select>
               )}
             </CardContent>
           </Card>
@@ -491,7 +495,7 @@ const Career = () => {
           <div className="flex justify-between items-center">
             <h2 className="text-2xl font-bold">
               Mengelola{" "}
-              {teamsData.teams.find((team) => team.id === selectedTeam)?.name}
+              {getTeamById(selectedTeam || "")?.name}
             </h2>
             <div className="flex items-center gap-2">
               <span className="text-lg font-medium">
