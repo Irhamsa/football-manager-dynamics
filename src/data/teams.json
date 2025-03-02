@@ -1,3 +1,4 @@
+
 {
   "teams": [
     
@@ -289,6 +290,114 @@
     "possession": 68,
     "defense": 66
 },
+{
+  "id": "vnm",
+  "name": "Vietnam",
+  "confederation": "afc",
+  "icon": "/images/teams/vietnam.png",
+    "serangan": 68,
+    "possession": 70,
+    "defense": 68
+},
+{
+  "id": "jor",
+  "name": "Jordan",
+  "confederation": "afc",
+  "icon": "/images/teams/jordan.png",
+    "serangan": 69,
+    "possession": 71,
+    "defense": 69
+},
+{
+  "id": "pal",
+  "name": "Palestine",
+  "confederation": "afc",
+  "icon": "/images/teams/palestine.png",
+    "serangan": 64,
+    "possession": 66,
+    "defense": 64
+},
+{
+  "id": "kgz",
+  "name": "Kyrgyzstan",
+  "confederation": "afc",
+  "icon": "/images/teams/kyrgyzstan.png",
+    "serangan": 62,
+    "possession": 64,
+    "defense": 62
+},
+{
+  "id": "mya",
+  "name": "Myanmar",
+  "confederation": "afc",
+  "icon": "/images/teams/myanmar.png",
+    "serangan": 61,
+    "possession": 63,
+    "defense": 61
+},
+{
+  "id": "hkg",
+  "name": "Hong Kong",
+  "confederation": "afc",
+  "icon": "/images/teams/hong_kong.png",
+    "serangan": 60,
+    "possession": 62,
+    "defense": 60
+},
+{
+  "id": "gum",
+  "name": "Guam",
+  "confederation": "afc",
+  "icon": "/images/teams/guam.png",
+    "serangan": 50,
+    "possession": 52,
+    "defense": 50
+},
+{
+  "id": "mam",
+  "name": "Macau",
+  "confederation": "afc",
+  "icon": "/images/teams/macau.png",
+    "serangan": 48,
+    "possession": 50,
+    "defense": 48
+},
+{
+  "id": "tls",
+  "name": "Timor-Leste",
+  "confederation": "afc",
+  "icon": "/images/teams/timor_leste.png",
+    "serangan": 53,
+    "possession": 55,
+    "defense": 53
+},
+{
+  "id": "pak",
+  "name": "Pakistan",
+  "confederation": "afc",
+  "icon": "/images/teams/pakistan.png",
+    "serangan": 55,
+    "possession": 57,
+    "defense": 55
+},
+{
+  "id": "sri",
+  "name": "Sri Lanka",
+  "confederation": "afc",
+  "icon": "/images/teams/sri_lanka.png",
+    "serangan": 50,
+    "possession": 52,
+    "defense": 50
+},
+{
+  "id": "ban",
+  "name": "Bangladesh",
+  "confederation": "afc",
+  "icon": "/images/teams/bangladesh.png",
+    "serangan": 52,
+    "possession": 54,
+    "defense": 52
+},
 
 {
   "id": "fra",
@@ -543,15 +652,6 @@
     "defense": 87
 },
 {
-  "id": "isl",
-  "name": "Iceland",
-  "confederation": "uefa",
-  "icon": "/images/teams/iceland.png",
-    "serangan": 73,
-    "possession": 75,
-    "defense": 72
-},
-{
   "id": "mkd",
   "name": "North Macedonia",
   "confederation": "uefa",
@@ -676,15 +776,6 @@
     "serangan": 61,
     "possession": 63,
     "defense": 60
-},
-{
-  "id": "lcn",
-  "name": "Liechtenstein",
-  "confederation": "uefa",
-  "icon": "/images/teams/liechtenstein.png",
-    "serangan": 57,
-    "possession": 59,
-    "defense": 56
 }
 
     
