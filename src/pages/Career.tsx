@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -50,10 +51,10 @@ const Career = () => {
   const [eliminatedTeams, setEliminatedTeams] = useState<string[]>([]);
 
   useEffect(() => {
-    if (started) {
+    if (started && selectedTeam) {
       initializeQualificationPhase();
     }
-  }, [started, careerYear, qualificationPhase]);
+  }, [started, careerYear, qualificationPhase, selectedTeam]);
 
   useEffect(() => {
     if (groups.length > 0) {
@@ -75,6 +76,7 @@ const Career = () => {
 
   const startCareer = () => {
     if (selectedTeam) {
+      console.log("Starting career with team:", selectedTeam);
       setStarted(true);
     }
   };
@@ -416,10 +418,10 @@ const Career = () => {
             <CardContent className="pt-6">
               <h2 className="text-xl font-semibold mb-4">Pilih Konfederasi</h2>
               <Select value={selectedConfederation} onValueChange={setSelectedConfederation}>
-                <SelectTrigger>
+                <SelectTrigger className="bg-background">
                   <SelectValue placeholder="Pilih Konfederasi" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-background">
                   {confederationsData.confederations.map((confederation) => (
                     <SelectItem key={confederation.id} value={confederation.id}>
                       {confederation.name}
@@ -435,10 +437,10 @@ const Career = () => {
               <h2 className="text-xl font-semibold mb-4">Pilih Tim</h2>
               {selectedConfederation && (
                 <Select value={selectedTeam || ""} onValueChange={setSelectedTeam}>
-                  <SelectTrigger>
+                  <SelectTrigger className="bg-background">
                     <SelectValue placeholder="Pilih Tim" />
                   </SelectTrigger>
-                  <SelectContent className="max-h-[300px]">
+                  <SelectContent className="max-h-[300px] bg-background">
                     {teamsData.teams
                       .filter((team) => team.confederation === selectedConfederation)
                       .map((team) => (
@@ -473,7 +475,7 @@ const Career = () => {
           <div className="flex justify-between items-center">
             <h2 className="text-2xl font-bold">
               Mengelola{" "}
-              {getTeamById(selectedTeam || "")?.name}
+              {selectedTeam && getTeamById(selectedTeam)?.name}
             </h2>
             <div className="flex items-center gap-2">
               <span className="text-lg font-medium">
