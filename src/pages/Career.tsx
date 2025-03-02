@@ -10,15 +10,18 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Play } from "lucide-react";
+import { Play, ArrowLeft, Home } from "lucide-react";
 import confederationsData from "../data/confederations.json";
 import teamsData from "../data/teams.json";
+import { useNavigate } from "react-router-dom";
 
 const Career = () => {
+  const navigate = useNavigate();
   const [selectedConfederation, setSelectedConfederation] = useState("");
   const [selectedTeam, setSelectedTeam] = useState<string | null>(null);
   const [started, setStarted] = useState(false);
   const [careerYear, setCareerYear] = useState(2024);
+  const [qualificationPhase, setQualificationPhase] = useState(1);
   const [groups, setGroups] = useState<string[][]>([]);
   const [fixtures, setFixtures] = useState<
     {
@@ -42,14 +45,16 @@ const Career = () => {
       goalDifference: number;
       points: number;
     }[][]
-  >([[], [], [], []]);
+  >([]);
   const [allMatchesPlayed, setAllMatchesPlayed] = useState(false);
+  const [qualifiedTeams, setQualifiedTeams] = useState<string[]>([]);
+  const [eliminatedTeams, setEliminatedTeams] = useState<string[]>([]);
 
   useEffect(() => {
     if (started) {
-      generateGroups();
+      initializeQualificationPhase();
     }
-  }, [started, careerYear]);
+  }, [started, careerYear, qualificationPhase]);
 
   useEffect(() => {
     if (groups.length > 0) {
@@ -73,16 +78,111 @@ const Career = () => {
     setStarted(true);
   };
 
-  const generateGroups = () => {
-    const selectedTeams = teamsData.teams
-      .filter((team) => team.confederation === selectedConfederation)
-      .map((team) => team.id);
-    const shuffledTeams = [...selectedTeams].sort(() => Math.random() - 0.5);
+  const initializeQualificationPhase = () => {
+    switch (qualificationPhase) {
+      case 1:
+        initializeFirstRound();
+        break;
+      case 2:
+        initializeSecondRound();
+        break;
+      case 3:
+        initializeThirdRound();
+        break;
+      case 4:
+        initializeFourthRound();
+        break;
+      case 5:
+        initializeFifthRound();
+        break;
+      default:
+        initializeFirstRound();
+    }
+  };
+
+  const initializeFirstRound = () => {
+    // First round: 20 teams (ranked 27-46) play home and away
+    const asianTeams = teamsData.teams
+      .filter((team) => team.confederation === "afc")
+      .sort((a, b) => {
+        // Simple rating calculation
+        const ratingA = (a.serangan || 0) + (a.possession || 0) + (a.defense || 0);
+        const ratingB = (b.serangan || 0) + (b.possession || 0) + (b.defense || 0);
+        return ratingB - ratingA;
+      });
+
+    // Get teams ranked 27-46 (last 20 teams)
+    const lowerRankedTeams = asianTeams.slice(26, 46);
+    
+    // Create 10 pairs for the first round
     const newGroups = [];
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 10; i++) {
+      newGroups.push([lowerRankedTeams[i * 2].id, lowerRankedTeams[i * 2 + 1].id]);
+    }
+    
+    setGroups(newGroups);
+    setGroupStandings(newGroups.map(() => []));
+  };
+
+  const initializeSecondRound = () => {
+    // Second round: 36 teams (ranked 1-26 + 10 winners from first round)
+    // Divide into 9 groups of 4 teams
+    const asianTeams = teamsData.teams
+      .filter((team) => team.confederation === "afc")
+      .sort((a, b) => {
+        const ratingA = (a.serangan || 0) + (a.possession || 0) + (a.defense || 0);
+        const ratingB = (b.serangan || 0) + (b.possession || 0) + (b.defense || 0);
+        return ratingB - ratingA;
+      });
+
+    // Get top 26 teams
+    const topTeams = asianTeams.slice(0, 26).map(team => team.id);
+    
+    // Combine with 10 qualified teams from previous round
+    const secondRoundTeams = [...topTeams, ...qualifiedTeams.slice(0, 10)];
+    
+    // Create 9 groups of 4 teams
+    const newGroups = [];
+    const shuffledTeams = [...secondRoundTeams].sort(() => Math.random() - 0.5);
+    
+    for (let i = 0; i < 9; i++) {
       newGroups.push(shuffledTeams.slice(i * 4, (i + 1) * 4));
     }
+    
     setGroups(newGroups);
+    setGroupStandings(newGroups.map(() => []));
+  };
+
+  const initializeThirdRound = () => {
+    // Third round: 18 teams from second round, 3 groups of 6 teams
+    const shuffledTeams = [...qualifiedTeams].sort(() => Math.random() - 0.5);
+    const newGroups = [];
+    
+    for (let i = 0; i < 3; i++) {
+      newGroups.push(shuffledTeams.slice(i * 6, (i + 1) * 6));
+    }
+    
+    setGroups(newGroups);
+    setGroupStandings(newGroups.map(() => []));
+  };
+
+  const initializeFourthRound = () => {
+    // Fourth round: 6 teams from third round, 2 groups of 3 teams
+    const shuffledTeams = [...qualifiedTeams].sort(() => Math.random() - 0.5);
+    const newGroups = [];
+    
+    for (let i = 0; i < 2; i++) {
+      newGroups.push(shuffledTeams.slice(i * 3, (i + 1) * 3));
+    }
+    
+    setGroups(newGroups);
+    setGroupStandings(newGroups.map(() => []));
+  };
+
+  const initializeFifthRound = () => {
+    // Fifth round: 2 teams from fourth round
+    setGroups([qualifiedTeams]);
+    setGroupStandings([[]]);
   };
 
   const generateFixtures = () => {
@@ -98,14 +198,18 @@ const Career = () => {
             played: false,
             leg: 1,
           });
-          newFixtures.push({
-            homeTeam: group[j],
-            awayTeam: group[i],
-            homeScore: null,
-            awayScore: null,
-            played: false,
-            leg: 2,
-          });
+          
+          // For home and away format
+          if (qualificationPhase <= 3 || qualificationPhase === 5) {
+            newFixtures.push({
+              homeTeam: group[j],
+              awayTeam: group[i],
+              homeScore: null,
+              awayScore: null,
+              played: false,
+              leg: 2,
+            });
+          }
         }
       }
     });
@@ -141,7 +245,7 @@ const Career = () => {
       }))
     );
 
-    fixtures.forEach((fixture, index) => {
+    fixtures.forEach((fixture) => {
       if (fixture.played) {
         groups.forEach((group, groupIndex) => {
           if (group.includes(fixture.homeTeam) && group.includes(fixture.awayTeam)) {
@@ -192,26 +296,145 @@ const Career = () => {
     setGroupStandings(initialStandings);
   };
 
-  const advanceYear = () => {
-    setCareerYear(careerYear + 1);
-    generateGroups();
+  const advancePhase = () => {
+    // Calculate qualifying teams based on current standings
+    const newQualifiedTeams: string[] = [];
+    
+    if (qualificationPhase === 1) {
+      // First round: Top team from each group qualifies (10 teams)
+      groupStandings.forEach((group) => {
+        const sortedGroup = [...group].sort((a, b) => {
+          if (b.points !== a.points) return b.points - a.points;
+          if (b.goalDifference !== a.goalDifference) return b.goalDifference - a.goalDifference;
+          return b.goalsFor - a.goalsFor;
+        });
+        
+        if (sortedGroup.length > 0) {
+          newQualifiedTeams.push(sortedGroup[0].teamId);
+        }
+      });
+      
+      setQualifiedTeams(newQualifiedTeams);
+      setQualificationPhase(2);
+    } else if (qualificationPhase === 2) {
+      // Second round: 18 teams qualify (top 2 from each of 9 groups)
+      groupStandings.forEach((group) => {
+        const sortedGroup = [...group].sort((a, b) => {
+          if (b.points !== a.points) return b.points - a.points;
+          if (b.goalDifference !== a.goalDifference) return b.goalDifference - a.goalDifference;
+          return b.goalsFor - a.goalsFor;
+        });
+        
+        if (sortedGroup.length >= 2) {
+          newQualifiedTeams.push(sortedGroup[0].teamId, sortedGroup[1].teamId);
+        }
+      });
+      
+      setQualifiedTeams(newQualifiedTeams);
+      setQualificationPhase(3);
+    } else if (qualificationPhase === 3) {
+      // Third round: 12 teams qualify (top 4 from each group)
+      groupStandings.forEach((group) => {
+        const sortedGroup = [...group].sort((a, b) => {
+          if (b.points !== a.points) return b.points - a.points;
+          if (b.goalDifference !== a.goalDifference) return b.goalDifference - a.goalDifference;
+          return b.goalsFor - a.goalsFor;
+        });
+        
+        if (sortedGroup.length >= 4) {
+          newQualifiedTeams.push(
+            sortedGroup[0].teamId, 
+            sortedGroup[1].teamId,
+            sortedGroup[2].teamId,
+            sortedGroup[3].teamId
+          );
+        }
+      });
+      
+      // Top 2 from each group (6 teams) qualify directly to FIFA World Cup
+      const directQualifiers: string[] = [];
+      groupStandings.forEach((group) => {
+        const sortedGroup = [...group].sort((a, b) => {
+          if (b.points !== a.points) return b.points - a.points;
+          if (b.goalDifference !== a.goalDifference) return b.goalDifference - a.goalDifference;
+          return b.goalsFor - a.goalsFor;
+        });
+        
+        if (sortedGroup.length >= 2) {
+          directQualifiers.push(sortedGroup[0].teamId, sortedGroup[1].teamId);
+        }
+      });
+      
+      setQualifiedTeams(newQualifiedTeams);
+      setQualificationPhase(4);
+    } else if (qualificationPhase === 4) {
+      // Fourth round: Winners of each group qualify directly (2 teams)
+      // Runners-up from each group advance to fifth round (2 teams)
+      groupStandings.forEach((group) => {
+        const sortedGroup = [...group].sort((a, b) => {
+          if (b.points !== a.points) return b.points - a.points;
+          if (b.goalDifference !== a.goalDifference) return b.goalDifference - a.goalDifference;
+          return b.goalsFor - a.goalsFor;
+        });
+        
+        if (sortedGroup.length >= 2) {
+          newQualifiedTeams.push(sortedGroup[1].teamId);
+        }
+      });
+      
+      setQualifiedTeams(newQualifiedTeams);
+      setQualificationPhase(5);
+    } else if (qualificationPhase === 5) {
+      // Fifth round: Winner advances to inter-confederation play-offs
+      setQualificationPhase(1);
+      setCareerYear(careerYear + 1);
+    }
+    
+    // Reset fixtures
     setFixtures([]);
+  };
+  
+  const getQualificationPhaseTitle = () => {
+    switch (qualificationPhase) {
+      case 1:
+        return "Babak Pertama - 20 tim (peringkat 27-46)";
+      case 2:
+        return "Babak Kedua - 36 tim (peringkat 1-26 dan 10 pemenang babak pertama)";
+      case 3:
+        return "Babak Ketiga - 18 tim dalam 3 grup";
+      case 4:
+        return "Babak Keempat - 6 tim dalam 2 grup";
+      case 5:
+        return "Babak Kelima - Playoff antar konfederasi";
+      default:
+        return "";
+    }
   };
   
   return (
     <div className="min-h-screen bg-background p-4 md:p-8">
+      <div className="flex justify-between items-center mb-6">
+        <button
+          onClick={() => navigate("/")}
+          className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
+        >
+          <ArrowLeft className="w-5 h-5" />
+          <span>Kembali ke Beranda</span>
+        </button>
+      </div>
+
       <h1 className="text-3xl font-bold text-foreground mb-6">
-        Career Mode
+        Mode Karir
       </h1>
 
       {!started ? (
         <div className="space-y-6 max-w-3xl mx-auto">
           <Card>
             <CardContent className="pt-6">
-              <h2 className="text-xl font-semibold mb-4">Select Confederation</h2>
+              <h2 className="text-xl font-semibold mb-4">Pilih Konfederasi</h2>
               <Select value={selectedConfederation} onValueChange={setSelectedConfederation}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select Confederation" />
+                  <SelectValue placeholder="Pilih Konfederasi" />
                 </SelectTrigger>
                 <SelectContent>
                   {confederationsData.confederations.map((confederation) => (
@@ -226,7 +449,7 @@ const Career = () => {
 
           <Card>
             <CardContent className="pt-6">
-              <h2 className="text-xl font-semibold mb-4">Team Selection</h2>
+              <h2 className="text-xl font-semibold mb-4">Pilih Tim</h2>
               {selectedConfederation && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                   {teamsData.teams
@@ -260,31 +483,35 @@ const Career = () => {
             disabled={!selectedTeam}
             onClick={startCareer}
           >
-            Start Career
+            Mulai Karir
           </Button>
         </div>
       ) : (
         <div className="space-y-6">
           <div className="flex justify-between items-center">
             <h2 className="text-2xl font-bold">
-              Managing{" "}
+              Mengelola{" "}
               {teamsData.teams.find((team) => team.id === selectedTeam)?.name}
             </h2>
             <div className="flex items-center gap-2">
               <span className="text-lg font-medium">
-                Year: {careerYear}
+                Tahun: {careerYear}
               </span>
-              <Button onClick={advanceYear} disabled={!allMatchesPlayed}>
-                Advance Year
+              <Button onClick={advancePhase} disabled={!allMatchesPlayed}>
+                {qualificationPhase < 5 ? "Lanjut ke Babak Berikutnya" : "Mulai Musim Baru"}
               </Button>
             </div>
           </div>
 
+          <div className="mb-4">
+            <h3 className="text-xl font-semibold">{getQualificationPhaseTitle()}</h3>
+          </div>
+
           <Tabs defaultValue="standings" className="w-full">
             <TabsList className="mb-4">
-              <TabsTrigger value="standings">Group Standings</TabsTrigger>
-              <TabsTrigger value="fixtures">Fixtures</TabsTrigger>
-              <TabsTrigger value="results">Results</TabsTrigger>
+              <TabsTrigger value="standings">Klasemen Grup</TabsTrigger>
+              <TabsTrigger value="fixtures">Jadwal Pertandingan</TabsTrigger>
+              <TabsTrigger value="results">Hasil Pertandingan</TabsTrigger>
             </TabsList>
 
             <TabsContent value="standings" className="space-y-6">
@@ -292,25 +519,25 @@ const Career = () => {
                 <Card key={groupIndex}>
                   <CardContent className="pt-6">
                     <h3 className="text-xl font-semibold mb-4">
-                      Group {String.fromCharCode(65 + groupIndex)}
+                      Grup {String.fromCharCode(65 + groupIndex)}
                     </h3>
                     <div className="overflow-x-auto">
                       <table className="w-full border-collapse">
                         <thead>
                           <tr className="bg-primary/10 text-foreground">
-                            <th className="p-2 text-left">Team</th>
+                            <th className="p-2 text-left">Tim</th>
                             <th className="p-2 text-center">P</th>
-                            <th className="p-2 text-center">W</th>
-                            <th className="p-2 text-center">D</th>
-                            <th className="p-2 text-center">L</th>
-                            <th className="p-2 text-center">GF</th>
-                            <th className="p-2 text-center">GA</th>
-                            <th className="p-2 text-center">GD</th>
-                            <th className="p-2 text-center">Pts</th>
+                            <th className="p-2 text-center">M</th>
+                            <th className="p-2 text-center">S</th>
+                            <th className="p-2 text-center">K</th>
+                            <th className="p-2 text-center">GM</th>
+                            <th className="p-2 text-center">GK</th>
+                            <th className="p-2 text-center">SG</th>
+                            <th className="p-2 text-center">Poin</th>
                           </tr>
                         </thead>
                         <tbody>
-                          {groupStandings[groupIndex]
+                          {groupStandings[groupIndex] && groupStandings[groupIndex]
                             .sort((a, b) => {
                               if (b.points !== a.points) return b.points - a.points;
                               if (b.goalDifference !== a.goalDifference)
@@ -369,14 +596,15 @@ const Career = () => {
                 <Card key={groupIndex}>
                   <CardContent className="pt-6">
                     <h3 className="text-xl font-semibold mb-4">
-                      Group {String.fromCharCode(65 + groupIndex)}
+                      Grup {String.fromCharCode(65 + groupIndex)}
                     </h3>
                     <div className="space-y-4">
                       {fixtures
                         .filter(
                           (fixture) =>
                             !fixture.played &&
-                            groups[groupIndex].includes(fixture.homeTeam)
+                            group.includes(fixture.homeTeam) &&
+                            group.includes(fixture.awayTeam)
                         )
                         .map((fixture, fixtureIndex) => {
                           const homeTeam = teamsData.teams.find(
@@ -418,7 +646,7 @@ const Career = () => {
 
                                 <div className="mx-4 text-center">
                                   <span className="px-3 py-1 rounded text-sm bg-background">
-                                    {fixture.leg === 1 ? "1st Leg" : "2nd Leg"}
+                                    {fixture.leg === 1 ? "Leg 1" : "Leg 2"}
                                   </span>
                                 </div>
 
@@ -440,7 +668,7 @@ const Career = () => {
                                 </div>
                               </div>
 
-                              {isUserMatch && (
+                              {(isUserMatch || !selectedTeam) && (
                                 <div className="mt-3 flex justify-center">
                                   <Button
                                     size="sm"
@@ -448,12 +676,13 @@ const Career = () => {
                                       fixtures.findIndex(
                                         (f) => 
                                           f.homeTeam === fixture.homeTeam && 
-                                          f.awayTeam === fixture.awayTeam
+                                          f.awayTeam === fixture.awayTeam &&
+                                          f.leg === fixture.leg
                                       )
                                     )}
                                     className="gap-1"
                                   >
-                                    <Play className="w-4 h-4" /> Play Match
+                                    <Play className="w-4 h-4" /> Main
                                   </Button>
                                 </div>
                               )}
@@ -471,14 +700,15 @@ const Career = () => {
                 <Card key={groupIndex}>
                   <CardContent className="pt-6">
                     <h3 className="text-xl font-semibold mb-4">
-                      Group {String.fromCharCode(65 + groupIndex)}
+                      Grup {String.fromCharCode(65 + groupIndex)}
                     </h3>
                     <div className="space-y-4">
                       {fixtures
                         .filter(
                           (fixture) =>
                             fixture.played &&
-                            groups[groupIndex].includes(fixture.homeTeam)
+                            group.includes(fixture.homeTeam) &&
+                            group.includes(fixture.awayTeam)
                         )
                         .map((fixture, fixtureIndex) => {
                           const homeTeam = teamsData.teams.find(
@@ -523,7 +753,7 @@ const Career = () => {
                                     {fixture.homeScore} - {fixture.awayScore}
                                   </div>
                                   <span className="text-xs text-gray-400">
-                                    {fixture.leg === 1 ? "1st Leg" : "2nd Leg"}
+                                    {fixture.leg === 1 ? "Leg 1" : "Leg 2"}
                                   </span>
                                 </div>
 
